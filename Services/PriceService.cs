@@ -1,7 +1,7 @@
 
 
 
-using ProsjektOppgave_AdeleTjoennaas.BackgroundTask;
+
 using ProsjektOppgave_AdeleTjoennaas.Models;
 using System.Net.Http.Json;
 
@@ -16,10 +16,10 @@ public class AzurePriceService
         _httpClient = httpClient;
     }
 
-    public async Task<List<AzurePrice>> GetPricesAsync(string currensy)
+    public async Task<List<AzurePrice>> GetPricesAsync(string currency)
     {
          
-         var url = "https://prices.azure.com/api/retail/prices?currencyCode='{currency}$filter=armRegionName eq 'westeurope'";
+         var url = $"https://prices.azure.com/api/retail/prices?currencyCode='{currency}'&$filter=armRegionName eq 'westeurope'";
 
          var result = await _httpClient.GetFromJsonAsync<AzureResponse>(url);
 
