@@ -39,8 +39,8 @@ public class AzureBackgroundService : BackgroundService {
    //----------------------------------------------------------------// 
 
 
-    private async Task DoWork(CancellationToken stoppingToken){ try 
-    {
+    private async Task DoWork(CancellationToken stoppingToken){
+    try {
          _logger.LogInformation("Starter henting av informasjon fra Azure");
 
     using (var scope = Services.CreateScope())
@@ -48,20 +48,27 @@ public class AzureBackgroundService : BackgroundService {
             var price = 
                 scope.ServiceProvider
                     .GetRequiredService<AzurePriceService>();         
-        }
-
-/* using var scope = Services.CreateScope();
+        
+/*
+ using var scope = Services.CreateScope();
  var price = scope.ServiceProvider.GetRequiredService<AzurePriceService>();   */
 
  var currencies = new []{"USD", "EUR", "GBP"};
- var allprice = new List<AzurePrice>();
+ var allPrices = new List<AzurePrice>();
 
 foreach(var currency in currencies)
 {  var prices = await price.GetPricesAsync(currency);
    allPrices.AddRange(prices);
   
-                    
-}}}}};
+}}}
+
+catch (Exception ex)
+            {
+                _logger.LogError(ex, "Feil ved henting av Azure-priser.");
+            
+            }}}}
+
+
         
 
        
