@@ -20,9 +20,8 @@ logs/
 appsettings.Development.json
 appsettings.Local.json
 secrets.json
-appsettings.json
 
-ProsjektOppgave_AdeleTjoennaas.csproj
+
 ProsjektOppgave_AdeleTjoennaas.sln
 ProsjektOppgave_AdeleTjoennaas.http
 launchSettings.json
@@ -50,7 +49,7 @@ logs/
 appsettings.Development.json
 appsettings.Local.json
 secrets.json
-appsettings.json
+
 
 
 
