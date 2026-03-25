@@ -5,7 +5,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src  
 COPY . ./
 RUN dotnet restore 
-RUN dotnet publish -c Release -o /app/publich
+RUN dotnet publish -c Release -o /app/publish
 
 
 
@@ -13,5 +13,6 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 ENV ASPNETCORE_URLS=http://+:8080
 EXPOSE 8080
-COPY --from=build /app/publich .
-ENTRYPOINT ["dotnet", "ProsjektOppgave_AdeleTjoennaas.dll"]
+COPY --from=build /app/publish .
+ENTRYPOINT ["dotnet", "prosjektoppgave_AdeleTjoennaas.dll"]
+

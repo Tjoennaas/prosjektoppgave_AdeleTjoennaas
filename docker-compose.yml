@@ -5,16 +5,12 @@ services:
     build: .
     container_name: AzureList
     ports:
-      - "5600:8060"
+      - "5600:8080"
     volumes:
-      - ./data:/app/data
+      - ./sqldata:/app/data
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-    healthcheck:
-      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u root -pexample || exit 1"]
-      interval: 10s
-      timeout: 5s
-      retries: 10
+      - ASPNETCORE_ENVIRONMENT=Production
+  
   
 
 
