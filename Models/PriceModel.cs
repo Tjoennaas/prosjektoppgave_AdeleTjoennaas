@@ -1,5 +1,6 @@
 
 
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 
 namespace ProsjektOppgave_AdeleTjoennaas.Models {
@@ -8,6 +9,8 @@ namespace ProsjektOppgave_AdeleTjoennaas.Models {
 
 public class AzurePrice
 {
+    [Key]
+    public int Id { get; set; }
 
     [NotNull]
     public string? ArmRegionName { get; set; }
@@ -16,5 +19,10 @@ public class AzurePrice
     public decimal RetailPrice { get; set; }
     [NotNull]
     public string? CurrencyCode {get; set;}
+
+        internal static async Task<IEnumerable<AzurePrice>> GetPricesAsync(string region, string currency)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
