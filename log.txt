@@ -264,3 +264,12 @@ System.ArgumentException: Format of the initialization string does not conform t
 2026-03-25 13:32:12.443 +01:00 [INF] Application is shutting down...
 2026-03-25 13:32:12.463 +01:00 [INF] Service stoppet.
 2026-03-25 15:51:24.889 +01:00 [ERR] An error occurred using the connection to database 'main' on server '/app/data/prices.db'.
+2026-03-25 19:01:24.613 +01:00 [ERR] An error occurred using the connection to database 'main' on server '/app/data/data.db'.
+2026-03-25 19:07:25.573 +01:00 [ERR] An error occurred using the connection to database 'main' on server '/app/data/data.db'.
+2026-03-25 19:11:10.138 +01:00 [ERR] An error occurred using the connection to database 'main' on server '/app/data/data.db'.
+2026-03-25 21:52:27.896 +01:00 [ERR] An error occurred using the connection to database 'main' on server '/app/data/data.db'.
+2026-03-25 22:08:45.595 +01:00 [ERR] An error occurred using the connection to database 'main' on server '/app/data/data.db'.
+2026-03-25 22:27:15.997 +01:00 [ERR] An error occurred using the connection to database 'main' on server '/app/data/data.db'.
+2026-03-26 07:48:06.689 +01:00 [ERR] An error occurred using the connection to database 'main' on server '/app/data/data.db'.
+2026-03-26 07:48:53.681 +01:00 [ERR] An error occurred using the connection to database 'main' on server '/app/data/data.db'.
+2026-03-26 07:54:22.168 +01:00 [ERR] An error occurred using the connection to database 'main' on server '/app/data/data.db'.
