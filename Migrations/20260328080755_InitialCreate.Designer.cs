@@ -11,7 +11,7 @@ using ProsjektOppgave_AdeleTjoennaas.Data;
 namespace prosjektoppgave_AdeleTjoennaas.Migrations
 {
     [DbContext(typeof(PriceAzureContext))]
-    [Migration("20260328073458_InitialCreate")]
+    [Migration("20260328080755_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

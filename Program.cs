@@ -4,7 +4,7 @@ using Serilog;
 using ProsjektOppgave_AdeleTjoennaas.Services;
 using ProsjektOppgave_AdeleTjoennaas.BackgroundTask;
 using ProsjektOppgave_AdeleTjoennaas.Data;
-using ProsjektOppgave_AdeleTjoennaas.Endepunkt;
+
 
 using Microsoft.EntityFrameworkCore;
 
@@ -29,15 +29,19 @@ builder.Services.AddHttpClient<AzurePriceService>();
 builder.Services.AddScoped<AzurePriceRefreshService>();
 
 
+
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<PriceAzureContext>();
-    db.Database.EnsureCreated();
-}
+    var refresh = scope.ServiceProvider.GetRequiredService<AzurePriceRefreshService>();
 
-app.MapAzureEndpoints();
+    //db.Database.EnsureCreated();
+
+  db.Database.Migrate();
+    await refresh.EnsureDataIsFreshAsync(); 
+}
 
 app.Run();
 
