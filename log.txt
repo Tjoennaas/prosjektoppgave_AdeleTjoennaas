@@ -273,3 +273,5 @@ System.ArgumentException: Format of the initialization string does not conform t
 2026-03-26 07:48:06.689 +01:00 [ERR] An error occurred using the connection to database 'main' on server '/app/data/data.db'.
 2026-03-26 07:48:53.681 +01:00 [ERR] An error occurred using the connection to database 'main' on server '/app/data/data.db'.
 2026-03-26 07:54:22.168 +01:00 [ERR] An error occurred using the connection to database 'main' on server '/app/data/data.db'.
+2026-03-28 08:03:00.868 +01:00 [ERR] An error occurred using the connection to database 'main' on server '/app/data/data.db'.
+2026-03-28 08:40:20.342 +01:00 [ERR] An error occurred using the connection to database 'main' on server '/app/data/data.db'.

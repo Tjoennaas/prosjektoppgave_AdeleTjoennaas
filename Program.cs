@@ -4,6 +4,8 @@ using Serilog;
 using ProsjektOppgave_AdeleTjoennaas.Services;
 using ProsjektOppgave_AdeleTjoennaas.BackgroundTask;
 using ProsjektOppgave_AdeleTjoennaas.Data;
+using ProsjektOppgave_AdeleTjoennaas.Endepunkt;
+
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,11 +22,12 @@ Log.Logger = new LoggerConfiguration()
 
 builder.Host.UseSerilog();
 
-//builder.Services.AddSerilog();
+builder.Services.AddSerilog();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHttpClient<AzurePriceService>();
-builder.Services.AddHostedService<AzureBackgroundService>();
+builder.Services.AddScoped<AzurePriceRefreshService>();
+
 
 var app = builder.Build();
 
@@ -34,5 +37,7 @@ using (var scope = app.Services.CreateScope())
     db.Database.EnsureCreated();
 }
 
+app.MapAzureEndpoints();
 
 app.Run();
+

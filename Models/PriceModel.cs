@@ -19,10 +19,5 @@ public class AzurePrice
     public decimal RetailPrice { get; set; }
     [NotNull]
     public string? CurrencyCode {get; set;}
-
-        internal static async Task<IEnumerable<AzurePrice>> GetPricesAsync(string region, string currency)
-        {
-            throw new NotImplementedException();
-        }
-    }
-}
+    public DateTime LastUpdatedUtc { get; internal set; }
+}}

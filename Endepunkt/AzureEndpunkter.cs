@@ -35,4 +35,4 @@ app.MapGet("/prices", async (
             });
         }
     }
-}
+} 
