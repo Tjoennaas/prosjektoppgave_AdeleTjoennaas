@@ -21,14 +21,34 @@ namespace ProsjektOppgave_AdeleTjoennaas.Services{
 
 public async Task<List<AzurePrice>> GetPricesAsync(string product, string region, string currency)
 {
+         
+            var allPrices = new List<AzurePrice>();
+
     var url = $"https://prices.azure.com/api/retail/prices?currencyCode='{currency}'" +
               $"&$filter=armRegionName eq '{region}'" +
               $" and productName eq '{product}'";
 
 
-    var result = await _httpClient.GetFromJsonAsync<AzureResponse>(url);
 
-    return result?.Items ?? new List<AzurePrice>();
+   while (!string.IsNullOrEmpty(url))
+            {
+                var result = await _httpClient.GetFromJsonAsync<AzureResponse>(url);
+
+                if (result?.Items != null)
+                {
+                    allPrices.AddRange(result.Items);
+                }
+
+                url = result?.NextPageLink;
+            }
+
+            return allPrices;
+
+
+
+/* var result = await _httpClient.GetFromJsonAsync<AzureResponse>(url);
+    return result?.Items ?? new List<AzurePrice>();*/
+    
 }}}
 
       
