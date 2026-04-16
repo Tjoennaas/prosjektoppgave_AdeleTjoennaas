@@ -28,7 +28,6 @@ public class AzurePrice
         public string? ServiceName { get; set; }
         public string? ServiceId { get; set; }
         public string? ServiceFamily { get; set; }
-        public string? UnitOfMeasure { get; set; }
         public string? Type { get; set; }
         public bool? IsPrimaryMeterRegion { get; set; }
         public string? ArmSkuName { get; set; }
