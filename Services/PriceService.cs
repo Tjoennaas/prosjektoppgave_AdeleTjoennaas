@@ -19,22 +19,17 @@ namespace ProsjektOppgave_AdeleTjoennaas.Services{
 
 
 
-       /* internal static async Task<IEnumerable<AzurePrice>> GetPricesAsync(string region, string currency)
-        {
-            throw new NotImplementedException(); 
-        }*/
+public async Task<List<AzurePrice>> GetPricesAsync(string product, string region, string currency)
+{
+    var url = $"https://prices.azure.com/api/retail/prices?currencyCode='{currency}'" +
+              $"&$filter=armRegionName eq '{region}'" +
+              $" and productName eq '{product}'";
 
-        public async Task<List<AzurePrice>>GetPricesAsync(string region, string currency)
-    {
-         
-         var url = $"https://prices.azure.com/api/retail/prices?currencyCode='{currency}'&$filter=armRegionName eq '{region}'";
 
-         var result = await _httpClient.GetFromJsonAsync<AzureResponse>(url);
+    var result = await _httpClient.GetFromJsonAsync<AzureResponse>(url);
 
-    
-            return result?.Items ?? new List<AzurePrice>();
-
-    }}}
+    return result?.Items ?? new List<AzurePrice>();
+}}}
 
       
 
