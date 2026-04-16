@@ -11,6 +11,8 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 
+
+
  builder.Services.AddDbContext<PriceAzureContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));   
 
@@ -27,6 +29,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHttpClient<AzurePriceService>();
 builder.Services.AddScoped<AzurePriceRefreshService>();
+//builder.Services.AddScoped<Paginator>();
+
 
 
 
@@ -37,11 +41,16 @@ using (var scope = app.Services.CreateScope())
     var db = scope.ServiceProvider.GetRequiredService<PriceAzureContext>();
     var refresh = scope.ServiceProvider.GetRequiredService<AzurePriceRefreshService>();
 
-    //db.Database.EnsureCreated();
-
+   
   db.Database.Migrate();
     await refresh.EnsureDataIsFreshAsync(); 
 }
+
+app.MapGet("/objekts", async (PriceAzureContext db) =>
+{
+    return await db.AzurePrices.ToListAsync();
+});
+
 
 app.Run();
 
