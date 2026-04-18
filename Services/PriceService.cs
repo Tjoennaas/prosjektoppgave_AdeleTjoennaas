@@ -46,8 +46,6 @@ public async Task<List<AzurePrice>> GetPricesAsync(string product, string region
 
 
 
-/* var result = await _httpClient.GetFromJsonAsync<AzureResponse>(url);
-    return result?.Items ?? new List<AzurePrice>();*/
     
 }}}
 

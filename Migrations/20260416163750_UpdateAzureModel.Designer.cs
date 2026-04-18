@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProsjektOppgave_AdeleTjoennaas.Data;
 
@@ -10,9 +11,11 @@ using ProsjektOppgave_AdeleTjoennaas.Data;
 namespace prosjektoppgave_AdeleTjoennaas.Migrations
 {
     [DbContext(typeof(PriceAzureContext))]
-    partial class PriceAzureContextModelSnapshot : ModelSnapshot
+    [Migration("20260416163750_UpdateAzureModel")]
+    partial class UpdateAzureModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.11");
@@ -32,10 +35,10 @@ namespace prosjektoppgave_AdeleTjoennaas.Migrations
                     b.Property<string>("CurrencyCode")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime?>("EffectiveStartDate")
+                    b.Property<DateTime>("EffectiveStartDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<bool?>("IsPrimaryMeterRegion")
+                    b.Property<bool>("IsPrimaryMeterRegion")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("LastUpdatedUtc")
