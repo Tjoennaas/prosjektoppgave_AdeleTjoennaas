@@ -44,13 +44,12 @@ namespace ProsjektOppgave_AdeleTjoennaas.Services
                 url = result?.NextPageLink;
             }}
 
-             catch (Exception ex){
-
-        _logger.LogError(ex, "Failed to fetch produkts");
+             catch (Exception exception) {
+            
+        _logger.LogError(exception, "Failed to fetch produkts");
         throw; 
-        
-        }
-    
+     }
+
     return allPrices;
         
     }}}
