@@ -8,10 +8,12 @@ namespace ProsjektOppgave_AdeleTjoennaas.Services
     public class AzurePriceService
     {
         private readonly HttpClient _httpClient;
+      private readonly ILogger<AzurePriceService> _logger;
 
-        public AzurePriceService(HttpClient httpClient)
+        public AzurePriceService(HttpClient httpClient, ILogger<AzurePriceService> logger)
         {
             _httpClient = httpClient;
+            _logger = logger;
         }
 
         public async Task<List<AzurePrice>> GetPricesAsync(string product, string region, string currency)
@@ -22,6 +24,10 @@ namespace ProsjektOppgave_AdeleTjoennaas.Services
                       $"&$filter=armRegionName eq '{region}'" +
                       $" and productName eq '{product}'";
 
+            _logger.LogInformation("Fetching data from Azure");
+
+            try {
+
             while (!string.IsNullOrEmpty(url))
             {
                 var result = await _httpClient.GetFromJsonAsync<AzureResponse>(url);
@@ -30,12 +36,22 @@ namespace ProsjektOppgave_AdeleTjoennaas.Services
                 {
                     allPrices.AddRange(result.Items);
                 }
-
-                url = result?.NextPageLink;
+            else
+                {
+                        
+            _logger.LogInformation("No items returne"); 
             }
+                url = result?.NextPageLink;
+            }}
 
-            return allPrices;
+             catch (Exception ex){
+
+        _logger.LogError(ex, "Failed to fetch produkts");
+        throw; 
+        
         }
-    }
-}
+    
+    return allPrices;
+        
+    }}}
 
