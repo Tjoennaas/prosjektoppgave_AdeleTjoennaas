@@ -36,11 +36,11 @@ namespace ProsjektOppgave_AdeleTjoennaas.BackgroundTask
 
             if (hasData && !isStale)
             {
-                _logger.LogInformation("Data finnes allerede og er gyldige.");
+                _logger.LogInformation("Data already exists.");
                 return;
             }
 
-            _logger.LogInformation("Data eldre enn 24 timer. Henter nye data fra Azure.");
+            _logger.LogInformation("Data is older than 24 hours. Fetching new data from Azure.");
 
             var currencies = new[] { "USD", "EUR" };
             var regions = new[] { "northeurope" };
