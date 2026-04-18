@@ -1,0 +1,22 @@
+2026-04-18 10:18:49.537 +00:00 [INF] Executed DbCommand (11ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2026-04-18 10:18:49.558 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2026-04-18 10:18:49.574 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+2026-04-18 10:18:49.626 +00:00 [INF] No migrations were applied. The database is already up to date.
+2026-04-18 10:18:49.742 +00:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "AzurePrices" AS "a")
+2026-04-18 10:18:49.768 +00:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT MAX("a"."LastUpdatedUtc")
+FROM "AzurePrices" AS "a"
+2026-04-18 10:18:49.776 +00:00 [INF] Data already exists.
+2026-04-18 10:18:49.783 +00:00 [WRN] Overriding HTTP_PORTS '8080' and HTTPS_PORTS ''. Binding to values defined by URLS instead 'http://+:8080'.
+2026-04-18 10:18:49.800 +00:00 [INF] Now listening on: http://[::]:8080
+2026-04-18 10:18:49.800 +00:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-18 10:18:49.800 +00:00 [INF] Hosting environment: Production
+2026-04-18 10:18:49.800 +00:00 [INF] Content root path: /app

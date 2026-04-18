@@ -15,7 +15,7 @@ options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
-    .WriteTo.File("log.txt")
+    .WriteTo.File("/app/data/log.txt")
      .CreateLogger();
 
 builder.Host.UseSerilog();
