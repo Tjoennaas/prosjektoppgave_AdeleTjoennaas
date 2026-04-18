@@ -1,26 +1,22 @@
 
 
-
-
-
 using ProsjektOppgave_AdeleTjoennaas.Services;
 using ProsjektOppgave_AdeleTjoennaas.Models;
 using ProsjektOppgave_AdeleTjoennaas.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace ProsjektOppgave_AdeleTjoennaas.BackgroundTask {
-
-
-  public class AzurePriceRefreshService
+namespace ProsjektOppgave_AdeleTjoennaas.BackgroundTask
 {
-    private readonly PriceAzureContext _db;
-    private readonly AzurePriceService _azurePriceService;
-    private readonly ILogger<AzurePriceRefreshService> _logger;
+    public class AzurePriceRefreshService
+    {
+        private readonly PriceAzureContext _db;
+        private readonly AzurePriceService _azurePriceService;
+        private readonly ILogger<AzurePriceRefreshService> _logger;
 
-    public AzurePriceRefreshService(
-         PriceAzureContext db,
-         AzurePriceService azurePriceService,
-         ILogger<AzurePriceRefreshService> logger)
+        public AzurePriceRefreshService(
+            PriceAzureContext db,
+            AzurePriceService azurePriceService,
+            ILogger<AzurePriceRefreshService> logger)
         {
             _db = db;
             _azurePriceService = azurePriceService;
@@ -30,7 +26,6 @@ namespace ProsjektOppgave_AdeleTjoennaas.BackgroundTask {
         public async Task EnsureDataIsFreshAsync()
         {
             var hasData = await _db.AzurePrices.AnyAsync();
-
             var isStale = false;
 
             if (hasData)
@@ -47,14 +42,16 @@ namespace ProsjektOppgave_AdeleTjoennaas.BackgroundTask {
 
             _logger.LogInformation("Data eldre enn 24 timer. Henter nye data fra Azure.");
 
-            var currencies = new[] {"USD", "EUR"};
-            var regions = new[] {"northeurope" };
-            var productNames = new[] { 
-    "Azure Table Storage",
-    "Azure Cosmos DB",
-    "Container Apps",
-    "Container Registry",
-    "Azure Storage Queue"};
+            var currencies = new[] { "USD", "EUR" };
+            var regions = new[] { "northeurope" };
+            var productNames = new[]
+            {
+                "Azure Table Storage",
+                "Azure Cosmos DB",
+                "Container Apps",
+                "Container Registry",
+                "Azure Storage Queue"
+            };
 
             var allPrices = new List<AzurePrice>();
 
@@ -63,26 +60,27 @@ namespace ProsjektOppgave_AdeleTjoennaas.BackgroundTask {
                 foreach (var currency in currencies)
                 {
                     foreach (var product in productNames)
-                {
-                    var prices = await _azurePriceService.GetPricesAsync(product, region, currency);
-
-                    foreach (var price in prices)
                     {
-                        price.LastUpdatedUtc = DateTime.UtcNow;
+                        var prices = await _azurePriceService.GetPricesAsync(product, region, currency);
+
+                        foreach (var price in prices)
+                        {
+                            price.LastUpdatedUtc = DateTime.UtcNow;
+                        }
+
+                        allPrices.AddRange(prices);
                     }
-
-                    allPrices.AddRange(prices);
                 }
-            }}
-
+            }
 
             _db.AzurePrices.RemoveRange(_db.AzurePrices);
             await _db.SaveChangesAsync();
 
             await _db.AzurePrices.AddRangeAsync(allPrices);
-            await _db.SaveChangesAsync();}}};
-
-
+            await _db.SaveChangesAsync();
+        }
+    }
+}
 
 
 

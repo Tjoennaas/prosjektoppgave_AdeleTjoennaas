@@ -1,18 +1,14 @@
 
 
 using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.CodeAnalysis;
+
 
 namespace ProsjektOppgave_AdeleTjoennaas.Models {
-
-
-
 public class AzurePrice
 {
-    [Key]
-    public int Id { get; set; }
-
-    public string? CurrencyCode { get; set; }
+        [Key]
+        public int Id { get; set; }
+        public string? CurrencyCode { get; set; }
         public decimal TierMinimumUnits { get; set; }
         public decimal RetailPrice { get; set; }
         public decimal UnitPrice { get; set; }
@@ -31,5 +27,5 @@ public class AzurePrice
         public string? Type { get; set; }
         public bool? IsPrimaryMeterRegion { get; set; }
         public string? ArmSkuName { get; set; }
-    public DateTime LastUpdatedUtc { get; internal set; }
+        public DateTime LastUpdatedUtc { get; internal set; }
 }}

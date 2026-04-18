@@ -4,19 +4,15 @@ using Serilog;
 using ProsjektOppgave_AdeleTjoennaas.Services;
 using ProsjektOppgave_AdeleTjoennaas.BackgroundTask;
 using ProsjektOppgave_AdeleTjoennaas.Data;
-
-
 using Microsoft.EntityFrameworkCore;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 
+builder.Services.AddDbContext<PriceAzureContext>(options =>
+options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));   
 
-
- builder.Services.AddDbContext<PriceAzureContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));   
-
-//Ref serielog: https://www.nuget.org/packages/Serilog.AspNetCore
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
     .WriteTo.File("log.txt")
@@ -29,22 +25,20 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHttpClient<AzurePriceService>();
 builder.Services.AddScoped<AzurePriceRefreshService>();
-//builder.Services.AddScoped<Paginator>();
-
-
 
 
 var app = builder.Build();
 
-using (var scope = app.Services.CreateScope())
-{
-    var db = scope.ServiceProvider.GetRequiredService<PriceAzureContext>();
-    var refresh = scope.ServiceProvider.GetRequiredService<AzurePriceRefreshService>();
 
-   
+using (var scope = app.Services.CreateScope()) {
+
+ var db = scope.ServiceProvider.GetRequiredService<PriceAzureContext>();
+ var refresh = scope.ServiceProvider.GetRequiredService<AzurePriceRefreshService>();
+
   db.Database.Migrate();
-    await refresh.EnsureDataIsFreshAsync(); 
+  await refresh.EnsureDataIsFreshAsync(); 
 }
+
 
 app.MapGet("/objekts", async (PriceAzureContext db) =>
 {

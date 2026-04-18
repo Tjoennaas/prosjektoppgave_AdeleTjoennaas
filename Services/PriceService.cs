@@ -1,14 +1,11 @@
 
-
+      
 using ProsjektOppgave_AdeleTjoennaas.Models;
-using System.Net.Http.Json;
 
 
-namespace ProsjektOppgave_AdeleTjoennaas.Services{
-
-
-
-   public class AzurePriceService
+namespace ProsjektOppgave_AdeleTjoennaas.Services
+{
+    public class AzurePriceService
     {
         private readonly HttpClient _httpClient;
 
@@ -17,20 +14,15 @@ namespace ProsjektOppgave_AdeleTjoennaas.Services{
             _httpClient = httpClient;
         }
 
-
-
-public async Task<List<AzurePrice>> GetPricesAsync(string product, string region, string currency)
-{
-         
+        public async Task<List<AzurePrice>> GetPricesAsync(string product, string region, string currency)
+        {
             var allPrices = new List<AzurePrice>();
 
-    var url = $"https://prices.azure.com/api/retail/prices?currencyCode='{currency}'" +
-              $"&$filter=armRegionName eq '{region}'" +
-              $" and productName eq '{product}'";
+            var url = $"https://prices.azure.com/api/retail/prices?currencyCode='{currency}'" +
+                      $"&$filter=armRegionName eq '{region}'" +
+                      $" and productName eq '{product}'";
 
-
-
-   while (!string.IsNullOrEmpty(url))
+            while (!string.IsNullOrEmpty(url))
             {
                 var result = await _httpClient.GetFromJsonAsync<AzureResponse>(url);
 
@@ -43,12 +35,7 @@ public async Task<List<AzurePrice>> GetPricesAsync(string product, string region
             }
 
             return allPrices;
-
-
-
-    
-}}}
-
-      
-
+        }
+    }
+}
 
