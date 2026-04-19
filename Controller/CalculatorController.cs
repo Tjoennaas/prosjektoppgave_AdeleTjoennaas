@@ -11,11 +11,11 @@ namespace ProsjektOppgave_AdeleTjoennaas.Controllers {
     [ApiController]
     [Route("api/[controller]")]
 
-    public class CatchController : ControllerBase{
-    private readonly ILogger<CatchController> _logger;
+    public class CalculatorController : ControllerBase{
+    private readonly ILogger<CalculatorController> _logger;
     private readonly Calculator _calculator;
 
-    public CatchController(ILogger<CatchController> logger, Calculator calculator)
+    public CalculatorController(ILogger<CalculatorController> logger, Calculator calculator)
 
     {
      
@@ -28,18 +28,18 @@ namespace ProsjektOppgave_AdeleTjoennaas.Controllers {
 
     public ActionResult<List<CustomerCalculationResult>> Calculate(CustomerInput input)
     {
-        
         var results = new List<CustomerCalculationResult>();
 
-        for (int i = 1; i <= input.RetentionPeriods; i++){
-            
+        
+    for (int periodNumber = 1; periodNumber <= input.RetentionPeriods; periodNumber++){
             results.Add(new CustomerCalculationResult
-            { 
-                Period = i, 
-                TotalPrice = _calculator.CalculateTotalForPeriod(input, i)
+            {  
+                 Period = periodNumber,
+                 TotalPrice = _calculator.CalculateTotalForPeriod(input, periodNumber)
                 });}
         return Ok(results);
     }
+
 }}
 
    

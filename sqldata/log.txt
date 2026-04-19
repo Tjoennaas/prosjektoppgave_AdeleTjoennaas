@@ -363,3 +363,781 @@ RETURNING "Id";
 2026-04-18 10:53:15.417 +00:00 [INF] Application started. Press Ctrl+C to shut down.
 2026-04-18 10:53:15.417 +00:00 [INF] Hosting environment: Production
 2026-04-18 10:53:15.418 +00:00 [INF] Content root path: /app
+2026-04-19 16:44:20.107 +00:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2026-04-19 16:44:20.120 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2026-04-19 16:44:20.128 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+2026-04-19 16:44:20.141 +00:00 [INF] No migrations were applied. The database is already up to date.
+2026-04-19 16:44:20.227 +00:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "AzurePrices" AS "a")
+2026-04-19 16:44:20.244 +00:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT MAX("a"."LastUpdatedUtc")
+FROM "AzurePrices" AS "a"
+2026-04-19 16:44:20.251 +00:00 [INF] Data is older than 24 hours. Fetching new data from Azure.
+2026-04-19 16:44:20.252 +00:00 [INF] Fetching data from Azure
+2026-04-19 16:44:20.256 +00:00 [INF] Start processing HTTP request GET https://prices.azure.com/api/retail/prices?currencyCode='USD'&$filter=armRegionName%20eq%20'northeurope'%20and%20productName%20eq%20'Azure%20Table%20Storage'
+2026-04-19 16:44:20.258 +00:00 [INF] Sending HTTP request GET https://prices.azure.com/api/retail/prices?currencyCode='USD'&$filter=armRegionName%20eq%20'northeurope'%20and%20productName%20eq%20'Azure%20Table%20Storage'
+2026-04-19 16:44:20.592 +00:00 [INF] Received HTTP response headers after 333.6332ms - 200
+2026-04-19 16:44:20.593 +00:00 [INF] End processing HTTP request after 339.3543ms - 200
+2026-04-19 16:44:20.639 +00:00 [INF] Fetching data from Azure
+2026-04-19 16:44:20.640 +00:00 [INF] Start processing HTTP request GET https://prices.azure.com/api/retail/prices?currencyCode='USD'&$filter=armRegionName%20eq%20'northeurope'%20and%20productName%20eq%20'Azure%20Cosmos%20DB'
+2026-04-19 16:44:20.641 +00:00 [INF] Sending HTTP request GET https://prices.azure.com/api/retail/prices?currencyCode='USD'&$filter=armRegionName%20eq%20'northeurope'%20and%20productName%20eq%20'Azure%20Cosmos%20DB'
+2026-04-19 16:44:20.867 +00:00 [INF] Received HTTP response headers after 225.4156ms - 200
+2026-04-19 16:44:20.867 +00:00 [INF] End processing HTTP request after 227.3627ms - 200
+2026-04-19 16:44:20.872 +00:00 [INF] Fetching data from Azure
+2026-04-19 16:44:20.872 +00:00 [INF] Start processing HTTP request GET https://prices.azure.com/api/retail/prices?currencyCode='USD'&$filter=armRegionName%20eq%20'northeurope'%20and%20productName%20eq%20'Container%20Apps'
+2026-04-19 16:44:20.872 +00:00 [INF] Sending HTTP request GET https://prices.azure.com/api/retail/prices?currencyCode='USD'&$filter=armRegionName%20eq%20'northeurope'%20and%20productName%20eq%20'Container%20Apps'
+2026-04-19 16:44:20.989 +00:00 [INF] Received HTTP response headers after 116.3642ms - 200
+2026-04-19 16:44:20.990 +00:00 [INF] End processing HTTP request after 117.7383ms - 200
+2026-04-19 16:44:20.990 +00:00 [INF] Fetching data from Azure
+2026-04-19 16:44:20.991 +00:00 [INF] Start processing HTTP request GET https://prices.azure.com/api/retail/prices?currencyCode='USD'&$filter=armRegionName%20eq%20'northeurope'%20and%20productName%20eq%20'Container%20Registry'
+2026-04-19 16:44:20.991 +00:00 [INF] Sending HTTP request GET https://prices.azure.com/api/retail/prices?currencyCode='USD'&$filter=armRegionName%20eq%20'northeurope'%20and%20productName%20eq%20'Container%20Registry'
+2026-04-19 16:44:21.094 +00:00 [INF] Received HTTP response headers after 103.2699ms - 200
+2026-04-19 16:44:21.095 +00:00 [INF] End processing HTTP request after 104.2431ms - 200
+2026-04-19 16:44:21.096 +00:00 [INF] Fetching data from Azure
+2026-04-19 16:44:21.096 +00:00 [INF] Start processing HTTP request GET https://prices.azure.com/api/retail/prices?currencyCode='USD'&$filter=armRegionName%20eq%20'northeurope'%20and%20productName%20eq%20'Azure%20Storage%20Queue'
+2026-04-19 16:44:21.096 +00:00 [INF] Sending HTTP request GET https://prices.azure.com/api/retail/prices?currencyCode='USD'&$filter=armRegionName%20eq%20'northeurope'%20and%20productName%20eq%20'Azure%20Storage%20Queue'
+2026-04-19 16:44:21.193 +00:00 [INF] Received HTTP response headers after 97.0554ms - 200
+2026-04-19 16:44:21.194 +00:00 [INF] End processing HTTP request after 98.1953ms - 200
+2026-04-19 16:44:21.195 +00:00 [INF] Fetching data from Azure
+2026-04-19 16:44:21.195 +00:00 [INF] Start processing HTTP request GET https://prices.azure.com/api/retail/prices?currencyCode='EUR'&$filter=armRegionName%20eq%20'northeurope'%20and%20productName%20eq%20'Azure%20Table%20Storage'
+2026-04-19 16:44:21.195 +00:00 [INF] Sending HTTP request GET https://prices.azure.com/api/retail/prices?currencyCode='EUR'&$filter=armRegionName%20eq%20'northeurope'%20and%20productName%20eq%20'Azure%20Table%20Storage'
+2026-04-19 16:44:21.300 +00:00 [INF] Received HTTP response headers after 104.6032ms - 200
+2026-04-19 16:44:21.301 +00:00 [INF] End processing HTTP request after 105.4052ms - 200
+2026-04-19 16:44:21.301 +00:00 [INF] Fetching data from Azure
+2026-04-19 16:44:21.301 +00:00 [INF] Start processing HTTP request GET https://prices.azure.com/api/retail/prices?currencyCode='EUR'&$filter=armRegionName%20eq%20'northeurope'%20and%20productName%20eq%20'Azure%20Cosmos%20DB'
+2026-04-19 16:44:21.302 +00:00 [INF] Sending HTTP request GET https://prices.azure.com/api/retail/prices?currencyCode='EUR'&$filter=armRegionName%20eq%20'northeurope'%20and%20productName%20eq%20'Azure%20Cosmos%20DB'
+2026-04-19 16:44:21.412 +00:00 [INF] Received HTTP response headers after 109.9719ms - 200
+2026-04-19 16:44:21.412 +00:00 [INF] End processing HTTP request after 110.8529ms - 200
+2026-04-19 16:44:21.413 +00:00 [INF] Fetching data from Azure
+2026-04-19 16:44:21.414 +00:00 [INF] Start processing HTTP request GET https://prices.azure.com/api/retail/prices?currencyCode='EUR'&$filter=armRegionName%20eq%20'northeurope'%20and%20productName%20eq%20'Container%20Apps'
+2026-04-19 16:44:21.414 +00:00 [INF] Sending HTTP request GET https://prices.azure.com/api/retail/prices?currencyCode='EUR'&$filter=armRegionName%20eq%20'northeurope'%20and%20productName%20eq%20'Container%20Apps'
+2026-04-19 16:44:21.517 +00:00 [INF] Received HTTP response headers after 102.9903ms - 200
+2026-04-19 16:44:21.518 +00:00 [INF] End processing HTTP request after 104.1095ms - 200
+2026-04-19 16:44:21.519 +00:00 [INF] Fetching data from Azure
+2026-04-19 16:44:21.519 +00:00 [INF] Start processing HTTP request GET https://prices.azure.com/api/retail/prices?currencyCode='EUR'&$filter=armRegionName%20eq%20'northeurope'%20and%20productName%20eq%20'Container%20Registry'
+2026-04-19 16:44:21.519 +00:00 [INF] Sending HTTP request GET https://prices.azure.com/api/retail/prices?currencyCode='EUR'&$filter=armRegionName%20eq%20'northeurope'%20and%20productName%20eq%20'Container%20Registry'
+2026-04-19 16:44:21.616 +00:00 [INF] Received HTTP response headers after 96.3195ms - 200
+2026-04-19 16:44:21.616 +00:00 [INF] End processing HTTP request after 97.3467ms - 200
+2026-04-19 16:44:21.617 +00:00 [INF] Fetching data from Azure
+2026-04-19 16:44:21.618 +00:00 [INF] Start processing HTTP request GET https://prices.azure.com/api/retail/prices?currencyCode='EUR'&$filter=armRegionName%20eq%20'northeurope'%20and%20productName%20eq%20'Azure%20Storage%20Queue'
+2026-04-19 16:44:21.618 +00:00 [INF] Sending HTTP request GET https://prices.azure.com/api/retail/prices?currencyCode='EUR'&$filter=armRegionName%20eq%20'northeurope'%20and%20productName%20eq%20'Azure%20Storage%20Queue'
+2026-04-19 16:44:21.712 +00:00 [INF] Received HTTP response headers after 94.2218ms - 200
+2026-04-19 16:44:21.713 +00:00 [INF] End processing HTTP request after 95.3711ms - 200
+2026-04-19 16:44:21.739 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "a"."Id", "a"."ArmRegionName", "a"."ArmSkuName", "a"."CurrencyCode", "a"."EffectiveStartDate", "a"."IsPrimaryMeterRegion", "a"."LastUpdatedUtc", "a"."Location", "a"."MeterId", "a"."MeterName", "a"."ProductId", "a"."ProductName", "a"."RetailPrice", "a"."ServiceFamily", "a"."ServiceId", "a"."ServiceName", "a"."SkuId", "a"."SkuName", "a"."TierMinimumUnits", "a"."Type", "a"."UnitPrice"
+FROM "AzurePrices" AS "a"
+2026-04-19 16:44:21.803 +00:00 [INF] Executed DbCommand (1ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "AzurePrices"
+WHERE "Id" = @p0
+RETURNING 1;
+2026-04-19 16:44:21.805 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "AzurePrices"
+WHERE "Id" = @p0
+RETURNING 1;
+2026-04-19 16:44:21.806 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "AzurePrices"
+WHERE "Id" = @p0
+RETURNING 1;
+2026-04-19 16:44:21.806 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "AzurePrices"
+WHERE "Id" = @p0
+RETURNING 1;
+2026-04-19 16:44:21.806 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "AzurePrices"
+WHERE "Id" = @p0
+RETURNING 1;
+2026-04-19 16:44:21.807 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "AzurePrices"
+WHERE "Id" = @p0
+RETURNING 1;
+2026-04-19 16:44:21.807 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "AzurePrices"
+WHERE "Id" = @p0
+RETURNING 1;
+2026-04-19 16:44:21.808 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "AzurePrices"
+WHERE "Id" = @p0
+RETURNING 1;
+2026-04-19 16:44:21.808 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "AzurePrices"
+WHERE "Id" = @p0
+RETURNING 1;
+2026-04-19 16:44:21.808 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "AzurePrices"
+WHERE "Id" = @p0
+RETURNING 1;
+2026-04-19 16:44:21.809 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "AzurePrices"
+WHERE "Id" = @p0
+RETURNING 1;
+2026-04-19 16:44:21.810 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "AzurePrices"
+WHERE "Id" = @p0
+RETURNING 1;
+2026-04-19 16:44:21.810 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "AzurePrices"
+WHERE "Id" = @p0
+RETURNING 1;
+2026-04-19 16:44:21.811 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "AzurePrices"
+WHERE "Id" = @p0
+RETURNING 1;
+2026-04-19 16:44:21.811 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "AzurePrices"
+WHERE "Id" = @p0
+RETURNING 1;
+2026-04-19 16:44:21.812 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "AzurePrices"
+WHERE "Id" = @p0
+RETURNING 1;
+2026-04-19 16:44:21.812 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "AzurePrices"
+WHERE "Id" = @p0
+RETURNING 1;
+2026-04-19 16:44:21.812 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "AzurePrices"
+WHERE "Id" = @p0
+RETURNING 1;
+2026-04-19 16:44:21.813 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "AzurePrices"
+WHERE "Id" = @p0
+RETURNING 1;
+2026-04-19 16:44:21.813 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "AzurePrices"
+WHERE "Id" = @p0
+RETURNING 1;
+2026-04-19 16:44:21.813 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "AzurePrices"
+WHERE "Id" = @p0
+RETURNING 1;
+2026-04-19 16:44:21.814 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "AzurePrices"
+WHERE "Id" = @p0
+RETURNING 1;
+2026-04-19 16:44:21.814 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "AzurePrices"
+WHERE "Id" = @p0
+RETURNING 1;
+2026-04-19 16:44:21.814 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "AzurePrices"
+WHERE "Id" = @p0
+RETURNING 1;
+2026-04-19 16:44:21.815 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "AzurePrices"
+WHERE "Id" = @p0
+RETURNING 1;
+2026-04-19 16:44:21.816 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "AzurePrices"
+WHERE "Id" = @p0
+RETURNING 1;
+2026-04-19 16:44:21.816 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "AzurePrices"
+WHERE "Id" = @p0
+RETURNING 1;
+2026-04-19 16:44:21.817 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "AzurePrices"
+WHERE "Id" = @p0
+RETURNING 1;
+2026-04-19 16:44:21.817 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "AzurePrices"
+WHERE "Id" = @p0
+RETURNING 1;
+2026-04-19 16:44:21.818 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "AzurePrices"
+WHERE "Id" = @p0
+RETURNING 1;
+2026-04-19 16:44:21.818 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "AzurePrices"
+WHERE "Id" = @p0
+RETURNING 1;
+2026-04-19 16:44:21.818 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "AzurePrices"
+WHERE "Id" = @p0
+RETURNING 1;
+2026-04-19 16:44:21.819 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "AzurePrices"
+WHERE "Id" = @p0
+RETURNING 1;
+2026-04-19 16:44:21.819 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "AzurePrices"
+WHERE "Id" = @p0
+RETURNING 1;
+2026-04-19 16:44:21.819 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "AzurePrices"
+WHERE "Id" = @p0
+RETURNING 1;
+2026-04-19 16:44:21.820 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "AzurePrices"
+WHERE "Id" = @p0
+RETURNING 1;
+2026-04-19 16:44:21.820 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "AzurePrices"
+WHERE "Id" = @p0
+RETURNING 1;
+2026-04-19 16:44:21.821 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "AzurePrices"
+WHERE "Id" = @p0
+RETURNING 1;
+2026-04-19 16:44:21.821 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "AzurePrices"
+WHERE "Id" = @p0
+RETURNING 1;
+2026-04-19 16:44:21.822 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "AzurePrices"
+WHERE "Id" = @p0
+RETURNING 1;
+2026-04-19 16:44:21.822 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "AzurePrices"
+WHERE "Id" = @p0
+RETURNING 1;
+2026-04-19 16:44:21.823 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "AzurePrices"
+WHERE "Id" = @p0
+RETURNING 1;
+2026-04-19 16:44:21.823 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "AzurePrices"
+WHERE "Id" = @p0
+RETURNING 1;
+2026-04-19 16:44:21.823 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "AzurePrices"
+WHERE "Id" = @p0
+RETURNING 1;
+2026-04-19 16:44:21.824 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "AzurePrices"
+WHERE "Id" = @p0
+RETURNING 1;
+2026-04-19 16:44:21.824 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "AzurePrices"
+WHERE "Id" = @p0
+RETURNING 1;
+2026-04-19 16:44:21.824 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "AzurePrices"
+WHERE "Id" = @p0
+RETURNING 1;
+2026-04-19 16:44:21.824 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "AzurePrices"
+WHERE "Id" = @p0
+RETURNING 1;
+2026-04-19 16:44:21.825 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "AzurePrices"
+WHERE "Id" = @p0
+RETURNING 1;
+2026-04-19 16:44:21.825 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "AzurePrices"
+WHERE "Id" = @p0
+RETURNING 1;
+2026-04-19 16:44:21.825 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "AzurePrices"
+WHERE "Id" = @p0
+RETURNING 1;
+2026-04-19 16:44:21.826 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "AzurePrices"
+WHERE "Id" = @p0
+RETURNING 1;
+2026-04-19 16:44:21.826 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "AzurePrices"
+WHERE "Id" = @p0
+RETURNING 1;
+2026-04-19 16:44:21.827 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "AzurePrices"
+WHERE "Id" = @p0
+RETURNING 1;
+2026-04-19 16:44:21.827 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "AzurePrices"
+WHERE "Id" = @p0
+RETURNING 1;
+2026-04-19 16:44:21.827 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "AzurePrices"
+WHERE "Id" = @p0
+RETURNING 1;
+2026-04-19 16:44:21.849 +00:00 [INF] Executed DbCommand (1ms) [Parameters=[@p0='?' (Size = 11), @p1='?', @p2='?' (Size = 3), @p3='?' (DbType = DateTime), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTime), @p6='?' (Size = 8), @p7='?' (Size = 36), @p8='?' (Size = 8), @p9='?' (Size = 12), @p10='?' (Size = 15), @p11='?' (DbType = Decimal), @p12='?' (Size = 9), @p13='?' (Size = 12), @p14='?' (Size = 15), @p15='?' (Size = 17), @p16='?' (Size = 9), @p17='?' (DbType = Decimal), @p18='?' (Size = 11), @p19='?' (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AzurePrices" ("ArmRegionName", "ArmSkuName", "CurrencyCode", "EffectiveStartDate", "IsPrimaryMeterRegion", "LastUpdatedUtc", "Location", "MeterId", "MeterName", "ProductId", "ProductName", "RetailPrice", "ServiceFamily", "ServiceId", "ServiceName", "SkuId", "SkuName", "TierMinimumUnits", "Type", "UnitPrice")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19)
+RETURNING "Id";
+2026-04-19 16:44:21.854 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 11), @p1='?', @p2='?' (Size = 3), @p3='?' (DbType = DateTime), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTime), @p6='?' (Size = 8), @p7='?' (Size = 36), @p8='?' (Size = 2), @p9='?' (Size = 12), @p10='?' (Size = 15), @p11='?' (DbType = Decimal), @p12='?' (Size = 9), @p13='?' (Size = 12), @p14='?' (Size = 15), @p15='?' (Size = 17), @p16='?' (Size = 2), @p17='?' (DbType = Decimal), @p18='?' (Size = 11), @p19='?' (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AzurePrices" ("ArmRegionName", "ArmSkuName", "CurrencyCode", "EffectiveStartDate", "IsPrimaryMeterRegion", "LastUpdatedUtc", "Location", "MeterId", "MeterName", "ProductId", "ProductName", "RetailPrice", "ServiceFamily", "ServiceId", "ServiceName", "SkuId", "SkuName", "TierMinimumUnits", "Type", "UnitPrice")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19)
+RETURNING "Id";
+2026-04-19 16:44:21.854 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 11), @p1='?', @p2='?' (Size = 3), @p3='?' (DbType = DateTime), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTime), @p6='?' (Size = 8), @p7='?' (Size = 36), @p8='?' (Size = 9), @p9='?' (Size = 12), @p10='?' (Size = 15), @p11='?' (DbType = Decimal), @p12='?' (Size = 9), @p13='?' (Size = 12), @p14='?' (Size = 15), @p15='?' (Size = 17), @p16='?' (Size = 3), @p17='?' (DbType = Decimal), @p18='?' (Size = 11), @p19='?' (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AzurePrices" ("ArmRegionName", "ArmSkuName", "CurrencyCode", "EffectiveStartDate", "IsPrimaryMeterRegion", "LastUpdatedUtc", "Location", "MeterId", "MeterName", "ProductId", "ProductName", "RetailPrice", "ServiceFamily", "ServiceId", "ServiceName", "SkuId", "SkuName", "TierMinimumUnits", "Type", "UnitPrice")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19)
+RETURNING "Id";
+2026-04-19 16:44:21.855 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 11), @p1='?', @p2='?' (Size = 3), @p3='?' (DbType = DateTime), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTime), @p6='?' (Size = 8), @p7='?' (Size = 36), @p8='?' (Size = 8), @p9='?' (Size = 12), @p10='?' (Size = 15), @p11='?' (DbType = Decimal), @p12='?' (Size = 9), @p13='?' (Size = 12), @p14='?' (Size = 15), @p15='?' (Size = 17), @p16='?' (Size = 3), @p17='?' (DbType = Decimal), @p18='?' (Size = 11), @p19='?' (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AzurePrices" ("ArmRegionName", "ArmSkuName", "CurrencyCode", "EffectiveStartDate", "IsPrimaryMeterRegion", "LastUpdatedUtc", "Location", "MeterId", "MeterName", "ProductId", "ProductName", "RetailPrice", "ServiceFamily", "ServiceId", "ServiceName", "SkuId", "SkuName", "TierMinimumUnits", "Type", "UnitPrice")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19)
+RETURNING "Id";
+2026-04-19 16:44:21.856 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 11), @p1='?', @p2='?' (Size = 3), @p3='?' (DbType = DateTime), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTime), @p6='?' (Size = 8), @p7='?' (Size = 36), @p8='?' (Size = 21), @p9='?' (Size = 12), @p10='?' (Size = 15), @p11='?' (DbType = Decimal), @p12='?' (Size = 9), @p13='?' (Size = 12), @p14='?' (Size = 15), @p15='?' (Size = 17), @p16='?' (Size = 9), @p17='?' (DbType = Decimal), @p18='?' (Size = 11), @p19='?' (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AzurePrices" ("ArmRegionName", "ArmSkuName", "CurrencyCode", "EffectiveStartDate", "IsPrimaryMeterRegion", "LastUpdatedUtc", "Location", "MeterId", "MeterName", "ProductId", "ProductName", "RetailPrice", "ServiceFamily", "ServiceId", "ServiceName", "SkuId", "SkuName", "TierMinimumUnits", "Type", "UnitPrice")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19)
+RETURNING "Id";
+2026-04-19 16:44:21.857 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 11), @p1='?', @p2='?' (Size = 3), @p3='?' (DbType = DateTime), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTime), @p6='?' (Size = 8), @p7='?' (Size = 36), @p8='?' (Size = 2), @p9='?' (Size = 12), @p10='?' (Size = 15), @p11='?' (DbType = Decimal), @p12='?' (Size = 9), @p13='?' (Size = 12), @p14='?' (Size = 15), @p15='?' (Size = 17), @p16='?' (Size = 2), @p17='?' (DbType = Decimal), @p18='?' (Size = 11), @p19='?' (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AzurePrices" ("ArmRegionName", "ArmSkuName", "CurrencyCode", "EffectiveStartDate", "IsPrimaryMeterRegion", "LastUpdatedUtc", "Location", "MeterId", "MeterName", "ProductId", "ProductName", "RetailPrice", "ServiceFamily", "ServiceId", "ServiceName", "SkuId", "SkuName", "TierMinimumUnits", "Type", "UnitPrice")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19)
+RETURNING "Id";
+2026-04-19 16:44:21.857 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 11), @p1='?', @p2='?' (Size = 3), @p3='?' (DbType = DateTime), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTime), @p6='?' (Size = 8), @p7='?' (Size = 36), @p8='?' (Size = 2), @p9='?' (Size = 12), @p10='?' (Size = 15), @p11='?' (DbType = Decimal), @p12='?' (Size = 9), @p13='?' (Size = 12), @p14='?' (Size = 15), @p15='?' (Size = 17), @p16='?' (Size = 2), @p17='?' (DbType = Decimal), @p18='?' (Size = 11), @p19='?' (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AzurePrices" ("ArmRegionName", "ArmSkuName", "CurrencyCode", "EffectiveStartDate", "IsPrimaryMeterRegion", "LastUpdatedUtc", "Location", "MeterId", "MeterName", "ProductId", "ProductName", "RetailPrice", "ServiceFamily", "ServiceId", "ServiceName", "SkuId", "SkuName", "TierMinimumUnits", "Type", "UnitPrice")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19)
+RETURNING "Id";
+2026-04-19 16:44:21.858 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 11), @p1='?', @p2='?' (Size = 3), @p3='?' (DbType = DateTime), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTime), @p6='?' (Size = 8), @p7='?' (Size = 36), @p8='?' (Size = 26), @p9='?' (Size = 12), @p10='?' (Size = 15), @p11='?' (DbType = Decimal), @p12='?' (Size = 9), @p13='?' (Size = 12), @p14='?' (Size = 15), @p15='?' (Size = 17), @p16='?' (Size = 4), @p17='?' (DbType = Decimal), @p18='?' (Size = 11), @p19='?' (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AzurePrices" ("ArmRegionName", "ArmSkuName", "CurrencyCode", "EffectiveStartDate", "IsPrimaryMeterRegion", "LastUpdatedUtc", "Location", "MeterId", "MeterName", "ProductId", "ProductName", "RetailPrice", "ServiceFamily", "ServiceId", "ServiceName", "SkuId", "SkuName", "TierMinimumUnits", "Type", "UnitPrice")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19)
+RETURNING "Id";
+2026-04-19 16:44:21.858 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 11), @p1='?', @p2='?' (Size = 3), @p3='?' (DbType = DateTime), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTime), @p6='?' (Size = 8), @p7='?' (Size = 36), @p8='?' (Size = 11), @p9='?' (Size = 12), @p10='?' (Size = 15), @p11='?' (DbType = Decimal), @p12='?' (Size = 9), @p13='?' (Size = 12), @p14='?' (Size = 15), @p15='?' (Size = 17), @p16='?' (Size = 3), @p17='?' (DbType = Decimal), @p18='?' (Size = 11), @p19='?' (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AzurePrices" ("ArmRegionName", "ArmSkuName", "CurrencyCode", "EffectiveStartDate", "IsPrimaryMeterRegion", "LastUpdatedUtc", "Location", "MeterId", "MeterName", "ProductId", "ProductName", "RetailPrice", "ServiceFamily", "ServiceId", "ServiceName", "SkuId", "SkuName", "TierMinimumUnits", "Type", "UnitPrice")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19)
+RETURNING "Id";
+2026-04-19 16:44:21.858 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 11), @p1='?', @p2='?' (Size = 3), @p3='?' (DbType = DateTime), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTime), @p6='?' (Size = 8), @p7='?' (Size = 36), @p8='?' (Size = 21), @p9='?' (Size = 12), @p10='?' (Size = 15), @p11='?' (DbType = Decimal), @p12='?' (Size = 9), @p13='?' (Size = 12), @p14='?' (Size = 15), @p15='?' (Size = 17), @p16='?' (Size = 4), @p17='?' (DbType = Decimal), @p18='?' (Size = 11), @p19='?' (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AzurePrices" ("ArmRegionName", "ArmSkuName", "CurrencyCode", "EffectiveStartDate", "IsPrimaryMeterRegion", "LastUpdatedUtc", "Location", "MeterId", "MeterName", "ProductId", "ProductName", "RetailPrice", "ServiceFamily", "ServiceId", "ServiceName", "SkuId", "SkuName", "TierMinimumUnits", "Type", "UnitPrice")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19)
+RETURNING "Id";
+2026-04-19 16:44:21.859 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 11), @p1='?', @p2='?' (Size = 3), @p3='?' (DbType = DateTime), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTime), @p6='?' (Size = 8), @p7='?' (Size = 36), @p8='?' (Size = 11), @p9='?' (Size = 12), @p10='?' (Size = 15), @p11='?' (DbType = Decimal), @p12='?' (Size = 9), @p13='?' (Size = 12), @p14='?' (Size = 15), @p15='?' (Size = 17), @p16='?' (Size = 3), @p17='?' (DbType = Decimal), @p18='?' (Size = 11), @p19='?' (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AzurePrices" ("ArmRegionName", "ArmSkuName", "CurrencyCode", "EffectiveStartDate", "IsPrimaryMeterRegion", "LastUpdatedUtc", "Location", "MeterId", "MeterName", "ProductId", "ProductName", "RetailPrice", "ServiceFamily", "ServiceId", "ServiceName", "SkuId", "SkuName", "TierMinimumUnits", "Type", "UnitPrice")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19)
+RETURNING "Id";
+2026-04-19 16:44:21.859 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 11), @p1='?', @p2='?' (Size = 3), @p3='?' (DbType = DateTime), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTime), @p6='?' (Size = 8), @p7='?' (Size = 36), @p8='?' (Size = 11), @p9='?' (Size = 12), @p10='?' (Size = 15), @p11='?' (DbType = Decimal), @p12='?' (Size = 9), @p13='?' (Size = 12), @p14='?' (Size = 15), @p15='?' (Size = 17), @p16='?' (Size = 9), @p17='?' (DbType = Decimal), @p18='?' (Size = 11), @p19='?' (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AzurePrices" ("ArmRegionName", "ArmSkuName", "CurrencyCode", "EffectiveStartDate", "IsPrimaryMeterRegion", "LastUpdatedUtc", "Location", "MeterId", "MeterName", "ProductId", "ProductName", "RetailPrice", "ServiceFamily", "ServiceId", "ServiceName", "SkuId", "SkuName", "TierMinimumUnits", "Type", "UnitPrice")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19)
+RETURNING "Id";
+2026-04-19 16:44:21.859 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 11), @p1='?', @p2='?' (Size = 3), @p3='?' (DbType = DateTime), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTime), @p6='?' (Size = 8), @p7='?' (Size = 36), @p8='?' (Size = 11), @p9='?' (Size = 12), @p10='?' (Size = 15), @p11='?' (DbType = Decimal), @p12='?' (Size = 9), @p13='?' (Size = 12), @p14='?' (Size = 15), @p15='?' (Size = 17), @p16='?' (Size = 4), @p17='?' (DbType = Decimal), @p18='?' (Size = 11), @p19='?' (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AzurePrices" ("ArmRegionName", "ArmSkuName", "CurrencyCode", "EffectiveStartDate", "IsPrimaryMeterRegion", "LastUpdatedUtc", "Location", "MeterId", "MeterName", "ProductId", "ProductName", "RetailPrice", "ServiceFamily", "ServiceId", "ServiceName", "SkuId", "SkuName", "TierMinimumUnits", "Type", "UnitPrice")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19)
+RETURNING "Id";
+2026-04-19 16:44:21.860 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 11), @p1='?', @p2='?' (Size = 3), @p3='?' (DbType = DateTime), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTime), @p6='?' (Size = 8), @p7='?' (Size = 36), @p8='?' (Size = 26), @p9='?' (Size = 12), @p10='?' (Size = 18), @p11='?' (DbType = Decimal), @p12='?' (Size = 10), @p13='?' (Size = 12), @p14='?' (Size = 18), @p15='?' (Size = 17), @p16='?' (Size = 7), @p17='?' (DbType = Decimal), @p18='?' (Size = 11), @p19='?' (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AzurePrices" ("ArmRegionName", "ArmSkuName", "CurrencyCode", "EffectiveStartDate", "IsPrimaryMeterRegion", "LastUpdatedUtc", "Location", "MeterId", "MeterName", "ProductId", "ProductName", "RetailPrice", "ServiceFamily", "ServiceId", "ServiceName", "SkuId", "SkuName", "TierMinimumUnits", "Type", "UnitPrice")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19)
+RETURNING "Id";
+2026-04-19 16:44:21.860 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 11), @p1='?', @p2='?' (Size = 3), @p3='?' (DbType = DateTime), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTime), @p6='?' (Size = 8), @p7='?' (Size = 36), @p8='?' (Size = 11), @p9='?' (Size = 12), @p10='?' (Size = 18), @p11='?' (DbType = Decimal), @p12='?' (Size = 10), @p13='?' (Size = 12), @p14='?' (Size = 18), @p15='?' (Size = 17), @p16='?' (Size = 8), @p17='?' (DbType = Decimal), @p18='?' (Size = 11), @p19='?' (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AzurePrices" ("ArmRegionName", "ArmSkuName", "CurrencyCode", "EffectiveStartDate", "IsPrimaryMeterRegion", "LastUpdatedUtc", "Location", "MeterId", "MeterName", "ProductId", "ProductName", "RetailPrice", "ServiceFamily", "ServiceId", "ServiceName", "SkuId", "SkuName", "TierMinimumUnits", "Type", "UnitPrice")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19)
+RETURNING "Id";
+2026-04-19 16:44:21.861 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 11), @p1='?', @p2='?' (Size = 3), @p3='?' (DbType = DateTime), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTime), @p6='?' (Size = 8), @p7='?' (Size = 36), @p8='?' (Size = 18), @p9='?' (Size = 12), @p10='?' (Size = 18), @p11='?' (DbType = Decimal), @p12='?' (Size = 10), @p13='?' (Size = 12), @p14='?' (Size = 18), @p15='?' (Size = 17), @p16='?' (Size = 7), @p17='?' (DbType = Decimal), @p18='?' (Size = 11), @p19='?' (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AzurePrices" ("ArmRegionName", "ArmSkuName", "CurrencyCode", "EffectiveStartDate", "IsPrimaryMeterRegion", "LastUpdatedUtc", "Location", "MeterId", "MeterName", "ProductId", "ProductName", "RetailPrice", "ServiceFamily", "ServiceId", "ServiceName", "SkuId", "SkuName", "TierMinimumUnits", "Type", "UnitPrice")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19)
+RETURNING "Id";
+2026-04-19 16:44:21.862 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 11), @p1='?', @p2='?' (Size = 3), @p3='?' (DbType = DateTime), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTime), @p6='?' (Size = 8), @p7='?' (Size = 36), @p8='?' (Size = 18), @p9='?' (Size = 12), @p10='?' (Size = 18), @p11='?' (DbType = Decimal), @p12='?' (Size = 10), @p13='?' (Size = 12), @p14='?' (Size = 18), @p15='?' (Size = 17), @p16='?' (Size = 7), @p17='?' (DbType = Decimal), @p18='?' (Size = 11), @p19='?' (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AzurePrices" ("ArmRegionName", "ArmSkuName", "CurrencyCode", "EffectiveStartDate", "IsPrimaryMeterRegion", "LastUpdatedUtc", "Location", "MeterId", "MeterName", "ProductId", "ProductName", "RetailPrice", "ServiceFamily", "ServiceId", "ServiceName", "SkuId", "SkuName", "TierMinimumUnits", "Type", "UnitPrice")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19)
+RETURNING "Id";
+2026-04-19 16:44:21.862 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 11), @p1='?', @p2='?' (Size = 3), @p3='?' (DbType = DateTime), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTime), @p6='?' (Size = 8), @p7='?' (Size = 36), @p8='?' (Size = 19), @p9='?' (Size = 12), @p10='?' (Size = 18), @p11='?' (DbType = Decimal), @p12='?' (Size = 10), @p13='?' (Size = 12), @p14='?' (Size = 18), @p15='?' (Size = 17), @p16='?' (Size = 5), @p17='?' (DbType = Decimal), @p18='?' (Size = 11), @p19='?' (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AzurePrices" ("ArmRegionName", "ArmSkuName", "CurrencyCode", "EffectiveStartDate", "IsPrimaryMeterRegion", "LastUpdatedUtc", "Location", "MeterId", "MeterName", "ProductId", "ProductName", "RetailPrice", "ServiceFamily", "ServiceId", "ServiceName", "SkuId", "SkuName", "TierMinimumUnits", "Type", "UnitPrice")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19)
+RETURNING "Id";
+2026-04-19 16:44:21.863 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 11), @p1='?', @p2='?' (Size = 3), @p3='?' (DbType = DateTime), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTime), @p6='?' (Size = 8), @p7='?' (Size = 36), @p8='?' (Size = 11), @p9='?' (Size = 12), @p10='?' (Size = 18), @p11='?' (DbType = Decimal), @p12='?' (Size = 10), @p13='?' (Size = 12), @p14='?' (Size = 18), @p15='?' (Size = 17), @p16='?' (Size = 5), @p17='?' (DbType = Decimal), @p18='?' (Size = 11), @p19='?' (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AzurePrices" ("ArmRegionName", "ArmSkuName", "CurrencyCode", "EffectiveStartDate", "IsPrimaryMeterRegion", "LastUpdatedUtc", "Location", "MeterId", "MeterName", "ProductId", "ProductName", "RetailPrice", "ServiceFamily", "ServiceId", "ServiceName", "SkuId", "SkuName", "TierMinimumUnits", "Type", "UnitPrice")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19)
+RETURNING "Id";
+2026-04-19 16:44:21.863 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 11), @p1='?', @p2='?' (Size = 3), @p3='?' (DbType = DateTime), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTime), @p6='?' (Size = 8), @p7='?' (Size = 36), @p8='?' (Size = 33), @p9='?' (Size = 12), @p10='?' (Size = 18), @p11='?' (DbType = Decimal), @p12='?' (Size = 10), @p13='?' (Size = 12), @p14='?' (Size = 18), @p15='?' (Size = 17), @p16='?' (Size = 7), @p17='?' (DbType = Decimal), @p18='?' (Size = 11), @p19='?' (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AzurePrices" ("ArmRegionName", "ArmSkuName", "CurrencyCode", "EffectiveStartDate", "IsPrimaryMeterRegion", "LastUpdatedUtc", "Location", "MeterId", "MeterName", "ProductId", "ProductName", "RetailPrice", "ServiceFamily", "ServiceId", "ServiceName", "SkuId", "SkuName", "TierMinimumUnits", "Type", "UnitPrice")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19)
+RETURNING "Id";
+2026-04-19 16:44:21.863 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 11), @p1='?', @p2='?' (Size = 3), @p3='?' (DbType = DateTime), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTime), @p6='?' (Size = 8), @p7='?' (Size = 36), @p8='?' (Size = 22), @p9='?' (Size = 12), @p10='?' (Size = 18), @p11='?' (DbType = Decimal), @p12='?' (Size = 10), @p13='?' (Size = 12), @p14='?' (Size = 18), @p15='?' (Size = 17), @p16='?' (Size = 8), @p17='?' (DbType = Decimal), @p18='?' (Size = 11), @p19='?' (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AzurePrices" ("ArmRegionName", "ArmSkuName", "CurrencyCode", "EffectiveStartDate", "IsPrimaryMeterRegion", "LastUpdatedUtc", "Location", "MeterId", "MeterName", "ProductId", "ProductName", "RetailPrice", "ServiceFamily", "ServiceId", "ServiceName", "SkuId", "SkuName", "TierMinimumUnits", "Type", "UnitPrice")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19)
+RETURNING "Id";
+2026-04-19 16:44:21.864 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 11), @p1='?', @p2='?' (Size = 3), @p3='?' (DbType = DateTime), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTime), @p6='?' (Size = 8), @p7='?' (Size = 36), @p8='?' (Size = 43), @p9='?' (Size = 12), @p10='?' (Size = 18), @p11='?' (DbType = Decimal), @p12='?' (Size = 10), @p13='?' (Size = 12), @p14='?' (Size = 18), @p15='?' (Size = 17), @p16='?' (Size = 7), @p17='?' (DbType = Decimal), @p18='?' (Size = 11), @p19='?' (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AzurePrices" ("ArmRegionName", "ArmSkuName", "CurrencyCode", "EffectiveStartDate", "IsPrimaryMeterRegion", "LastUpdatedUtc", "Location", "MeterId", "MeterName", "ProductId", "ProductName", "RetailPrice", "ServiceFamily", "ServiceId", "ServiceName", "SkuId", "SkuName", "TierMinimumUnits", "Type", "UnitPrice")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19)
+RETURNING "Id";
+2026-04-19 16:44:21.864 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 11), @p1='?', @p2='?' (Size = 3), @p3='?' (DbType = DateTime), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTime), @p6='?' (Size = 8), @p7='?' (Size = 36), @p8='?' (Size = 21), @p9='?' (Size = 12), @p10='?' (Size = 18), @p11='?' (DbType = Decimal), @p12='?' (Size = 10), @p13='?' (Size = 12), @p14='?' (Size = 18), @p15='?' (Size = 17), @p16='?' (Size = 7), @p17='?' (DbType = Decimal), @p18='?' (Size = 11), @p19='?' (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AzurePrices" ("ArmRegionName", "ArmSkuName", "CurrencyCode", "EffectiveStartDate", "IsPrimaryMeterRegion", "LastUpdatedUtc", "Location", "MeterId", "MeterName", "ProductId", "ProductName", "RetailPrice", "ServiceFamily", "ServiceId", "ServiceName", "SkuId", "SkuName", "TierMinimumUnits", "Type", "UnitPrice")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19)
+RETURNING "Id";
+2026-04-19 16:44:21.864 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 11), @p1='?', @p2='?' (Size = 3), @p3='?' (DbType = DateTime), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTime), @p6='?' (Size = 8), @p7='?' (Size = 36), @p8='?' (Size = 18), @p9='?' (Size = 12), @p10='?' (Size = 18), @p11='?' (DbType = Decimal), @p12='?' (Size = 10), @p13='?' (Size = 12), @p14='?' (Size = 18), @p15='?' (Size = 17), @p16='?' (Size = 8), @p17='?' (DbType = Decimal), @p18='?' (Size = 11), @p19='?' (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AzurePrices" ("ArmRegionName", "ArmSkuName", "CurrencyCode", "EffectiveStartDate", "IsPrimaryMeterRegion", "LastUpdatedUtc", "Location", "MeterId", "MeterName", "ProductId", "ProductName", "RetailPrice", "ServiceFamily", "ServiceId", "ServiceName", "SkuId", "SkuName", "TierMinimumUnits", "Type", "UnitPrice")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19)
+RETURNING "Id";
+2026-04-19 16:44:21.865 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 11), @p1='?', @p2='?' (Size = 3), @p3='?' (DbType = DateTime), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTime), @p6='?' (Size = 8), @p7='?' (Size = 36), @p8='?' (Size = 18), @p9='?' (Size = 12), @p10='?' (Size = 18), @p11='?' (DbType = Decimal), @p12='?' (Size = 10), @p13='?' (Size = 12), @p14='?' (Size = 18), @p15='?' (Size = 17), @p16='?' (Size = 8), @p17='?' (DbType = Decimal), @p18='?' (Size = 11), @p19='?' (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AzurePrices" ("ArmRegionName", "ArmSkuName", "CurrencyCode", "EffectiveStartDate", "IsPrimaryMeterRegion", "LastUpdatedUtc", "Location", "MeterId", "MeterName", "ProductId", "ProductName", "RetailPrice", "ServiceFamily", "ServiceId", "ServiceName", "SkuId", "SkuName", "TierMinimumUnits", "Type", "UnitPrice")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19)
+RETURNING "Id";
+2026-04-19 16:44:21.865 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 11), @p1='?', @p2='?' (Size = 3), @p3='?' (DbType = DateTime), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTime), @p6='?' (Size = 8), @p7='?' (Size = 36), @p8='?' (Size = 11), @p9='?' (Size = 12), @p10='?' (Size = 18), @p11='?' (DbType = Decimal), @p12='?' (Size = 10), @p13='?' (Size = 12), @p14='?' (Size = 18), @p15='?' (Size = 17), @p16='?' (Size = 7), @p17='?' (DbType = Decimal), @p18='?' (Size = 11), @p19='?' (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AzurePrices" ("ArmRegionName", "ArmSkuName", "CurrencyCode", "EffectiveStartDate", "IsPrimaryMeterRegion", "LastUpdatedUtc", "Location", "MeterId", "MeterName", "ProductId", "ProductName", "RetailPrice", "ServiceFamily", "ServiceId", "ServiceName", "SkuId", "SkuName", "TierMinimumUnits", "Type", "UnitPrice")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19)
+RETURNING "Id";
+2026-04-19 16:44:21.865 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 11), @p1='?', @p2='?' (Size = 3), @p3='?' (DbType = DateTime), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTime), @p6='?' (Size = 8), @p7='?' (Size = 36), @p8='?' (Size = 18), @p9='?' (Size = 12), @p10='?' (Size = 18), @p11='?' (DbType = Decimal), @p12='?' (Size = 10), @p13='?' (Size = 12), @p14='?' (Size = 18), @p15='?' (Size = 17), @p16='?' (Size = 5), @p17='?' (DbType = Decimal), @p18='?' (Size = 11), @p19='?' (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AzurePrices" ("ArmRegionName", "ArmSkuName", "CurrencyCode", "EffectiveStartDate", "IsPrimaryMeterRegion", "LastUpdatedUtc", "Location", "MeterId", "MeterName", "ProductId", "ProductName", "RetailPrice", "ServiceFamily", "ServiceId", "ServiceName", "SkuId", "SkuName", "TierMinimumUnits", "Type", "UnitPrice")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19)
+RETURNING "Id";
+2026-04-19 16:44:21.866 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 11), @p1='?', @p2='?' (Size = 3), @p3='?' (DbType = DateTime), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTime), @p6='?' (Size = 8), @p7='?' (Size = 36), @p8='?' (Size = 18), @p9='?' (Size = 12), @p10='?' (Size = 18), @p11='?' (DbType = Decimal), @p12='?' (Size = 10), @p13='?' (Size = 12), @p14='?' (Size = 18), @p15='?' (Size = 17), @p16='?' (Size = 5), @p17='?' (DbType = Decimal), @p18='?' (Size = 11), @p19='?' (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AzurePrices" ("ArmRegionName", "ArmSkuName", "CurrencyCode", "EffectiveStartDate", "IsPrimaryMeterRegion", "LastUpdatedUtc", "Location", "MeterId", "MeterName", "ProductId", "ProductName", "RetailPrice", "ServiceFamily", "ServiceId", "ServiceName", "SkuId", "SkuName", "TierMinimumUnits", "Type", "UnitPrice")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19)
+RETURNING "Id";
+2026-04-19 16:44:21.866 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 11), @p1='?', @p2='?' (Size = 3), @p3='?' (DbType = DateTime), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTime), @p6='?' (Size = 8), @p7='?' (Size = 36), @p8='?' (Size = 8), @p9='?' (Size = 12), @p10='?' (Size = 15), @p11='?' (DbType = Decimal), @p12='?' (Size = 9), @p13='?' (Size = 12), @p14='?' (Size = 15), @p15='?' (Size = 17), @p16='?' (Size = 9), @p17='?' (DbType = Decimal), @p18='?' (Size = 11), @p19='?' (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AzurePrices" ("ArmRegionName", "ArmSkuName", "CurrencyCode", "EffectiveStartDate", "IsPrimaryMeterRegion", "LastUpdatedUtc", "Location", "MeterId", "MeterName", "ProductId", "ProductName", "RetailPrice", "ServiceFamily", "ServiceId", "ServiceName", "SkuId", "SkuName", "TierMinimumUnits", "Type", "UnitPrice")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19)
+RETURNING "Id";
+2026-04-19 16:44:21.867 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 11), @p1='?', @p2='?' (Size = 3), @p3='?' (DbType = DateTime), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTime), @p6='?' (Size = 8), @p7='?' (Size = 36), @p8='?' (Size = 2), @p9='?' (Size = 12), @p10='?' (Size = 15), @p11='?' (DbType = Decimal), @p12='?' (Size = 9), @p13='?' (Size = 12), @p14='?' (Size = 15), @p15='?' (Size = 17), @p16='?' (Size = 2), @p17='?' (DbType = Decimal), @p18='?' (Size = 11), @p19='?' (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AzurePrices" ("ArmRegionName", "ArmSkuName", "CurrencyCode", "EffectiveStartDate", "IsPrimaryMeterRegion", "LastUpdatedUtc", "Location", "MeterId", "MeterName", "ProductId", "ProductName", "RetailPrice", "ServiceFamily", "ServiceId", "ServiceName", "SkuId", "SkuName", "TierMinimumUnits", "Type", "UnitPrice")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19)
+RETURNING "Id";
+2026-04-19 16:44:21.868 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 11), @p1='?', @p2='?' (Size = 3), @p3='?' (DbType = DateTime), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTime), @p6='?' (Size = 8), @p7='?' (Size = 36), @p8='?' (Size = 9), @p9='?' (Size = 12), @p10='?' (Size = 15), @p11='?' (DbType = Decimal), @p12='?' (Size = 9), @p13='?' (Size = 12), @p14='?' (Size = 15), @p15='?' (Size = 17), @p16='?' (Size = 3), @p17='?' (DbType = Decimal), @p18='?' (Size = 11), @p19='?' (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AzurePrices" ("ArmRegionName", "ArmSkuName", "CurrencyCode", "EffectiveStartDate", "IsPrimaryMeterRegion", "LastUpdatedUtc", "Location", "MeterId", "MeterName", "ProductId", "ProductName", "RetailPrice", "ServiceFamily", "ServiceId", "ServiceName", "SkuId", "SkuName", "TierMinimumUnits", "Type", "UnitPrice")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19)
+RETURNING "Id";
+2026-04-19 16:44:21.870 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 11), @p1='?', @p2='?' (Size = 3), @p3='?' (DbType = DateTime), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTime), @p6='?' (Size = 8), @p7='?' (Size = 36), @p8='?' (Size = 8), @p9='?' (Size = 12), @p10='?' (Size = 15), @p11='?' (DbType = Decimal), @p12='?' (Size = 9), @p13='?' (Size = 12), @p14='?' (Size = 15), @p15='?' (Size = 17), @p16='?' (Size = 3), @p17='?' (DbType = Decimal), @p18='?' (Size = 11), @p19='?' (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AzurePrices" ("ArmRegionName", "ArmSkuName", "CurrencyCode", "EffectiveStartDate", "IsPrimaryMeterRegion", "LastUpdatedUtc", "Location", "MeterId", "MeterName", "ProductId", "ProductName", "RetailPrice", "ServiceFamily", "ServiceId", "ServiceName", "SkuId", "SkuName", "TierMinimumUnits", "Type", "UnitPrice")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19)
+RETURNING "Id";
+2026-04-19 16:44:21.871 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 11), @p1='?', @p2='?' (Size = 3), @p3='?' (DbType = DateTime), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTime), @p6='?' (Size = 8), @p7='?' (Size = 36), @p8='?' (Size = 21), @p9='?' (Size = 12), @p10='?' (Size = 15), @p11='?' (DbType = Decimal), @p12='?' (Size = 9), @p13='?' (Size = 12), @p14='?' (Size = 15), @p15='?' (Size = 17), @p16='?' (Size = 9), @p17='?' (DbType = Decimal), @p18='?' (Size = 11), @p19='?' (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AzurePrices" ("ArmRegionName", "ArmSkuName", "CurrencyCode", "EffectiveStartDate", "IsPrimaryMeterRegion", "LastUpdatedUtc", "Location", "MeterId", "MeterName", "ProductId", "ProductName", "RetailPrice", "ServiceFamily", "ServiceId", "ServiceName", "SkuId", "SkuName", "TierMinimumUnits", "Type", "UnitPrice")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19)
+RETURNING "Id";
+2026-04-19 16:44:21.871 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 11), @p1='?', @p2='?' (Size = 3), @p3='?' (DbType = DateTime), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTime), @p6='?' (Size = 8), @p7='?' (Size = 36), @p8='?' (Size = 2), @p9='?' (Size = 12), @p10='?' (Size = 15), @p11='?' (DbType = Decimal), @p12='?' (Size = 9), @p13='?' (Size = 12), @p14='?' (Size = 15), @p15='?' (Size = 17), @p16='?' (Size = 2), @p17='?' (DbType = Decimal), @p18='?' (Size = 11), @p19='?' (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AzurePrices" ("ArmRegionName", "ArmSkuName", "CurrencyCode", "EffectiveStartDate", "IsPrimaryMeterRegion", "LastUpdatedUtc", "Location", "MeterId", "MeterName", "ProductId", "ProductName", "RetailPrice", "ServiceFamily", "ServiceId", "ServiceName", "SkuId", "SkuName", "TierMinimumUnits", "Type", "UnitPrice")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19)
+RETURNING "Id";
+2026-04-19 16:44:21.872 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 11), @p1='?', @p2='?' (Size = 3), @p3='?' (DbType = DateTime), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTime), @p6='?' (Size = 8), @p7='?' (Size = 36), @p8='?' (Size = 2), @p9='?' (Size = 12), @p10='?' (Size = 15), @p11='?' (DbType = Decimal), @p12='?' (Size = 9), @p13='?' (Size = 12), @p14='?' (Size = 15), @p15='?' (Size = 17), @p16='?' (Size = 2), @p17='?' (DbType = Decimal), @p18='?' (Size = 11), @p19='?' (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AzurePrices" ("ArmRegionName", "ArmSkuName", "CurrencyCode", "EffectiveStartDate", "IsPrimaryMeterRegion", "LastUpdatedUtc", "Location", "MeterId", "MeterName", "ProductId", "ProductName", "RetailPrice", "ServiceFamily", "ServiceId", "ServiceName", "SkuId", "SkuName", "TierMinimumUnits", "Type", "UnitPrice")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19)
+RETURNING "Id";
+2026-04-19 16:44:21.873 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 11), @p1='?', @p2='?' (Size = 3), @p3='?' (DbType = DateTime), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTime), @p6='?' (Size = 8), @p7='?' (Size = 36), @p8='?' (Size = 26), @p9='?' (Size = 12), @p10='?' (Size = 15), @p11='?' (DbType = Decimal), @p12='?' (Size = 9), @p13='?' (Size = 12), @p14='?' (Size = 15), @p15='?' (Size = 17), @p16='?' (Size = 4), @p17='?' (DbType = Decimal), @p18='?' (Size = 11), @p19='?' (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AzurePrices" ("ArmRegionName", "ArmSkuName", "CurrencyCode", "EffectiveStartDate", "IsPrimaryMeterRegion", "LastUpdatedUtc", "Location", "MeterId", "MeterName", "ProductId", "ProductName", "RetailPrice", "ServiceFamily", "ServiceId", "ServiceName", "SkuId", "SkuName", "TierMinimumUnits", "Type", "UnitPrice")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19)
+RETURNING "Id";
+2026-04-19 16:44:21.874 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 11), @p1='?', @p2='?' (Size = 3), @p3='?' (DbType = DateTime), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTime), @p6='?' (Size = 8), @p7='?' (Size = 36), @p8='?' (Size = 11), @p9='?' (Size = 12), @p10='?' (Size = 15), @p11='?' (DbType = Decimal), @p12='?' (Size = 9), @p13='?' (Size = 12), @p14='?' (Size = 15), @p15='?' (Size = 17), @p16='?' (Size = 3), @p17='?' (DbType = Decimal), @p18='?' (Size = 11), @p19='?' (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AzurePrices" ("ArmRegionName", "ArmSkuName", "CurrencyCode", "EffectiveStartDate", "IsPrimaryMeterRegion", "LastUpdatedUtc", "Location", "MeterId", "MeterName", "ProductId", "ProductName", "RetailPrice", "ServiceFamily", "ServiceId", "ServiceName", "SkuId", "SkuName", "TierMinimumUnits", "Type", "UnitPrice")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19)
+RETURNING "Id";
+2026-04-19 16:44:21.874 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 11), @p1='?', @p2='?' (Size = 3), @p3='?' (DbType = DateTime), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTime), @p6='?' (Size = 8), @p7='?' (Size = 36), @p8='?' (Size = 21), @p9='?' (Size = 12), @p10='?' (Size = 15), @p11='?' (DbType = Decimal), @p12='?' (Size = 9), @p13='?' (Size = 12), @p14='?' (Size = 15), @p15='?' (Size = 17), @p16='?' (Size = 4), @p17='?' (DbType = Decimal), @p18='?' (Size = 11), @p19='?' (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AzurePrices" ("ArmRegionName", "ArmSkuName", "CurrencyCode", "EffectiveStartDate", "IsPrimaryMeterRegion", "LastUpdatedUtc", "Location", "MeterId", "MeterName", "ProductId", "ProductName", "RetailPrice", "ServiceFamily", "ServiceId", "ServiceName", "SkuId", "SkuName", "TierMinimumUnits", "Type", "UnitPrice")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19)
+RETURNING "Id";
+2026-04-19 16:44:21.874 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 11), @p1='?', @p2='?' (Size = 3), @p3='?' (DbType = DateTime), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTime), @p6='?' (Size = 8), @p7='?' (Size = 36), @p8='?' (Size = 11), @p9='?' (Size = 12), @p10='?' (Size = 15), @p11='?' (DbType = Decimal), @p12='?' (Size = 9), @p13='?' (Size = 12), @p14='?' (Size = 15), @p15='?' (Size = 17), @p16='?' (Size = 3), @p17='?' (DbType = Decimal), @p18='?' (Size = 11), @p19='?' (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AzurePrices" ("ArmRegionName", "ArmSkuName", "CurrencyCode", "EffectiveStartDate", "IsPrimaryMeterRegion", "LastUpdatedUtc", "Location", "MeterId", "MeterName", "ProductId", "ProductName", "RetailPrice", "ServiceFamily", "ServiceId", "ServiceName", "SkuId", "SkuName", "TierMinimumUnits", "Type", "UnitPrice")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19)
+RETURNING "Id";
+2026-04-19 16:44:21.875 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 11), @p1='?', @p2='?' (Size = 3), @p3='?' (DbType = DateTime), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTime), @p6='?' (Size = 8), @p7='?' (Size = 36), @p8='?' (Size = 11), @p9='?' (Size = 12), @p10='?' (Size = 15), @p11='?' (DbType = Decimal), @p12='?' (Size = 9), @p13='?' (Size = 12), @p14='?' (Size = 15), @p15='?' (Size = 17), @p16='?' (Size = 9), @p17='?' (DbType = Decimal), @p18='?' (Size = 11), @p19='?' (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AzurePrices" ("ArmRegionName", "ArmSkuName", "CurrencyCode", "EffectiveStartDate", "IsPrimaryMeterRegion", "LastUpdatedUtc", "Location", "MeterId", "MeterName", "ProductId", "ProductName", "RetailPrice", "ServiceFamily", "ServiceId", "ServiceName", "SkuId", "SkuName", "TierMinimumUnits", "Type", "UnitPrice")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19)
+RETURNING "Id";
+2026-04-19 16:44:21.875 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 11), @p1='?', @p2='?' (Size = 3), @p3='?' (DbType = DateTime), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTime), @p6='?' (Size = 8), @p7='?' (Size = 36), @p8='?' (Size = 11), @p9='?' (Size = 12), @p10='?' (Size = 15), @p11='?' (DbType = Decimal), @p12='?' (Size = 9), @p13='?' (Size = 12), @p14='?' (Size = 15), @p15='?' (Size = 17), @p16='?' (Size = 4), @p17='?' (DbType = Decimal), @p18='?' (Size = 11), @p19='?' (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AzurePrices" ("ArmRegionName", "ArmSkuName", "CurrencyCode", "EffectiveStartDate", "IsPrimaryMeterRegion", "LastUpdatedUtc", "Location", "MeterId", "MeterName", "ProductId", "ProductName", "RetailPrice", "ServiceFamily", "ServiceId", "ServiceName", "SkuId", "SkuName", "TierMinimumUnits", "Type", "UnitPrice")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19)
+RETURNING "Id";
+2026-04-19 16:44:21.875 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 11), @p1='?', @p2='?' (Size = 3), @p3='?' (DbType = DateTime), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTime), @p6='?' (Size = 8), @p7='?' (Size = 36), @p8='?' (Size = 26), @p9='?' (Size = 12), @p10='?' (Size = 18), @p11='?' (DbType = Decimal), @p12='?' (Size = 10), @p13='?' (Size = 12), @p14='?' (Size = 18), @p15='?' (Size = 17), @p16='?' (Size = 7), @p17='?' (DbType = Decimal), @p18='?' (Size = 11), @p19='?' (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AzurePrices" ("ArmRegionName", "ArmSkuName", "CurrencyCode", "EffectiveStartDate", "IsPrimaryMeterRegion", "LastUpdatedUtc", "Location", "MeterId", "MeterName", "ProductId", "ProductName", "RetailPrice", "ServiceFamily", "ServiceId", "ServiceName", "SkuId", "SkuName", "TierMinimumUnits", "Type", "UnitPrice")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19)
+RETURNING "Id";
+2026-04-19 16:44:21.876 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 11), @p1='?', @p2='?' (Size = 3), @p3='?' (DbType = DateTime), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTime), @p6='?' (Size = 8), @p7='?' (Size = 36), @p8='?' (Size = 11), @p9='?' (Size = 12), @p10='?' (Size = 18), @p11='?' (DbType = Decimal), @p12='?' (Size = 10), @p13='?' (Size = 12), @p14='?' (Size = 18), @p15='?' (Size = 17), @p16='?' (Size = 8), @p17='?' (DbType = Decimal), @p18='?' (Size = 11), @p19='?' (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AzurePrices" ("ArmRegionName", "ArmSkuName", "CurrencyCode", "EffectiveStartDate", "IsPrimaryMeterRegion", "LastUpdatedUtc", "Location", "MeterId", "MeterName", "ProductId", "ProductName", "RetailPrice", "ServiceFamily", "ServiceId", "ServiceName", "SkuId", "SkuName", "TierMinimumUnits", "Type", "UnitPrice")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19)
+RETURNING "Id";
+2026-04-19 16:44:21.876 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 11), @p1='?', @p2='?' (Size = 3), @p3='?' (DbType = DateTime), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTime), @p6='?' (Size = 8), @p7='?' (Size = 36), @p8='?' (Size = 18), @p9='?' (Size = 12), @p10='?' (Size = 18), @p11='?' (DbType = Decimal), @p12='?' (Size = 10), @p13='?' (Size = 12), @p14='?' (Size = 18), @p15='?' (Size = 17), @p16='?' (Size = 7), @p17='?' (DbType = Decimal), @p18='?' (Size = 11), @p19='?' (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AzurePrices" ("ArmRegionName", "ArmSkuName", "CurrencyCode", "EffectiveStartDate", "IsPrimaryMeterRegion", "LastUpdatedUtc", "Location", "MeterId", "MeterName", "ProductId", "ProductName", "RetailPrice", "ServiceFamily", "ServiceId", "ServiceName", "SkuId", "SkuName", "TierMinimumUnits", "Type", "UnitPrice")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19)
+RETURNING "Id";
+2026-04-19 16:44:21.877 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 11), @p1='?', @p2='?' (Size = 3), @p3='?' (DbType = DateTime), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTime), @p6='?' (Size = 8), @p7='?' (Size = 36), @p8='?' (Size = 18), @p9='?' (Size = 12), @p10='?' (Size = 18), @p11='?' (DbType = Decimal), @p12='?' (Size = 10), @p13='?' (Size = 12), @p14='?' (Size = 18), @p15='?' (Size = 17), @p16='?' (Size = 7), @p17='?' (DbType = Decimal), @p18='?' (Size = 11), @p19='?' (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AzurePrices" ("ArmRegionName", "ArmSkuName", "CurrencyCode", "EffectiveStartDate", "IsPrimaryMeterRegion", "LastUpdatedUtc", "Location", "MeterId", "MeterName", "ProductId", "ProductName", "RetailPrice", "ServiceFamily", "ServiceId", "ServiceName", "SkuId", "SkuName", "TierMinimumUnits", "Type", "UnitPrice")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19)
+RETURNING "Id";
+2026-04-19 16:44:21.877 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 11), @p1='?', @p2='?' (Size = 3), @p3='?' (DbType = DateTime), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTime), @p6='?' (Size = 8), @p7='?' (Size = 36), @p8='?' (Size = 19), @p9='?' (Size = 12), @p10='?' (Size = 18), @p11='?' (DbType = Decimal), @p12='?' (Size = 10), @p13='?' (Size = 12), @p14='?' (Size = 18), @p15='?' (Size = 17), @p16='?' (Size = 5), @p17='?' (DbType = Decimal), @p18='?' (Size = 11), @p19='?' (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AzurePrices" ("ArmRegionName", "ArmSkuName", "CurrencyCode", "EffectiveStartDate", "IsPrimaryMeterRegion", "LastUpdatedUtc", "Location", "MeterId", "MeterName", "ProductId", "ProductName", "RetailPrice", "ServiceFamily", "ServiceId", "ServiceName", "SkuId", "SkuName", "TierMinimumUnits", "Type", "UnitPrice")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19)
+RETURNING "Id";
+2026-04-19 16:44:21.877 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 11), @p1='?', @p2='?' (Size = 3), @p3='?' (DbType = DateTime), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTime), @p6='?' (Size = 8), @p7='?' (Size = 36), @p8='?' (Size = 11), @p9='?' (Size = 12), @p10='?' (Size = 18), @p11='?' (DbType = Decimal), @p12='?' (Size = 10), @p13='?' (Size = 12), @p14='?' (Size = 18), @p15='?' (Size = 17), @p16='?' (Size = 5), @p17='?' (DbType = Decimal), @p18='?' (Size = 11), @p19='?' (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AzurePrices" ("ArmRegionName", "ArmSkuName", "CurrencyCode", "EffectiveStartDate", "IsPrimaryMeterRegion", "LastUpdatedUtc", "Location", "MeterId", "MeterName", "ProductId", "ProductName", "RetailPrice", "ServiceFamily", "ServiceId", "ServiceName", "SkuId", "SkuName", "TierMinimumUnits", "Type", "UnitPrice")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19)
+RETURNING "Id";
+2026-04-19 16:44:21.878 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 11), @p1='?', @p2='?' (Size = 3), @p3='?' (DbType = DateTime), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTime), @p6='?' (Size = 8), @p7='?' (Size = 36), @p8='?' (Size = 33), @p9='?' (Size = 12), @p10='?' (Size = 18), @p11='?' (DbType = Decimal), @p12='?' (Size = 10), @p13='?' (Size = 12), @p14='?' (Size = 18), @p15='?' (Size = 17), @p16='?' (Size = 7), @p17='?' (DbType = Decimal), @p18='?' (Size = 11), @p19='?' (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AzurePrices" ("ArmRegionName", "ArmSkuName", "CurrencyCode", "EffectiveStartDate", "IsPrimaryMeterRegion", "LastUpdatedUtc", "Location", "MeterId", "MeterName", "ProductId", "ProductName", "RetailPrice", "ServiceFamily", "ServiceId", "ServiceName", "SkuId", "SkuName", "TierMinimumUnits", "Type", "UnitPrice")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19)
+RETURNING "Id";
+2026-04-19 16:44:21.879 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 11), @p1='?', @p2='?' (Size = 3), @p3='?' (DbType = DateTime), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTime), @p6='?' (Size = 8), @p7='?' (Size = 36), @p8='?' (Size = 22), @p9='?' (Size = 12), @p10='?' (Size = 18), @p11='?' (DbType = Decimal), @p12='?' (Size = 10), @p13='?' (Size = 12), @p14='?' (Size = 18), @p15='?' (Size = 17), @p16='?' (Size = 8), @p17='?' (DbType = Decimal), @p18='?' (Size = 11), @p19='?' (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AzurePrices" ("ArmRegionName", "ArmSkuName", "CurrencyCode", "EffectiveStartDate", "IsPrimaryMeterRegion", "LastUpdatedUtc", "Location", "MeterId", "MeterName", "ProductId", "ProductName", "RetailPrice", "ServiceFamily", "ServiceId", "ServiceName", "SkuId", "SkuName", "TierMinimumUnits", "Type", "UnitPrice")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19)
+RETURNING "Id";
+2026-04-19 16:44:21.879 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 11), @p1='?', @p2='?' (Size = 3), @p3='?' (DbType = DateTime), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTime), @p6='?' (Size = 8), @p7='?' (Size = 36), @p8='?' (Size = 43), @p9='?' (Size = 12), @p10='?' (Size = 18), @p11='?' (DbType = Decimal), @p12='?' (Size = 10), @p13='?' (Size = 12), @p14='?' (Size = 18), @p15='?' (Size = 17), @p16='?' (Size = 7), @p17='?' (DbType = Decimal), @p18='?' (Size = 11), @p19='?' (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AzurePrices" ("ArmRegionName", "ArmSkuName", "CurrencyCode", "EffectiveStartDate", "IsPrimaryMeterRegion", "LastUpdatedUtc", "Location", "MeterId", "MeterName", "ProductId", "ProductName", "RetailPrice", "ServiceFamily", "ServiceId", "ServiceName", "SkuId", "SkuName", "TierMinimumUnits", "Type", "UnitPrice")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19)
+RETURNING "Id";
+2026-04-19 16:44:21.879 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 11), @p1='?', @p2='?' (Size = 3), @p3='?' (DbType = DateTime), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTime), @p6='?' (Size = 8), @p7='?' (Size = 36), @p8='?' (Size = 21), @p9='?' (Size = 12), @p10='?' (Size = 18), @p11='?' (DbType = Decimal), @p12='?' (Size = 10), @p13='?' (Size = 12), @p14='?' (Size = 18), @p15='?' (Size = 17), @p16='?' (Size = 7), @p17='?' (DbType = Decimal), @p18='?' (Size = 11), @p19='?' (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AzurePrices" ("ArmRegionName", "ArmSkuName", "CurrencyCode", "EffectiveStartDate", "IsPrimaryMeterRegion", "LastUpdatedUtc", "Location", "MeterId", "MeterName", "ProductId", "ProductName", "RetailPrice", "ServiceFamily", "ServiceId", "ServiceName", "SkuId", "SkuName", "TierMinimumUnits", "Type", "UnitPrice")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19)
+RETURNING "Id";
+2026-04-19 16:44:21.880 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 11), @p1='?', @p2='?' (Size = 3), @p3='?' (DbType = DateTime), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTime), @p6='?' (Size = 8), @p7='?' (Size = 36), @p8='?' (Size = 18), @p9='?' (Size = 12), @p10='?' (Size = 18), @p11='?' (DbType = Decimal), @p12='?' (Size = 10), @p13='?' (Size = 12), @p14='?' (Size = 18), @p15='?' (Size = 17), @p16='?' (Size = 8), @p17='?' (DbType = Decimal), @p18='?' (Size = 11), @p19='?' (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AzurePrices" ("ArmRegionName", "ArmSkuName", "CurrencyCode", "EffectiveStartDate", "IsPrimaryMeterRegion", "LastUpdatedUtc", "Location", "MeterId", "MeterName", "ProductId", "ProductName", "RetailPrice", "ServiceFamily", "ServiceId", "ServiceName", "SkuId", "SkuName", "TierMinimumUnits", "Type", "UnitPrice")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19)
+RETURNING "Id";
+2026-04-19 16:44:21.880 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 11), @p1='?', @p2='?' (Size = 3), @p3='?' (DbType = DateTime), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTime), @p6='?' (Size = 8), @p7='?' (Size = 36), @p8='?' (Size = 18), @p9='?' (Size = 12), @p10='?' (Size = 18), @p11='?' (DbType = Decimal), @p12='?' (Size = 10), @p13='?' (Size = 12), @p14='?' (Size = 18), @p15='?' (Size = 17), @p16='?' (Size = 8), @p17='?' (DbType = Decimal), @p18='?' (Size = 11), @p19='?' (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AzurePrices" ("ArmRegionName", "ArmSkuName", "CurrencyCode", "EffectiveStartDate", "IsPrimaryMeterRegion", "LastUpdatedUtc", "Location", "MeterId", "MeterName", "ProductId", "ProductName", "RetailPrice", "ServiceFamily", "ServiceId", "ServiceName", "SkuId", "SkuName", "TierMinimumUnits", "Type", "UnitPrice")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19)
+RETURNING "Id";
+2026-04-19 16:44:21.880 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 11), @p1='?', @p2='?' (Size = 3), @p3='?' (DbType = DateTime), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTime), @p6='?' (Size = 8), @p7='?' (Size = 36), @p8='?' (Size = 11), @p9='?' (Size = 12), @p10='?' (Size = 18), @p11='?' (DbType = Decimal), @p12='?' (Size = 10), @p13='?' (Size = 12), @p14='?' (Size = 18), @p15='?' (Size = 17), @p16='?' (Size = 7), @p17='?' (DbType = Decimal), @p18='?' (Size = 11), @p19='?' (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AzurePrices" ("ArmRegionName", "ArmSkuName", "CurrencyCode", "EffectiveStartDate", "IsPrimaryMeterRegion", "LastUpdatedUtc", "Location", "MeterId", "MeterName", "ProductId", "ProductName", "RetailPrice", "ServiceFamily", "ServiceId", "ServiceName", "SkuId", "SkuName", "TierMinimumUnits", "Type", "UnitPrice")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19)
+RETURNING "Id";
+2026-04-19 16:44:21.881 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 11), @p1='?', @p2='?' (Size = 3), @p3='?' (DbType = DateTime), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTime), @p6='?' (Size = 8), @p7='?' (Size = 36), @p8='?' (Size = 18), @p9='?' (Size = 12), @p10='?' (Size = 18), @p11='?' (DbType = Decimal), @p12='?' (Size = 10), @p13='?' (Size = 12), @p14='?' (Size = 18), @p15='?' (Size = 17), @p16='?' (Size = 5), @p17='?' (DbType = Decimal), @p18='?' (Size = 11), @p19='?' (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AzurePrices" ("ArmRegionName", "ArmSkuName", "CurrencyCode", "EffectiveStartDate", "IsPrimaryMeterRegion", "LastUpdatedUtc", "Location", "MeterId", "MeterName", "ProductId", "ProductName", "RetailPrice", "ServiceFamily", "ServiceId", "ServiceName", "SkuId", "SkuName", "TierMinimumUnits", "Type", "UnitPrice")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19)
+RETURNING "Id";
+2026-04-19 16:44:21.881 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 11), @p1='?', @p2='?' (Size = 3), @p3='?' (DbType = DateTime), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTime), @p6='?' (Size = 8), @p7='?' (Size = 36), @p8='?' (Size = 18), @p9='?' (Size = 12), @p10='?' (Size = 18), @p11='?' (DbType = Decimal), @p12='?' (Size = 10), @p13='?' (Size = 12), @p14='?' (Size = 18), @p15='?' (Size = 17), @p16='?' (Size = 5), @p17='?' (DbType = Decimal), @p18='?' (Size = 11), @p19='?' (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AzurePrices" ("ArmRegionName", "ArmSkuName", "CurrencyCode", "EffectiveStartDate", "IsPrimaryMeterRegion", "LastUpdatedUtc", "Location", "MeterId", "MeterName", "ProductId", "ProductName", "RetailPrice", "ServiceFamily", "ServiceId", "ServiceName", "SkuId", "SkuName", "TierMinimumUnits", "Type", "UnitPrice")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19)
+RETURNING "Id";
+2026-04-19 16:44:21.926 +00:00 [WRN] Overriding HTTP_PORTS '8080' and HTTPS_PORTS ''. Binding to values defined by URLS instead 'http://+:8080'.
+2026-04-19 16:44:21.947 +00:00 [INF] Now listening on: http://[::]:8080
+2026-04-19 16:44:21.947 +00:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-19 16:44:21.947 +00:00 [INF] Hosting environment: Production
+2026-04-19 16:44:21.947 +00:00 [INF] Content root path: /app
+2026-04-19 16:45:13.897 +00:00 [INF] Application is shutting down...
+2026-04-19 16:45:23.594 +00:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2026-04-19 16:45:23.607 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2026-04-19 16:45:23.614 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+2026-04-19 16:45:23.619 +00:00 [INF] No migrations were applied. The database is already up to date.
+2026-04-19 16:45:23.698 +00:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "AzurePrices" AS "a")
+2026-04-19 16:45:23.716 +00:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT MAX("a"."LastUpdatedUtc")
+FROM "AzurePrices" AS "a"
+2026-04-19 16:45:23.723 +00:00 [INF] Data already exists.
+2026-04-19 16:45:23.750 +00:00 [WRN] Overriding HTTP_PORTS '8080' and HTTPS_PORTS ''. Binding to values defined by URLS instead 'http://+:8080'.
+2026-04-19 16:45:23.796 +00:00 [INF] Now listening on: http://[::]:8080
+2026-04-19 16:45:23.796 +00:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-19 16:45:23.796 +00:00 [INF] Hosting environment: Production
+2026-04-19 16:45:23.796 +00:00 [INF] Content root path: /app
+2026-04-19 16:47:22.646 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5600/api/customer-calculator - null null
+2026-04-19 16:47:22.667 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5600/api/customer-calculator - 404 0 null 21.3397ms
+2026-04-19 16:47:22.669 +00:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5600/api/customer-calculator, Response status code: 404
+2026-04-19 16:47:27.174 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5600/api/customer-calculator - null null
+2026-04-19 16:47:27.177 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5600/api/customer-calculator - 404 0 null 2.8091ms
+2026-04-19 16:47:27.177 +00:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5600/api/customer-calculator, Response status code: 404
+2026-04-19 16:58:05.649 +00:00 [INF] Application is shutting down...
+2026-04-19 16:58:06.569 +00:00 [INF] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2026-04-19 16:58:06.586 +00:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2026-04-19 16:58:06.598 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+2026-04-19 16:58:06.610 +00:00 [INF] No migrations were applied. The database is already up to date.
+2026-04-19 16:58:06.712 +00:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "AzurePrices" AS "a")
+2026-04-19 16:58:06.733 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT MAX("a"."LastUpdatedUtc")
+FROM "AzurePrices" AS "a"
+2026-04-19 16:58:06.742 +00:00 [INF] Data already exists.
+2026-04-19 16:58:06.788 +00:00 [WRN] Overriding HTTP_PORTS '8080' and HTTPS_PORTS ''. Binding to values defined by URLS instead 'http://+:8080'.
+2026-04-19 16:58:06.849 +00:00 [INF] Now listening on: http://[::]:8080
+2026-04-19 16:58:06.849 +00:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-19 16:58:06.849 +00:00 [INF] Hosting environment: Production
+2026-04-19 16:58:06.849 +00:00 [INF] Content root path: /app
+2026-04-19 16:59:08.972 +00:00 [INF] Application is shutting down...
+2026-04-19 16:59:15.777 +00:00 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2026-04-19 16:59:15.789 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2026-04-19 16:59:15.796 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+2026-04-19 16:59:15.802 +00:00 [INF] No migrations were applied. The database is already up to date.
+2026-04-19 16:59:15.898 +00:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "AzurePrices" AS "a")
+2026-04-19 16:59:15.915 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT MAX("a"."LastUpdatedUtc")
+FROM "AzurePrices" AS "a"
+2026-04-19 16:59:15.925 +00:00 [INF] Data already exists.
+2026-04-19 16:59:15.959 +00:00 [WRN] Overriding HTTP_PORTS '8080' and HTTPS_PORTS ''. Binding to values defined by URLS instead 'http://+:8080'.
+2026-04-19 16:59:16.003 +00:00 [INF] Now listening on: http://[::]:8080
+2026-04-19 16:59:16.003 +00:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-19 16:59:16.003 +00:00 [INF] Hosting environment: Production
+2026-04-19 16:59:16.003 +00:00 [INF] Content root path: /app
+2026-04-19 17:01:24.126 +00:00 [INF] Request starting HTTP/1.1 POST http://localhost:5600/api/Customer - application/json 114
+2026-04-19 17:01:24.159 +00:00 [INF] Request finished HTTP/1.1 POST http://localhost:5600/api/Customer - 404 0 null 35.7265ms
+2026-04-19 17:01:24.161 +00:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: POST http://localhost:5600/api/Customer, Response status code: 404
+2026-04-19 17:02:07.809 +00:00 [INF] Request starting HTTP/1.1 POST http://localhost:5600/api/customer - application/json 114
+2026-04-19 17:02:07.819 +00:00 [INF] Request finished HTTP/1.1 POST http://localhost:5600/api/customer - 404 0 null 11.7213ms
+2026-04-19 17:02:07.820 +00:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: POST http://localhost:5600/api/customer, Response status code: 404
+2026-04-19 17:07:32.993 +00:00 [INF] Request starting HTTP/1.1 POST http://localhost:5600/api/Calculator/Customer-calulator - application/json 114
+2026-04-19 17:07:33.005 +00:00 [INF] Request finished HTTP/1.1 POST http://localhost:5600/api/Calculator/Customer-calulator - 404 0 null 12.0295ms
+2026-04-19 17:07:33.006 +00:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: POST http://localhost:5600/api/Calculator/Customer-calulator, Response status code: 404
+2026-04-19 17:08:53.377 +00:00 [INF] Application is shutting down...
+2026-04-19 17:08:54.316 +00:00 [INF] Executed DbCommand (16ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2026-04-19 17:08:54.328 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2026-04-19 17:08:54.336 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+2026-04-19 17:08:54.349 +00:00 [INF] No migrations were applied. The database is already up to date.
+2026-04-19 17:08:54.457 +00:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "AzurePrices" AS "a")
+2026-04-19 17:08:54.479 +00:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT MAX("a"."LastUpdatedUtc")
+FROM "AzurePrices" AS "a"
+2026-04-19 17:08:54.488 +00:00 [INF] Data already exists.
+2026-04-19 17:08:54.523 +00:00 [WRN] Overriding HTTP_PORTS '8080' and HTTPS_PORTS ''. Binding to values defined by URLS instead 'http://+:8080'.
+2026-04-19 17:08:54.570 +00:00 [INF] Now listening on: http://[::]:8080
+2026-04-19 17:08:54.571 +00:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-19 17:08:54.572 +00:00 [INF] Hosting environment: Production
+2026-04-19 17:08:54.572 +00:00 [INF] Content root path: /app
+2026-04-19 17:10:14.460 +00:00 [INF] Request starting HTTP/1.1 POST http://localhost:5600/api/Calculator/Customer-calulator - application/json 114
+2026-04-19 17:10:14.511 +00:00 [INF] Executing endpoint 'ProsjektOppgave_AdeleTjoennaas.Controllers.CalculatorController.Calculate (prosjektoppgave_AdeleTjoennaas)'
+2026-04-19 17:10:14.524 +00:00 [INF] Route matched with {action = "Calculate", controller = "Calculator"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.List`1[ProsjektOppgave_AdeleTjoennaas.Models.CustomerCalculationResult]] Calculate(ProsjektOppgave_AdeleTjoennaas.Models.CustomerInput) on controller ProsjektOppgave_AdeleTjoennaas.Controllers.CalculatorController (prosjektoppgave_AdeleTjoennaas).
+2026-04-19 17:10:14.552 +00:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[ProsjektOppgave_AdeleTjoennaas.Models.CustomerCalculationResult, prosjektoppgave_AdeleTjoennaas, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-04-19 17:10:14.563 +00:00 [INF] Executed action ProsjektOppgave_AdeleTjoennaas.Controllers.CalculatorController.Calculate (prosjektoppgave_AdeleTjoennaas) in 36.8985ms
+2026-04-19 17:10:14.563 +00:00 [INF] Executed endpoint 'ProsjektOppgave_AdeleTjoennaas.Controllers.CalculatorController.Calculate (prosjektoppgave_AdeleTjoennaas)'
+2026-04-19 17:10:14.564 +00:00 [INF] Request finished HTTP/1.1 POST http://localhost:5600/api/Calculator/Customer-calulator - 200 null application/json; charset=utf-8 107.2145ms
+2026-04-19 17:10:48.754 +00:00 [INF] Request starting HTTP/1.1 POST http://localhost:5600/api/Calculator/Customer-calulator - application/json 116
+2026-04-19 17:10:48.766 +00:00 [INF] Executing endpoint 'ProsjektOppgave_AdeleTjoennaas.Controllers.CalculatorController.Calculate (prosjektoppgave_AdeleTjoennaas)'
+2026-04-19 17:10:48.768 +00:00 [INF] Route matched with {action = "Calculate", controller = "Calculator"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.List`1[ProsjektOppgave_AdeleTjoennaas.Models.CustomerCalculationResult]] Calculate(ProsjektOppgave_AdeleTjoennaas.Models.CustomerInput) on controller ProsjektOppgave_AdeleTjoennaas.Controllers.CalculatorController (prosjektoppgave_AdeleTjoennaas).
+2026-04-19 17:10:48.772 +00:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[ProsjektOppgave_AdeleTjoennaas.Models.CustomerCalculationResult, prosjektoppgave_AdeleTjoennaas, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-04-19 17:10:48.773 +00:00 [INF] Executed action ProsjektOppgave_AdeleTjoennaas.Controllers.CalculatorController.Calculate (prosjektoppgave_AdeleTjoennaas) in 5.3813ms
+2026-04-19 17:10:48.774 +00:00 [INF] Executed endpoint 'ProsjektOppgave_AdeleTjoennaas.Controllers.CalculatorController.Calculate (prosjektoppgave_AdeleTjoennaas)'
+2026-04-19 17:10:48.774 +00:00 [INF] Request finished HTTP/1.1 POST http://localhost:5600/api/Calculator/Customer-calulator - 200 null application/json; charset=utf-8 21.1572ms
+2026-04-19 17:17:47.583 +00:00 [INF] Request starting HTTP/1.1 POST http://localhost:5600/api/Calculator/Customer-calulator - application/json 116
+2026-04-19 17:17:47.593 +00:00 [INF] Executing endpoint 'ProsjektOppgave_AdeleTjoennaas.Controllers.CalculatorController.Calculate (prosjektoppgave_AdeleTjoennaas)'
+2026-04-19 17:17:47.594 +00:00 [INF] Route matched with {action = "Calculate", controller = "Calculator"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.List`1[ProsjektOppgave_AdeleTjoennaas.Models.CustomerCalculationResult]] Calculate(ProsjektOppgave_AdeleTjoennaas.Models.CustomerInput) on controller ProsjektOppgave_AdeleTjoennaas.Controllers.CalculatorController (prosjektoppgave_AdeleTjoennaas).
+2026-04-19 17:17:47.599 +00:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[ProsjektOppgave_AdeleTjoennaas.Models.CustomerCalculationResult, prosjektoppgave_AdeleTjoennaas, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-04-19 17:17:47.600 +00:00 [INF] Executed action ProsjektOppgave_AdeleTjoennaas.Controllers.CalculatorController.Calculate (prosjektoppgave_AdeleTjoennaas) in 5.9992ms
+2026-04-19 17:17:47.600 +00:00 [INF] Executed endpoint 'ProsjektOppgave_AdeleTjoennaas.Controllers.CalculatorController.Calculate (prosjektoppgave_AdeleTjoennaas)'
+2026-04-19 17:17:47.601 +00:00 [INF] Request finished HTTP/1.1 POST http://localhost:5600/api/Calculator/Customer-calulator - 200 null application/json; charset=utf-8 17.889ms
+2026-04-19 17:32:40.079 +00:00 [INF] Application is shutting down...
+2026-04-19 17:39:01.909 +00:00 [INF] Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2026-04-19 17:39:01.925 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2026-04-19 17:39:01.935 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+2026-04-19 17:39:01.943 +00:00 [INF] No migrations were applied. The database is already up to date.
+2026-04-19 17:39:02.058 +00:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "AzurePrices" AS "a")
+2026-04-19 17:39:02.080 +00:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT MAX("a"."LastUpdatedUtc")
+FROM "AzurePrices" AS "a"
+2026-04-19 17:39:02.090 +00:00 [INF] Data already exists.
+2026-04-19 17:39:02.135 +00:00 [WRN] Overriding HTTP_PORTS '8080' and HTTPS_PORTS ''. Binding to values defined by URLS instead 'http://+:8080'.
+2026-04-19 17:39:02.185 +00:00 [INF] Now listening on: http://[::]:8080
+2026-04-19 17:39:02.185 +00:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-19 17:39:02.186 +00:00 [INF] Hosting environment: Production
+2026-04-19 17:39:02.186 +00:00 [INF] Content root path: /app
+2026-04-19 17:39:12.406 +00:00 [INF] Request starting HTTP/1.1 POST http://localhost:5600/api/Calculator/Customer-calulator - application/json 116
+2026-04-19 17:39:12.426 +00:00 [INF] Executing endpoint 'ProsjektOppgave_AdeleTjoennaas.Controllers.CalculatorController.Calculate (prosjektoppgave_AdeleTjoennaas)'
+2026-04-19 17:39:12.456 +00:00 [INF] Route matched with {action = "Calculate", controller = "Calculator"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.List`1[ProsjektOppgave_AdeleTjoennaas.Models.CustomerCalculationResult]] Calculate(ProsjektOppgave_AdeleTjoennaas.Models.CustomerInput) on controller ProsjektOppgave_AdeleTjoennaas.Controllers.CalculatorController (prosjektoppgave_AdeleTjoennaas).
+2026-04-19 17:39:12.482 +00:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[ProsjektOppgave_AdeleTjoennaas.Models.CustomerCalculationResult, prosjektoppgave_AdeleTjoennaas, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-04-19 17:39:12.491 +00:00 [INF] Executed action ProsjektOppgave_AdeleTjoennaas.Controllers.CalculatorController.Calculate (prosjektoppgave_AdeleTjoennaas) in 33.4649ms
+2026-04-19 17:39:12.491 +00:00 [INF] Executed endpoint 'ProsjektOppgave_AdeleTjoennaas.Controllers.CalculatorController.Calculate (prosjektoppgave_AdeleTjoennaas)'
+2026-04-19 17:39:12.492 +00:00 [INF] Request finished HTTP/1.1 POST http://localhost:5600/api/Calculator/Customer-calulator - 200 null application/json; charset=utf-8 88.142ms
+2026-04-19 17:40:19.275 +00:00 [INF] Application is shutting down...
+2026-04-19 17:40:20.647 +00:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2026-04-19 17:40:20.669 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2026-04-19 17:40:20.677 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+2026-04-19 17:40:20.685 +00:00 [INF] No migrations were applied. The database is already up to date.
+2026-04-19 17:40:20.783 +00:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "AzurePrices" AS "a")
+2026-04-19 17:40:20.808 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT MAX("a"."LastUpdatedUtc")
+FROM "AzurePrices" AS "a"
+2026-04-19 17:40:20.820 +00:00 [INF] Data already exists.
+2026-04-19 17:40:20.893 +00:00 [WRN] Overriding HTTP_PORTS '8080' and HTTPS_PORTS ''. Binding to values defined by URLS instead 'http://+:8080'.
+2026-04-19 17:40:20.957 +00:00 [INF] Now listening on: http://[::]:8080
+2026-04-19 17:40:20.960 +00:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-19 17:40:20.961 +00:00 [INF] Hosting environment: Production
+2026-04-19 17:40:20.962 +00:00 [INF] Content root path: /app
+2026-04-19 17:40:43.192 +00:00 [INF] Request starting HTTP/1.1 POST http://localhost:5600/api/Calculator/Customer-calulator - application/json 116
+2026-04-19 17:40:43.218 +00:00 [INF] Executing endpoint 'ProsjektOppgave_AdeleTjoennaas.Controllers.CalculatorController.Calculate (prosjektoppgave_AdeleTjoennaas)'
+2026-04-19 17:40:43.231 +00:00 [INF] Route matched with {action = "Calculate", controller = "Calculator"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.List`1[ProsjektOppgave_AdeleTjoennaas.Models.CustomerCalculationResult]] Calculate(ProsjektOppgave_AdeleTjoennaas.Models.CustomerInput) on controller ProsjektOppgave_AdeleTjoennaas.Controllers.CalculatorController (prosjektoppgave_AdeleTjoennaas).
+2026-04-19 17:40:43.264 +00:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[ProsjektOppgave_AdeleTjoennaas.Models.CustomerCalculationResult, prosjektoppgave_AdeleTjoennaas, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-04-19 17:40:43.274 +00:00 [INF] Executed action ProsjektOppgave_AdeleTjoennaas.Controllers.CalculatorController.Calculate (prosjektoppgave_AdeleTjoennaas) in 40.6176ms
+2026-04-19 17:40:43.274 +00:00 [INF] Executed endpoint 'ProsjektOppgave_AdeleTjoennaas.Controllers.CalculatorController.Calculate (prosjektoppgave_AdeleTjoennaas)'
+2026-04-19 17:40:43.275 +00:00 [INF] Request finished HTTP/1.1 POST http://localhost:5600/api/Calculator/Customer-calulator - 200 null application/json; charset=utf-8 83.934ms
+2026-04-19 17:40:51.488 +00:00 [INF] Application is shutting down...
+2026-04-19 17:41:37.500 +00:00 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2026-04-19 17:41:37.515 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2026-04-19 17:41:37.526 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+2026-04-19 17:41:37.537 +00:00 [INF] No migrations were applied. The database is already up to date.
+2026-04-19 17:41:37.669 +00:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "AzurePrices" AS "a")
+2026-04-19 17:41:37.702 +00:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT MAX("a"."LastUpdatedUtc")
+FROM "AzurePrices" AS "a"
+2026-04-19 17:41:37.711 +00:00 [INF] Data already exists.
+2026-04-19 17:41:37.755 +00:00 [WRN] Overriding HTTP_PORTS '8080' and HTTPS_PORTS ''. Binding to values defined by URLS instead 'http://+:8080'.
+2026-04-19 17:41:37.839 +00:00 [INF] Now listening on: http://[::]:8080
+2026-04-19 17:41:37.840 +00:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-19 17:41:37.841 +00:00 [INF] Hosting environment: Production
+2026-04-19 17:41:37.841 +00:00 [INF] Content root path: /app
+2026-04-19 17:42:09.931 +00:00 [INF] Request starting HTTP/1.1 POST http://localhost:5600/api/Calculator/Customer-calulator - application/json 116
+2026-04-19 17:42:09.950 +00:00 [INF] Executing endpoint 'ProsjektOppgave_AdeleTjoennaas.Controllers.CalculatorController.Calculate (prosjektoppgave_AdeleTjoennaas)'
+2026-04-19 17:42:09.965 +00:00 [INF] Route matched with {action = "Calculate", controller = "Calculator"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.List`1[ProsjektOppgave_AdeleTjoennaas.Models.CustomerCalculationResult]] Calculate(ProsjektOppgave_AdeleTjoennaas.Models.CustomerInput) on controller ProsjektOppgave_AdeleTjoennaas.Controllers.CalculatorController (prosjektoppgave_AdeleTjoennaas).
+2026-04-19 17:42:09.989 +00:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[ProsjektOppgave_AdeleTjoennaas.Models.CustomerCalculationResult, prosjektoppgave_AdeleTjoennaas, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-04-19 17:42:09.999 +00:00 [INF] Executed action ProsjektOppgave_AdeleTjoennaas.Controllers.CalculatorController.Calculate (prosjektoppgave_AdeleTjoennaas) in 29.7514ms
+2026-04-19 17:42:09.999 +00:00 [INF] Executed endpoint 'ProsjektOppgave_AdeleTjoennaas.Controllers.CalculatorController.Calculate (prosjektoppgave_AdeleTjoennaas)'
+2026-04-19 17:42:10.000 +00:00 [INF] Request finished HTTP/1.1 POST http://localhost:5600/api/Calculator/Customer-calulator - 200 null application/json; charset=utf-8 70.8342ms
+2026-04-19 20:04:15.650 +00:00 [INF] Request starting HTTP/1.1 POST http://localhost:5600/api/Calculator/Customer-calulator - application/json 116
+2026-04-19 20:04:15.663 +00:00 [INF] Executing endpoint 'ProsjektOppgave_AdeleTjoennaas.Controllers.CalculatorController.Calculate (prosjektoppgave_AdeleTjoennaas)'
+2026-04-19 20:04:15.664 +00:00 [INF] Route matched with {action = "Calculate", controller = "Calculator"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.List`1[ProsjektOppgave_AdeleTjoennaas.Models.CustomerCalculationResult]] Calculate(ProsjektOppgave_AdeleTjoennaas.Models.CustomerInput) on controller ProsjektOppgave_AdeleTjoennaas.Controllers.CalculatorController (prosjektoppgave_AdeleTjoennaas).
+2026-04-19 20:04:15.669 +00:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[ProsjektOppgave_AdeleTjoennaas.Models.CustomerCalculationResult, prosjektoppgave_AdeleTjoennaas, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-04-19 20:04:15.671 +00:00 [INF] Executed action ProsjektOppgave_AdeleTjoennaas.Controllers.CalculatorController.Calculate (prosjektoppgave_AdeleTjoennaas) in 6.2374ms
+2026-04-19 20:04:15.671 +00:00 [INF] Executed endpoint 'ProsjektOppgave_AdeleTjoennaas.Controllers.CalculatorController.Calculate (prosjektoppgave_AdeleTjoennaas)'
+2026-04-19 20:04:15.676 +00:00 [INF] Request finished HTTP/1.1 POST http://localhost:5600/api/Calculator/Customer-calulator - 200 null application/json; charset=utf-8 26.0522ms
+2026-04-19 20:04:52.107 +00:00 [INF] Application is shutting down...
+2026-04-19 20:05:34.097 +00:00 [INF] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2026-04-19 20:05:34.110 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2026-04-19 20:05:34.118 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+2026-04-19 20:05:34.125 +00:00 [INF] No migrations were applied. The database is already up to date.
+2026-04-19 20:05:34.241 +00:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "AzurePrices" AS "a")
+2026-04-19 20:05:34.262 +00:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT MAX("a"."LastUpdatedUtc")
+FROM "AzurePrices" AS "a"
+2026-04-19 20:05:34.270 +00:00 [INF] Data already exists.
+2026-04-19 20:05:34.305 +00:00 [WRN] Overriding HTTP_PORTS '8080' and HTTPS_PORTS ''. Binding to values defined by URLS instead 'http://+:8080'.
+2026-04-19 20:05:34.361 +00:00 [INF] Now listening on: http://[::]:8080
+2026-04-19 20:05:34.361 +00:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-19 20:05:34.361 +00:00 [INF] Hosting environment: Production
+2026-04-19 20:05:34.362 +00:00 [INF] Content root path: /app
+2026-04-19 20:05:41.452 +00:00 [INF] Request starting HTTP/1.1 POST http://localhost:5600/api/Calculator/Customer-calulator - application/json 116
+2026-04-19 20:05:41.474 +00:00 [INF] Executing endpoint 'ProsjektOppgave_AdeleTjoennaas.Controllers.CalculatorController.Calculate (prosjektoppgave_AdeleTjoennaas)'
+2026-04-19 20:05:41.483 +00:00 [INF] Route matched with {action = "Calculate", controller = "Calculator"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.List`1[ProsjektOppgave_AdeleTjoennaas.Models.CustomerCalculationResult]] Calculate(ProsjektOppgave_AdeleTjoennaas.Models.CustomerInput) on controller ProsjektOppgave_AdeleTjoennaas.Controllers.CalculatorController (prosjektoppgave_AdeleTjoennaas).
+2026-04-19 20:05:41.504 +00:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[ProsjektOppgave_AdeleTjoennaas.Models.CustomerCalculationResult, prosjektoppgave_AdeleTjoennaas, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-04-19 20:05:41.514 +00:00 [INF] Executed action ProsjektOppgave_AdeleTjoennaas.Controllers.CalculatorController.Calculate (prosjektoppgave_AdeleTjoennaas) in 29.9276ms
+2026-04-19 20:05:41.514 +00:00 [INF] Executed endpoint 'ProsjektOppgave_AdeleTjoennaas.Controllers.CalculatorController.Calculate (prosjektoppgave_AdeleTjoennaas)'
+2026-04-19 20:05:41.515 +00:00 [INF] Request finished HTTP/1.1 POST http://localhost:5600/api/Calculator/Customer-calulator - 200 null application/json; charset=utf-8 65.1068ms

@@ -20,7 +20,9 @@ Log.Logger = new LoggerConfiguration()
 
 builder.Host.UseSerilog();
 
+
 builder.Services.AddControllers();
+builder.Services.AddScoped<Calculator>();
 builder.Services.AddSerilog();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
