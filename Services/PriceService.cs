@@ -18,7 +18,7 @@ namespace ProsjektOppgave_AdeleTjoennaas.Services
 
         public async Task<List<AzurePrice>> GetPricesAsync(string product, string region, string currency)
         {
-            var allPrices = new List<AzurePrice>();
+            List<AzurePrice> allPrices = new List<AzurePrice>();
 
             var url = $"https://prices.azure.com/api/retail/prices?currencyCode='{currency}'" +
                       $"&$filter=armRegionName eq '{region}'" +

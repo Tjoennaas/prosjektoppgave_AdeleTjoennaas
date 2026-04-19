@@ -24,7 +24,7 @@ Grunnpris → Base price */
 
 
 
-using Microsoft.AspNetCore.Components.Forms;
+
 using ProsjektOppgave_AdeleTjoennaas.Models;
 
 
@@ -44,7 +44,7 @@ namespace ProsjektOppgave_AdeleTjoennaas.Services
             }}
 
        
-              public double CalculateAcitvUser (CustomerInput input) {   
+              public double CalculateActiveUser (CustomerInput input) {   
 
                 if (input.ActiveUsers <= 10)
             {
@@ -73,7 +73,7 @@ namespace ProsjektOppgave_AdeleTjoennaas.Services
          public double CalculateTotalForPeriod(CustomerInput input, int periodNumber)
         {
             double eventCost = CalculateEventsPerPeriod(input);
-            double userCost = CalculateAcitvUser(input);
+            double userCost = CalculateActiveUser(input);
             double retentionCost = CalculateRetentionCost(input, periodNumber);
 
             return eventCost + userCost + retentionCost;
