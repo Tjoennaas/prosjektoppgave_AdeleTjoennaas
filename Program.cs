@@ -1,15 +1,18 @@
 
 
 using Serilog;
+using ProsjektOppgave_AdeleTjoennaas.Models;
 using ProsjektOppgave_AdeleTjoennaas.Services;
 using ProsjektOppgave_AdeleTjoennaas.BackgroundTask;
 using ProsjektOppgave_AdeleTjoennaas.Data;
 using Microsoft.EntityFrameworkCore;
 
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 
+  
 builder.Services.AddDbContext<PriceAzureContext>(options =>
 options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));   
 
@@ -43,7 +46,7 @@ using (var scope = app.Services.CreateScope()) {
 app.MapGet("/objekts", async (PriceAzureContext db) =>
 {
     return await db.AzurePrices.ToListAsync();
-});
+}); 
 
 
 app.Run();
