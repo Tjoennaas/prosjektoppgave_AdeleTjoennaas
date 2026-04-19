@@ -53,7 +53,7 @@ namespace ProsjektOppgave_AdeleTjoennaas.BackgroundTask
                 "Azure Storage Queue"
             };
 
-            var allPrices = new List<AzurePrice>();
+            List<AzurePrice> allPrices = new List<AzurePrice>();
 
             foreach (var region in regions)
             {

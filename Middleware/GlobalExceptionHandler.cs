@@ -34,7 +34,7 @@ _logger.LogError(
             _ => (StatusCodes.Status500InternalServerError, "Server Error", "An unexpected error occurred.")
         };
 
-        var problem = new ProblemDetails
+            ProblemDetails problem = new ProblemDetails
         {
             Status = status,
             Title  = title,
