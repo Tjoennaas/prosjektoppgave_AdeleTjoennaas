@@ -20,6 +20,7 @@ Log.Logger = new LoggerConfiguration()
 
 builder.Host.UseSerilog();
 
+builder.Services.AddControllers();
 builder.Services.AddSerilog();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -45,6 +46,6 @@ app.MapGet("/objekts", async (PriceAzureContext db) =>
     return await db.AzurePrices.ToListAsync();
 });
 
-
+app.MapControllers();
 app.Run();
 
