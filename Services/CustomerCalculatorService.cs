@@ -20,12 +20,7 @@ Grunnpris → Base price */
 
 
 
-
-
-
-
 using ProsjektOppgave_AdeleTjoennaas.Models;
-
 
 namespace ProsjektOppgave_AdeleTjoennaas.Services
 {
