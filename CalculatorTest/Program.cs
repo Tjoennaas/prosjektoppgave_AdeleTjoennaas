@@ -11,7 +11,7 @@ var input = new CustomerInput
 
 {
     EventsPerPeriod = 25000000,
-    ActiveUsers = 130,
+    ActiveUsers = 400,
     RetentionPeriods = 9
 };
 
