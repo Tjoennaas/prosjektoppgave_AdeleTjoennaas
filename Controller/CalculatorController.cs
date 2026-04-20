@@ -1,7 +1,7 @@
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
-using ProsjektOppgave_AdeleTjoennaas.Models;
+using ProsjektOppgave_AdeleTjoennaas.Dto;
 using ProsjektOppgave_AdeleTjoennaas.Services;
 
 
@@ -26,20 +26,22 @@ namespace ProsjektOppgave_AdeleTjoennaas.Controllers {
 
     [HttpPost ("Customer-calulator")]
 
-    public ActionResult<List<CustomerCalculationResult>> Calculate(CustomerInput input)
+    public ActionResult<List<CustomerCalculation>> Calculate(CustomerInput input)
     {
-        var results = new List<CustomerCalculationResult>();
+        var results = new List<CustomerCalculation>();
 
         
-    for (int periodNumber = 1; periodNumber <= input.RetentionPeriods; periodNumber++){
-            results.Add(new CustomerCalculationResult
-            {  
-                 Period = periodNumber,
-                 TotalPrice = _calculator.CalculateTotalForPeriod(input, periodNumber)
-                });}
-        return Ok(results);
-    }
+    for (int periodNumber = 1; periodNumber <= input.RetentionPeriods; periodNumber++)
+       
+   {
+                var result = _calculator.CalculateForPeriod(input, periodNumber);
+                results.Add(result);
+            }
 
-}}
+            return Ok(results);
+        }
+    };}
+
+
 
    

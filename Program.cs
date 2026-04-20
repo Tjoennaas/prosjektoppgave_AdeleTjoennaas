@@ -4,7 +4,9 @@ using Serilog;
 using ProsjektOppgave_AdeleTjoennaas.Services;
 using ProsjektOppgave_AdeleTjoennaas.BackgroundTask;
 using ProsjektOppgave_AdeleTjoennaas.Data;
+using ProsjektOppgave_AdeleTjoennaas.Dto;
 using Microsoft.EntityFrameworkCore;
+
 
 
 var builder = WebApplication.CreateBuilder(args);
