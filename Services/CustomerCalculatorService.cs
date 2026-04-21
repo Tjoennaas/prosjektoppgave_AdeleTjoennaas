@@ -5,7 +5,7 @@ using ProsjektOppgave_AdeleTjoennaas.Dto;
 
 namespace ProsjektOppgave_AdeleTjoennaas.Services
 {
-    public class Calculator
+    public class CustomerCalculator
     {
         public double CalculateEventsPerPeriod(CustomerInput input)
         {

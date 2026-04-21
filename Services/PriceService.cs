@@ -17,6 +17,7 @@ namespace ProsjektOppgave_AdeleTjoennaas.Services
             _logger = logger;
         }
 
+   // Parameter som skal brukes til å filtrere fra Azure API
         public async Task<List<AzurePrice>> GetPricesAsync(
             string region,
             string currency,
@@ -28,8 +29,8 @@ namespace ProsjektOppgave_AdeleTjoennaas.Services
             string? unitOfMeasure = null)
         {
             var allPrices = new List<AzurePrice>();
-            var filterParts = new List<string>
-            {
+            //Starter filtrering av region, den vil altid være tilstede mens de andre parameteren kan være null
+            var filterParts = new List<string> {
                 $"armRegionName eq '{region}'"
             };
 
@@ -42,7 +43,7 @@ namespace ProsjektOppgave_AdeleTjoennaas.Services
 
             var filter = string.Join(" and ", filterParts);
               
-
+              
              var url = $"https://prices.azure.com/api/retail/prices?currencyCode={currency}" +
           $"&$filter={WebUtility.UrlEncode(filter)}";
            
@@ -75,7 +76,11 @@ namespace ProsjektOppgave_AdeleTjoennaas.Services
             }
 
             return allPrices;
+
         }
+
+//---------------------------//
+
 
         private static void AddFilter(List<string> filterParts, string fieldName, string? fieldValue)
         {

@@ -27,19 +27,21 @@ var connectionString = isRunningInContainer
         ?? $"Data Source={Path.Combine(dataDirectory, "data.db")}"
     : $"Data Source={Path.Combine(dataDirectory, "data.db")}";
 
-builder.Services.AddDbContext<PriceAzureContext>(options =>
+builder.Services.AddDbContext<PriceDbContext>(options =>
 options.UseSqlite(connectionString));   
+
+
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
     .WriteTo.File(Path.Combine(dataDirectory, "log.txt"))
      .CreateLogger();
 
+
 builder.Host.UseSerilog();
 
-
 builder.Services.AddControllers();
-builder.Services.AddScoped<Calculator>();
+builder.Services.AddScoped<CustomerCalculator>();
 builder.Services.AddSerilog();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -49,27 +51,13 @@ builder.Services.AddScoped<AzurePriceRefreshService>();
 
 var app = builder.Build();
 
+await DatabaseInitializer.ReadAsync(app.Services);
 
 app.UseSwagger();
 app.UseSwaggerUI();
-
-
-using (var scope = app.Services.CreateScope()) {
-
- var db = scope.ServiceProvider.GetRequiredService<PriceAzureContext>();
- var refresh = scope.ServiceProvider.GetRequiredService<AzurePriceRefreshService>();
-
-  db.Database.Migrate();
-  await refresh.EnsureDataIsFreshAsync(); 
-}
-
-
-app.MapGet("/objekts", async (PriceAzureContext db) =>
-{
-    return await db.AzurePrices.ToListAsync();
-});
-
 app.MapControllers();
+
+
 app.Run();
 
 

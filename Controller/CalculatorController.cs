@@ -13,14 +13,14 @@ namespace ProsjektOppgave_AdeleTjoennaas.Controllers {
 
     public class CalculatorController : ControllerBase{
     private readonly ILogger<CalculatorController> _logger;
-    private readonly Calculator _calculator;
+    private readonly CustomerCalculator _customerCalculator;
 
-    public CalculatorController(ILogger<CalculatorController> logger, Calculator calculator)
+    public CalculatorController(ILogger<CalculatorController> logger, CustomerCalculator customerCalculator)
 
     {
      
       _logger = logger;
-      _calculator = calculator;
+      _customerCalculator = customerCalculator;
  
     }
 
@@ -34,7 +34,7 @@ namespace ProsjektOppgave_AdeleTjoennaas.Controllers {
     for (int periodNumber = 1; periodNumber <= input.RetentionPeriods; periodNumber++)
        
    {
-                var result = _calculator.CalculateForPeriod(input, periodNumber);
+                var result = _customerCalculator.CalculateForPeriod(input, periodNumber);
                 results.Add(result);
             }
 

@@ -1,5 +1,4 @@
 
-       
 
 using ProsjektOppgave_AdeleTjoennaas.Services;
 using ProsjektOppgave_AdeleTjoennaas.Models;
@@ -12,6 +11,11 @@ namespace ProsjektOppgave_AdeleTjoennaas.BackgroundTask
     {
         private static readonly string[] SupportedCurrencies = { "USD", "EUR" };
         private static readonly string[] SupportedRegions = { "northeurope" };
+
+
+
+        // productName er ikke unikt nok til å identifisere riktig pris rad fra Azure prising API,
+        // må derfor bruke mer presis navn OG filtrere for å hente riktig pris informasjon.
         private static readonly PriceQuerySpec[] RequestedPriceQueries =
         {
             new("Azure Storage", ServiceName: "Storage"),
@@ -25,8 +29,10 @@ namespace ProsjektOppgave_AdeleTjoennaas.BackgroundTask
             new("Container Apps", ProductName: "Azure Container Apps"),
             new("Container Registry", ProductName: "Container Registry"),
             new("Azure Storage Queue", ProductName: "Queues v2")
-        };
-        private static readonly string[] UnsupportedRetailLabels =
+        };       
+
+    //Tydliggjøt hvilke tjenester som ikke har prisrader
+     private static readonly string[] UnsupportedRetailLabels =
         {
             "NAT Gateway",
             "Network Security Group",
@@ -35,12 +41,12 @@ namespace ProsjektOppgave_AdeleTjoennaas.BackgroundTask
             "Front Door"
         };
 
-        private readonly PriceAzureContext _db;
+        private readonly PriceDbContext _db;
         private readonly AzurePriceService _azurePriceService;
         private readonly ILogger<AzurePriceRefreshService> _logger;
 
         public AzurePriceRefreshService(
-            PriceAzureContext db,
+            PriceDbContext db,
             AzurePriceService azurePriceService,
             ILogger<AzurePriceRefreshService> logger)
         {
@@ -48,6 +54,9 @@ namespace ProsjektOppgave_AdeleTjoennaas.BackgroundTask
             _azurePriceService = azurePriceService;
             _logger = logger;
         }
+         
+//sjekker om det finnes data, eldre enn 24 timer, om rader eller data mangler
+//---------------------------------------------------------------------------//  
 
         public async Task EnsureDataIsFreshAsync()
         {
@@ -80,6 +89,11 @@ namespace ProsjektOppgave_AdeleTjoennaas.BackgroundTask
                 "Skipping labels without direct retail price rows: {Labels}",
                 string.Join(", ", UnsupportedRetailLabels));
 
+
+
+     //---------------------------------------------------------//   
+
+
             List<AzurePrice> allPrices = new List<AzurePrice>();
 
             foreach (var region in SupportedRegions)
@@ -88,6 +102,7 @@ namespace ProsjektOppgave_AdeleTjoennaas.BackgroundTask
                 {
                     foreach (var query in RequestedPriceQueries)
                     {
+                    //Lagt til parametere med riktig rekkefølge
                         var prices = await _azurePriceService.GetPricesAsync(
                             region,
                             currency,
@@ -108,6 +123,7 @@ namespace ProsjektOppgave_AdeleTjoennaas.BackgroundTask
                 }
             }
 
+           //Fjerner duplicater før den lagres i databasen
             allPrices = allPrices
                 .DistinctBy(price => new
                 {
@@ -133,6 +149,9 @@ namespace ProsjektOppgave_AdeleTjoennaas.BackgroundTask
             await _db.SaveChangesAsync();
         }
 
+
+//Isteden for å sjekke om det finnes noe data i databasen, så sjekker denne metoden om databasen innholder alle prisene systemet forventer å ha,
+//går igjennom alle regionser, valuta og prisoppslag
         private async Task<bool> HasMissingRequestedDataAsync()
         {
             foreach (var region in SupportedRegions)
@@ -163,6 +182,9 @@ namespace ProsjektOppgave_AdeleTjoennaas.BackgroundTask
             return false;
         }
 
+//---------------------//
+
+//Metoden leggger til et filter på database spørring, men barevis det finnes en verdi. 
         private static IQueryable<AzurePrice> ApplyFilter(
             IQueryable<AzurePrice> query,
             System.Linq.Expressions.Expression<Func<AzurePrice, string?>> selector,
@@ -176,6 +198,10 @@ namespace ProsjektOppgave_AdeleTjoennaas.BackgroundTask
             return query.Where(BuildEqualsExpression(selector, value));
         }
 
+//---------------------//
+
+
+//Lager selve filtret dynamisk, slik at Aplyfilter() kan bruke den
         private static System.Linq.Expressions.Expression<Func<AzurePrice, bool>> BuildEqualsExpression(
             System.Linq.Expressions.Expression<Func<AzurePrice, string?>> selector,
             string value)
