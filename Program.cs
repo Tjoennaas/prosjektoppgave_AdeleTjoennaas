@@ -1,23 +1,38 @@
 
 
+
 using Serilog;
 using ProsjektOppgave_AdeleTjoennaas.Services;
 using ProsjektOppgave_AdeleTjoennaas.BackgroundTask;
 using ProsjektOppgave_AdeleTjoennaas.Data;
-using ProsjektOppgave_AdeleTjoennaas.Dto;
 using Microsoft.EntityFrameworkCore;
-
 
 
 var builder = WebApplication.CreateBuilder(args);
 
 
+var isRunningInContainer = string.Equals(
+    Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER"),
+    "true",
+    StringComparison.OrdinalIgnoreCase);
+
+var dataDirectory = isRunningInContainer
+    ? "/app/data"
+    : Path.Combine(builder.Environment.ContentRootPath, "sqldata");
+
+Directory.CreateDirectory(dataDirectory);
+
+var connectionString = isRunningInContainer
+    ? builder.Configuration.GetConnectionString("DefaultConnection")
+        ?? $"Data Source={Path.Combine(dataDirectory, "data.db")}"
+    : $"Data Source={Path.Combine(dataDirectory, "data.db")}";
+
 builder.Services.AddDbContext<PriceAzureContext>(options =>
-options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));   
+options.UseSqlite(connectionString));   
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
-    .WriteTo.File("/app/data/log.txt")
+    .WriteTo.File(Path.Combine(dataDirectory, "log.txt"))
      .CreateLogger();
 
 builder.Host.UseSerilog();
@@ -33,6 +48,10 @@ builder.Services.AddScoped<AzurePriceRefreshService>();
 
 
 var app = builder.Build();
+
+
+app.UseSwagger();
+app.UseSwaggerUI();
 
 
 using (var scope = app.Services.CreateScope()) {
@@ -52,4 +71,5 @@ app.MapGet("/objekts", async (PriceAzureContext db) =>
 
 app.MapControllers();
 app.Run();
+
 
