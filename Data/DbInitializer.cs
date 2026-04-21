@@ -1,6 +1,4 @@
 
-using ProsjektOppgave_AdeleTjoennaas.Middleware;
-using ProsjektOppgave_AdeleTjoennaas.Services;
 using ProsjektOppgave_AdeleTjoennaas.BackgroundTask;
 
 using Microsoft.EntityFrameworkCore;
