@@ -30,9 +30,7 @@ public PriceController(PriceDbContext db)
      var azurePrices = await _db.AzurePrices.ToListAsync();
         return Ok(azurePrices);
 
-
-}
-};}
+}};}
 
 
 

@@ -1,7 +1,9 @@
 
 
 using System.Net;
+using Microsoft.EntityFrameworkCore.Design;
 using ProsjektOppgave_AdeleTjoennaas.Models;
+using prosjektoppgave_AdeleTjoennaas.Middleware;
 
 
 namespace ProsjektOppgave_AdeleTjoennaas.Services
@@ -28,6 +30,16 @@ namespace ProsjektOppgave_AdeleTjoennaas.Services
             string? armSkuName = null,
             string? unitOfMeasure = null)
         {
+             if(string.IsNullOrEmpty(region))
+            {
+                throw new ArgumentException("Region must be provided");
+            }
+
+            if (string.IsNullOrEmpty(currency))
+            {
+                throw new ArgumentException("Currensy must be provided");
+            }
+
             var allPrices = new List<AzurePrice>();
             //Starter filtrering av region, den vil altid være tilstede mens de andre parameteren kan være null
             var filterParts = new List<string> {
@@ -50,34 +62,27 @@ namespace ProsjektOppgave_AdeleTjoennaas.Services
 
             _logger.LogInformation("Fetching data from Azure");
 
-            try
-            {
-                while (!string.IsNullOrEmpty(url))
+
+              while (!string.IsNullOrEmpty(url))
                 {
-                    var result = await _httpClient.GetFromJsonAsync<AzureResponse>(url);
-
-                    if (result?.Items != null)
-                    {
-                        allPrices.AddRange(result.Items);
-                    }
-                    else
-                    {
-                        _logger.LogInformation("No items returned");
-                    }
-
-                    url = result?.NextPageLink;
+                    var response = await _httpClient.GetAsync(url);
+                    
+                    if (!response.IsSuccessStatusCode){  
+                     throw new HttpRequestException($"{response.StatusCode}");   
                 }
-            }
+                    var result = await _httpClient.GetFromJsonAsync<AzureResponse>(url);
+                     
+                   if (result?.Items == null)
+                    {
+                        throw new KeyNotFoundException("Ingen data funnet.");
+                    }
+                        allPrices.AddRange(result.Items);
+                        url = result?.NextPageLink;
+                        }
 
-            catch (Exception exception)
-            {
-                _logger.LogError(exception, "Failed to fetch prices");
-                throw;
-            }
+                             return allPrices;  
+                    }
 
-            return allPrices;
-
-        }
 
 //---------------------------//
 

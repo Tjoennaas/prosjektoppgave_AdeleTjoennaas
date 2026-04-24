@@ -28,6 +28,14 @@ namespace ProsjektOppgave_AdeleTjoennaas.Controllers {
 
     public ActionResult<List<CustomerCalculation>> Calculate(CustomerInput input)
     {
+
+        if (input == null)
+            { 
+                throw new ArgumentException("Input kan ikke være tom.");
+                
+            }
+        _logger.LogInformation("Starter bergning");
+
         var results = new List<CustomerCalculation>();
 
         

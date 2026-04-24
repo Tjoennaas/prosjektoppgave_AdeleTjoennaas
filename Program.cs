@@ -2,10 +2,12 @@
 
 
 using Serilog;
+using ProsjektOppgave_AdeleTjoennaas.Middleware;
 using ProsjektOppgave_AdeleTjoennaas.Services;
 using ProsjektOppgave_AdeleTjoennaas.BackgroundTask;
 using ProsjektOppgave_AdeleTjoennaas.Data;
 using Microsoft.EntityFrameworkCore;
+
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -40,6 +42,8 @@ Log.Logger = new LoggerConfiguration()
 
 builder.Host.UseSerilog();
 
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddProblemDetails();
 builder.Services.AddControllers();
 builder.Services.AddScoped<CustomerCalculator>();
 builder.Services.AddSerilog();
@@ -53,6 +57,7 @@ var app = builder.Build();
 
 await DatabaseInitializer.ReadAsync(app.Services);
 
+app.UseExceptionHandler();
 app.UseSwagger();
 app.UseSwaggerUI();
 app.MapControllers();

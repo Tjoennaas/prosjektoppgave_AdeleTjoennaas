@@ -30,11 +30,17 @@ _logger.LogError(
         var (status, title, detail) = exception switch
         {
             ArgumentException argEx => (StatusCodes.Status400BadRequest, "Bad Request", argEx.Message),
+            
+            HttpRequestException => ( StatusCodes.Status503ServiceUnavailable,
+                     "Eksternt API utilgjengelig",
+                    "Kunne ikke hente data fra Azure API."),
+
             KeyNotFoundException => (StatusCodes.Status404NotFound, "Not Found", "The requested resource was not found."),
+
             _ => (StatusCodes.Status500InternalServerError, "Server Error", "An unexpected error occurred.")
         };
 
-            ProblemDetails problem = new ProblemDetails
+        ProblemDetails problem = new ProblemDetails
         {
             Status = status,
             Title  = title,
