@@ -3,7 +3,8 @@
 using System.Net;
 using Microsoft.EntityFrameworkCore.Design;
 using ProsjektOppgave_AdeleTjoennaas.Models;
-using prosjektoppgave_AdeleTjoennaas.Middleware;
+using System.Net.Http.Json;
+       
 
 
 namespace ProsjektOppgave_AdeleTjoennaas.Services
@@ -53,8 +54,10 @@ namespace ProsjektOppgave_AdeleTjoennaas.Services
             AddFilter(filterParts, "armSkuName", armSkuName);
             AddFilter(filterParts, "unitOfMeasure", unitOfMeasure);
 
-            var filter = string.Join(" and ", filterParts);
-              
+           var filter = string.Join(" and ", filterParts);
+
+           //var result = await _httpClient.GetFromJsonAsync<AzureResponse>(url);
+           
               
              var url = $"https://prices.azure.com/api/retail/prices?currencyCode={currency}" +
           $"&$filter={WebUtility.UrlEncode(filter)}";
@@ -70,7 +73,7 @@ namespace ProsjektOppgave_AdeleTjoennaas.Services
                     if (!response.IsSuccessStatusCode){  
                      throw new HttpRequestException($"{response.StatusCode}");   
                 }
-                    var result = await _httpClient.GetFromJsonAsync<AzureResponse>(url);
+                      var result = await response.Content.ReadFromJsonAsync<AzureResponse>();
                      
                    if (result?.Items == null)
                     {

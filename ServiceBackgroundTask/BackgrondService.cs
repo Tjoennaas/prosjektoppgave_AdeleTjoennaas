@@ -1,5 +1,10 @@
 
 
+ 
+
+
+
+
 using ProsjektOppgave_AdeleTjoennaas.Services;
 using ProsjektOppgave_AdeleTjoennaas.Models;
 using ProsjektOppgave_AdeleTjoennaas.Data;
@@ -10,12 +15,12 @@ namespace ProsjektOppgave_AdeleTjoennaas.BackgroundTask
     public class AzurePriceRefreshService
     {
         private static readonly string[] SupportedCurrencies = { "USD", "EUR" };
-        private static readonly string[] SupportedRegions = { "northeurope" };
+        private static readonly string[] SupportedRegions = { "westeurope" };
 
 
 
         // productName er ikke unikt nok til å identifisere riktig pris rad fra Azure prising API,
-        // må derfor bruke mer presis navn OG filtrere for å hente riktig pris informasjon.
+        // må derfor bruke mer presis navn for å hente riktig pris informasjon.
         private static readonly PriceQuerySpec[] RequestedPriceQueries =
         {
             new("Azure Storage", ServiceName: "Storage"),
@@ -23,6 +28,7 @@ namespace ProsjektOppgave_AdeleTjoennaas.BackgroundTask
             new("Public IP Address", ProductName: "IP Addresses"),
             new("Private Endpoint", MeterName: "Private Link Unit"),
             new("Container App Environment", ServiceName: "Azure Container Apps"),
+            new("Private Endpoint", ServiceName: "Virtual Network", MeterName: "Private Link Unit"),
             new("Key Vault", ProductName: "Key Vault"),
             new("Azure Table Storage", ProductName: "Tables"),
             new("Azure Cosmos DB", ProductName: "Azure Cosmos DB"),
@@ -31,10 +37,10 @@ namespace ProsjektOppgave_AdeleTjoennaas.BackgroundTask
             new("Azure Storage Queue", ProductName: "Queues v2")
         };       
 
-    //Tydliggjøt hvilke tjenester som ikke har prisrader
+   
      private static readonly string[] UnsupportedRetailLabels =
         {
-            "NAT Gateway",
+            //"NAT Gateway",
             "Network Security Group",
             "Private DNS Zone",
             "Managed Identity",
@@ -63,7 +69,7 @@ namespace ProsjektOppgave_AdeleTjoennaas.BackgroundTask
             var hasData = await _db.AzurePrices.AnyAsync();
             var isStale = false;
             var missingUnitOfMeasure = false;
-            var missingRequestedData = false;
+            var missingRequestedData = false; 
 
             if (hasData)
             {
@@ -152,6 +158,9 @@ namespace ProsjektOppgave_AdeleTjoennaas.BackgroundTask
 
 //Isteden for å sjekke om det finnes noe data i databasen, så sjekker denne metoden om databasen innholder alle prisene systemet forventer å ha,
 //går igjennom alle regionser, valuta og prisoppslag
+
+//-------------------------------------------------------------------------//
+
         private async Task<bool> HasMissingRequestedDataAsync()
         {
             foreach (var region in SupportedRegions)
@@ -182,7 +191,7 @@ namespace ProsjektOppgave_AdeleTjoennaas.BackgroundTask
             return false;
         }
 
-//---------------------//
+//-------------------------------------------------------------------------//
 
 //Metoden leggger til et filter på database spørring, men barevis det finnes en verdi. 
         private static IQueryable<AzurePrice> ApplyFilter(
@@ -198,7 +207,7 @@ namespace ProsjektOppgave_AdeleTjoennaas.BackgroundTask
             return query.Where(BuildEqualsExpression(selector, value));
         }
 
-//---------------------//
+//-------------------------------------------------------------------------//
 
 
 //Lager selve filtret dynamisk, slik at Aplyfilter() kan bruke den
@@ -215,6 +224,7 @@ namespace ProsjektOppgave_AdeleTjoennaas.BackgroundTask
         }
 
         private sealed record PriceQuerySpec(
+    
             string Label,
             string? ProductName = null,
             string? ServiceName = null,
@@ -224,13 +234,6 @@ namespace ProsjektOppgave_AdeleTjoennaas.BackgroundTask
             string? UnitOfMeasure = null);
     }
 }
-
-
-
-       
-
-
-
 
 
 
