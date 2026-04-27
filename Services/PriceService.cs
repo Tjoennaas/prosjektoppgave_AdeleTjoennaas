@@ -73,8 +73,7 @@ namespace ProsjektOppgave_AdeleTjoennaas.Services
                     if (!response.IsSuccessStatusCode){  
                      throw new HttpRequestException($"{response.StatusCode}");   
                 }
-                      var result = await response.Content.ReadFromJsonAsync<AzureResponse>();
-                     
+                     var result = await response.Content.ReadFromJsonAsync<AzureResponse>();
                    if (result?.Items == null)
                     {
                         throw new KeyNotFoundException("Ingen data funnet.");

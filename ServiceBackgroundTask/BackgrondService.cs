@@ -22,13 +22,14 @@ namespace ProsjektOppgave_AdeleTjoennaas.BackgroundTask
         // productName er ikke unikt nok til å identifisere riktig pris rad fra Azure prising API,
         // må derfor bruke mer presis navn for å hente riktig pris informasjon.
         private static readonly PriceQuerySpec[] RequestedPriceQueries =
-        {
+        {   
+            new("NAT Gateway", ProductName: "NAT Gateway"),
             new("Azure Storage", ServiceName: "Storage"),
             new("Virtual Network", ServiceName: "Virtual Network"),
             new("Public IP Address", ProductName: "IP Addresses"),
             new("Private Endpoint", MeterName: "Private Link Unit"),
             new("Container App Environment", ServiceName: "Azure Container Apps"),
-            new("Private Endpoint", ServiceName: "Virtual Network", MeterName: "Private Link Unit"),
+           // new("Private Endpoint", ServiceName: "Virtual Network", MeterName: "Private Link Unit"),
             new("Key Vault", ProductName: "Key Vault"),
             new("Azure Table Storage", ProductName: "Tables"),
             new("Azure Cosmos DB", ProductName: "Azure Cosmos DB"),
