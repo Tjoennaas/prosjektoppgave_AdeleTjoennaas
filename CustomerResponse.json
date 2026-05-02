@@ -1,0 +1,39 @@
+
+[
+    {
+        "activeUsers": 130,
+        "eventsPerPeriod": 25000000,
+        "retentionPeriods": 3,
+        "collctor": 2,
+        "basePrice": 50000,
+        "eventCost": 1500,
+        "userCost": 1200,
+        "retentionCost": 0,
+        "collectorCost": 4000,
+        "totalPrice": 56700
+    },
+    {
+        "activeUsers": 130,
+        "eventsPerPeriod": 25000000,
+        "retentionPeriods": 3,
+        "collctor": 2,
+        "basePrice": 50000,
+        "eventCost": 1500,
+        "userCost": 1200,
+        "retentionCost": 1500,
+        "collectorCost": 4000,
+        "totalPrice": 58200
+    },
+    {
+        "activeUsers": 130,
+        "eventsPerPeriod": 25000000,
+        "retentionPeriods": 3,
+        "collctor": 2,
+        "basePrice": 50000,
+        "eventCost": 1500,
+        "userCost": 1200,
+        "retentionCost": 3000,
+        "collectorCost": 4000,
+        "totalPrice": 59700
+    }
+]

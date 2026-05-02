@@ -1,0 +1,16 @@
+
+
+services:
+  app:
+    build: .
+    container_name: AzureList
+    ports:
+      - "5600:8080"
+    volumes:
+      - ./sqldata:/app/data
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+  
+  
+
+
