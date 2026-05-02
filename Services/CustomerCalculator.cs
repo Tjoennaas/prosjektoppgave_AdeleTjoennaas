@@ -78,23 +78,7 @@ namespace ProsjektOppgave_AdeleTjoennaas.Services
 decimal totalPrice =
     (decimal)basePrice + totalVariablePrice; 
 
-            /*  double totalPrice =
-                basePrice + eventCost + userCost + collectorCost + retentionCost;*/
-
-     /*     return new CustomerCalculationResult
-    {
-        ActiveUsers = input.ActiveUsers,
-        EventsPerPeriod = input.EventsPerPeriod,
-        RetentionPeriods = input.RetentionPeriods,
-        Collector = input.Collector,
-
-        BasePrice = basePrice,
-        EventCost = eventCost,
-        UserCost = userCost,
-        RetentionCost = retentionCost,
-        CollectorCost = (int)collectorCost,
-        TotalPrice = totalPrice  };} */
-
+          
             
             return new CustomerCalculationResult{
 
@@ -109,36 +93,6 @@ decimal totalPrice =
                         RetentionCost = (decimal)retentionCost,
                         CollectorCost = collectorCost,
                         TotalPrice = (decimal)totalPrice  };}
-/*
-private async Task<decimal> GetPriceAsync
-(
-    string? productName = null,
-    string? serviceName = null,
-    string? meterName = null,
-    string? skuName = null,
-    string? unitOfMeasure = null,
-    string? currency = "USD",
-    string? armRegionName = null
-)
-{
-    var prices = await _db.AzurePrices
-        .Where(x => string.IsNullOrEmpty(productName) || x.ProductName == productName)
-        .Where(x => string.IsNullOrEmpty(serviceName) || x.ServiceName == serviceName)
-        .Where(x => string.IsNullOrEmpty(meterName) || x.MeterName == meterName)
-        .Where(x => string.IsNullOrEmpty(skuName) || x.SkuName == skuName)
-        .Where(x => string.IsNullOrEmpty(unitOfMeasure) || x.UnitOfMeasure == unitOfMeasure)
-        .Where(x => string.IsNullOrEmpty(currency) || x.CurrencyCode == currency)
-        .Where(x => string.IsNullOrEmpty(armRegionName) || x.ArmRegionName == armRegionName)
-        .Select(x => x.RetailPrice)
-        .ToListAsync(); }
-
-    if (prices.Count == 0)
-    {
-        throw new Exception(
-            $"Fant ikke pris: ProductName={productName}, ServiceName={serviceName}, MeterName={meterName}, SkuName={skuName}, Unit={unitOfMeasure}, Currency={currency}, Region={armRegionName}");
-    }
-
-    return prices.Max();} */
 
 
 public async Task<List<CustomerCalculationResult>> CalculateAndSaveAllAsync(CustomerInput input)

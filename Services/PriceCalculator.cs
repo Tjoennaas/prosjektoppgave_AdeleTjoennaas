@@ -227,20 +227,6 @@ namespace ProsjektOppgave_AdeleTjoennaas.Services
         
         
         
-        /*var price = await _db.AzurePrices
-    
-         .Where (x => string.IsNullOrEmpty(productName) || x.ProductName == productName)
-         .Where (x => string.IsNullOrEmpty(serviceName) || x.ServiceName == serviceName)
-         .Where (x => string.IsNullOrEmpty(meterName) || x.MeterName == meterName)
-         .Where (x => string.IsNullOrEmpty(skuName) || x.SkuName == skuName)
-         .Where (x => string.IsNullOrEmpty(unitOfMeasure) || x.UnitOfMeasure == unitOfMeasure)
-         .Where (x => string.IsNullOrEmpty(currency) || x.CurrencyCode == currency)
-         .Where (x => string.IsNullOrEmpty(armRegionName) || x.ArmRegionName == armRegionName)
-         .OrderByDescending(x => x.RetailPrice)
-         .Select(x => x.RetailPrice)
-         .FirstAsync();
-         
-         return price;*/
        }
     
              public decimal CalculatorFixdCosts(AzureCostResult azureCostResult){

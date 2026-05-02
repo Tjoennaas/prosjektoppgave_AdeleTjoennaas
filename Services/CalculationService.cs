@@ -35,14 +35,20 @@
 
     var groupId = customers.First().CalculationGroupId;
 
-    foreach (var customer in customers)
-    {
-        var margin = customer.TotalPrice - azure.TotalAzureCost;
+decimal usdToNok = 9.6m;
 
-        var marginPercent =
-            customer.TotalPrice == 0
-                ? 0
-                : (margin / customer.TotalPrice) * 100;
+foreach (var customer in customers)
+{
+    decimal customerUsd = customer.TotalPrice / usdToNok;
+
+    var margin = customerUsd - azure.TotalAzureCost;
+
+    var marginPercent =
+        customerUsd == 0
+            ? 0
+            : (margin / customerUsd) * 100;
+
+ 
 
         var marginEntity = new CalculationMargin
         {
