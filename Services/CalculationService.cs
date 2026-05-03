@@ -1,7 +1,5 @@
 
 
-                    using Microsoft.EntityFrameworkCore;
-
                     using ProsjektOppgave_AdeleTjoennaas.Data;
                     using ProsjektOppgave_AdeleTjoennaas.Dto;
                     using ProsjektOppgave_AdeleTjoennaas.Models;
@@ -63,7 +61,7 @@ foreach (var customer in customers)
             AzureCostCalculationId = azure.Id,
             CalculationGroupId = customer.CalculationGroupId,
             PeriodNumber = customer.PeriodNumber,
-            // CustomerCalculationResultId = customer.Id,
+            //CustomerCalculationResultId = customer.Id,
             Margin = Math.Round(margin, 2),
             MarginPercent = Math.Round(marginPercent, 2)
         };
