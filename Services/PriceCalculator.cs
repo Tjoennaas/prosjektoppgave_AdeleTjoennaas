@@ -287,17 +287,17 @@ namespace ProsjektOppgave_AdeleTjoennaas.Services
 private IntermediateCostVariables CalculateIntermediateVariables() {
 
     //totalRetainedEventMonths: for (i = 1; i < retentionMonthsCount; i++) { totalRetainedEventMonths += eventsLoggedPerMonthCount * i }
-           var totalRetainedEventMonths = 0m;
+            var totalRetainedEventMonths = 0m;
 
-    for (int i = 1; i < _config.MiscSeting.AverageMonthsOfRetention; i++) {
-        totalRetainedEventMonths += 
-        _config.MiscSeting.EventsLoggedPerMonthCount * i; }
+                for (int i = 1; i < _config.MiscSeting.AverageMonthsOfRetention; i++) {
+                     totalRetainedEventMonths += 
+                    _config.MiscSeting.EventsLoggedPerMonthCount * i; }
          
         //oneWayDataTransferGbKafka: (avgSizeOfEventInKafka * eventsLoggedPerMonthCount) / 1024 / 1024 / 1024
            var oneWayDataTransferGbKafka =
                     (_config.MiscSeting.AvgSizeOfEventInKafka *
-                    _config.MiscSeting.EventsLoggedPerMonthCount)
-                    / 1024m / 1024m / 1024m;         
+                     _config.MiscSeting.EventsLoggedPerMonthCount)
+                     / 1024m / 1024m / 1024m;         
 
         // blobTxsLoggedGb: (avgSizeOfEventInTxStorage * eventsLoggedPerMonthCount) / 1024 / 1024 / 1024
             var blobTxsLoggedGb = 
@@ -331,41 +331,41 @@ private IntermediateCostVariables CalculateIntermediateVariables() {
        var intermediate = CalculateIntermediateVariables();
 
 
-         //Blob TXs logged: (eventsLoggedPerMonthCount / avgEventsPerBatchIngestedCount) * blobTxsPerWrite  
+     //Blob TXs logged: (eventsLoggedPerMonthCount / avgEventsPerBatchIngestedCount) * blobTxsPerWrite  
            var blobTxsLogged = 
                     (_config.MiscSeting.EventsLoggedPerMonthCount /
                     _config.MiscSeting.AvgEventsPerBatchIngestedCount) *
                     azureCostResult.StoragPerBlobWriteForTxs;
 
-         //Blob TXs stored: blobTxsLoggedGb * blobTxsPerGbCost
+     //Blob TXs stored: blobTxsLoggedGb * blobTxsPerGbCost
             var blobTxStored =  
                     intermediate.BlobTxsLoggedGb * 
                     azureCostResult.StoragPerGibBlobStoragForTxs;
 
 
-         //Blob TXs retained: blobTxsLoggedGb * blobTxsPerGbCost
+     //Blob TXs retained: blobTxsLoggedGb * blobTxsPerGbCost
             var blobTxRetained = 
                     intermediate.BlobTxsLoggedGb *
                     azureCostResult.StoragPerGibBlobStoragForTxs;
         
-        //Blob attachments logged: (eventsLoggedPerMonthCount / avgEventsPerBatchIngestedCount) * avgAttachmentsPerEventCount * blobAttachmentPerWrite
+     //Blob attachments logged: (eventsLoggedPerMonthCount / avgEventsPerBatchIngestedCount) * avgAttachmentsPerEventCount * blobAttachmentPerWrite
             var blobAttachmentsLogged = 
                     ( _config.MiscSeting.EventsLoggedPerMonthCount /
                         _config.MiscSeting.AvgEventsPerBatchIngestedCount) * 
                         _config.MiscSeting.AvgAttachmentsPerEventCount *
                         azureCostResult.StoragPerBlobWriteForAttachment;
 
-        //Blob attachments stored: blobAttachmentsLoggedGb * blobAttachmentsPerGbCost
+     //Blob attachments stored: blobAttachmentsLoggedGb * blobAttachmentsPerGbCost
             var blobAttachmentsStored = 
                         intermediate.BlobAttachmentsLoggedGb *
                         azureCostResult.StoragPerGibBlobStoragForAttacments;
 
-        //Blob attachments retained: blobAttachmentsLoggedGb * blobAttachmentsPerGbCost
+     //Blob attachments retained: blobAttachmentsLoggedGb * blobAttachmentsPerGbCost
             var blobAttachmentsRetained = 
                         intermediate.BlobAttachmentsLoggedGb * 
                         azureCostResult.StoragPerGibBlobStoragForAttacments;
 
-        //Tables logged: ((eventsLoggedPerMonthCount * tablesToWriteToWhenIndexingCount) / (100 * tableBatchFillFactor)) * tablesPerWrite
+     //Tables logged: ((eventsLoggedPerMonthCount * tablesToWriteToWhenIndexingCount) / (100 * tableBatchFillFactor)) * tablesPerWrite
             var tablesLogged =
                         ((_config.MiscSeting.EventsLoggedPerMonthCount *
                         _config.MiscSeting.TablesToWriteToWhenIndexingCount)
@@ -400,8 +400,8 @@ private IntermediateCostVariables CalculateIntermediateVariables() {
                         _config.Kafka.PerGibInKafaStorag;
 
 
-          //Private endpoints logged: (blobTxsLoggedGb + blobAttachmentsLoggedGb + tablesLoggedGb) * privateEndpointCostPerGb
-          //NAT gateway logged: (blobTxsLoggedGb + blobAttachmentsLoggedGb + tablesLoggedGb) * natGatewayCostPerGb
+        //Private endpoints logged: (blobTxsLoggedGb + blobAttachmentsLoggedGb + tablesLoggedGb) * privateEndpointCostPerGb
+        //NAT gateway logged: (blobTxsLoggedGb + blobAttachmentsLoggedGb + tablesLoggedGb) * natGatewayCostPerGb
             var totalStorageTrafficGb =
                       intermediate.BlobTxsLoggedGb +
                       intermediate.BlobAttachmentsLoggedGb +
@@ -461,48 +461,43 @@ private IntermediateCostVariables CalculateIntermediateVariables() {
                     {
                         TotalVariableCosts = totalVariableCosts,
                         PerMillionEventsReceived = perMillionEventsReceived,
-                        PerMillionEventsRetained = perMillionEventsRetained
-                    };}
+                        PerMillionEventsRetained = perMillionEventsRetained };}
 
+            public async Task<AzureCostCalculation> CalculateAndSaveAzureCostAsync(string currency = "USD") {
 
+                    //(fixedCosts + variableCosts) * simplificationHedgeFactor * currencyDevaluationHedgeFactor * sellerCommisionFactor
+                        var azureCostResult = await CalculateAsync(currency);
 
+                        var fixedCosts = CalculatorFixdCosts(azureCostResult);
+                        var variableResult = CalculateVariableCosts(azureCostResult);
 
-public async Task<AzureCostCalculation> CalculateAndSaveAzureCostAsync(string currency = "USD")
-{
+                        var totalAzureCost =
+                            (fixedCosts + variableResult.TotalVariableCosts)
+                            * _config.MiscSeting.SimplificationHedgeFactor
+                            * _config.MiscSeting.CurrencyDevaluationHedge
+                            * _config.MiscSeting.SellerCommissionFactor;
 
-  //(fixedCosts + variableCosts) * simplificationHedgeFactor * currencyDevaluationHedgeFactor * sellerCommisionFactor
-    var azureCostResult = await CalculateAsync(currency);
+                        var calculation = new AzureCostCalculation
+                        {
+                            FixedCosts = fixedCosts,
+                            VariableCosts = variableResult.TotalVariableCosts,
+                            TotalAzureCost = totalAzureCost,
+                            PerMillionEventsReceived = variableResult.PerMillionEventsReceived,
+                            PerMillionEventsRetained = variableResult.PerMillionEventsRetained
+                        };
 
-    var fixedCosts = CalculatorFixdCosts(azureCostResult);
-    var variableResult = CalculateVariableCosts(azureCostResult);
+                        _db.AzureCostCalculations.Add(calculation);
+                        await _db.SaveChangesAsync();
 
-    var totalAzureCost =
-        (fixedCosts + variableResult.TotalVariableCosts)
-        * _config.MiscSeting.SimplificationHedgeFactor
-        * _config.MiscSeting.CurrencyDevaluationHedge
-        * _config.MiscSeting.SellerCommissionFactor;
+                        return calculation;
+                    }
 
-    var calculation = new AzureCostCalculation
-    {
-        FixedCosts = fixedCosts,
-        VariableCosts = variableResult.TotalVariableCosts,
-        TotalAzureCost = totalAzureCost,
-        PerMillionEventsReceived = variableResult.PerMillionEventsReceived,
-        PerMillionEventsRetained = variableResult.PerMillionEventsRetained
-    };
-
-    _db.AzureCostCalculations.Add(calculation);
-    await _db.SaveChangesAsync();
-
-    return calculation;
-}
-
-        internal async Task CalculateAndSaveAll(CustomerInput input)
-        {
-            throw new NotImplementedException();
-        }
-    }
-}
+                            internal async Task CalculateAndSaveAll(CustomerInput input)
+                            {
+                                throw new NotImplementedException();
+                            }
+                        }
+                    }
 
 
  
