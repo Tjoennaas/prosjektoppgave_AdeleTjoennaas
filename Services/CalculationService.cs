@@ -15,25 +15,33 @@
                             private readonly PriceCalculator _priceCalculator;
                             private readonly CustomerCalculator _customerCalculator;
                             private readonly PriceDbContext _db;
+                            private readonly ConfigApp _config;
 
                             public CalculationServices(
                                 PriceCalculator priceCalculator,
                                 CustomerCalculator customerCalculator,
-                                PriceDbContext db)
+                                PriceDbContext db,
+                                 ConfigApp config)
                             {
                                 _priceCalculator = priceCalculator;
                                 _customerCalculator = customerCalculator;
                                 _db = db;
+                                _config = config;
                             }
 
     public async Task<List<CalculationMargin>> CalculateAndSaveAll(CustomerInput input)
 {
     var results = new List<CalculationMargin>();
 
+    
+   
+     _config.MiscSeting.EventsLoggedPerMonthCount = input.EventsPerPeriod;
+    _config.MiscSeting.AverageMonthsOfRetention = input.RetentionPeriods;
+
+       
     var azure = await _priceCalculator.CalculateAndSaveAzureCostAsync();
     var customers = await _customerCalculator.CalculateAndSaveAllAsync(input);
-
-    var groupId = customers.First().CalculationGroupId;
+     var groupId = customers.First().CalculationGroupId;
 
 decimal usdToNok = 9.6m;
 
@@ -54,6 +62,7 @@ foreach (var customer in customers)
         {
             AzureCostCalculationId = azure.Id,
             CalculationGroupId = customer.CalculationGroupId,
+            PeriodNumber = customer.PeriodNumber,
             // CustomerCalculationResultId = customer.Id,
             Margin = Math.Round(margin, 2),
             MarginPercent = Math.Round(marginPercent, 2)

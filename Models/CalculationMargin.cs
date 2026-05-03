@@ -8,7 +8,7 @@ namespace ProsjektOppgave_AdeleTjoennaas.Models {
     public class CalculationMargin {
 
         public int Id { get; set; }
-
+         public int PeriodNumber { get; set; }
         public int AzureCostCalculationId { get; set; }
         public Guid CalculationGroupId { get; set; }
         public decimal Margin { get; set; }
