@@ -157,116 +157,121 @@ namespace ProsjektOppgave_AdeleTjoennaas.Services
         //Networking - Static IP Address = [price per hour] * 730 = $2,628
               StaticIpAddressPricePerHour  = staticIpAddress * 730, 
     
+
         //Networking - Private Endpoint = [price per hour] * 730 = $7,3
               PrivatEndpointPricePerHour = privatEndpointPricePerHour * 730,
+
 
         //Networking - Private Endpoint per GiB written = [price for 0 to 1 PB inbound data processed] = $0,1
               PrivatEndpointPerGibWritten = privatEndpointPerGibWritten,
 
+
          //Networking - NAT Gateway = [cost per GiB processed] = $0.045
               NatGatewayCostPerGibprocessed = natGatewayCostPerGiB,    
            
+
         //Container Apps - Per 0.25 vCores = ([price of vCPU seconds] * 60 * 60 * 730) / 4 
               ContainerAppsPriceOfVcpuSeconds = (cpuPrice * 60 * 60 * 730) / 4,
         
+
         //Container Apps - Per 0.5 GiB RAM = ([price of GiB seconds] * 60 * 60 * 730) / 2 = $5,255   
               ContainerAppsPriceOfGibSeconds = (gibPrice * 60 * 60 * 730) / 2,
+
 
         //CosmosDB - Per 100 RUs = [probably priced by 100 RUs in API response, but if not, convert to per 100 RU/s] = $8,76
               CosmosDbPricedByHundredRusApiRespons = cosmosDbHourPrice * 730,
 
+
         //Networking - NAT Gateway = [cost per hour] * 730 = $32,85 
               NatGatewayCostPerHour = natGatewayCostPerHour * 730,
+
 
        //Storage - Per Blob Write for TXs = [ZRS Hot 10k transactions cost] / 10000 = $0,00000675
               StoragPerBlobWriteForTxs = storagePerBlobWriteForTXs / 10000,
 
+
        //Storage - Per Blob Write for attachments = [ZRS Cold 10k transactions cost] / 10000 = $0,00002
               StoragPerBlobWriteForAttachment = storagePerBlobWriteForAttachments / 10000,
           
+
        //Storage - Per GiB Blob Storage for TXs = [ZRS Hot First 50 TiB tier per GiB] = $0,024    (1 GB/Month)
               StoragPerGibBlobStoragForTxs = storagPerGibBlobStorageForTxs,
+
 
        //Storage - Per GiB Blob Storage for attachments = [ZRS Cold First 50 TiB tier per GiB] = $0,005   (1 GB/Month)
               StoragPerGibBlobStoragForAttacments = storagePerGibBlobStorageForAttachments,
 
+
        //Storage - Per Table Write = [10k Transactions cost] / 10000 = $0,000000036
               StoragPerTableWrite = storagePerTableWrite / 10000,
 
-      //Storage - Per GiB Table Storage = [ZRS] = $0,0562     (1 GB/Month)
-              StoragPerGibTableStorag = storagePerGiBTableStorage,
 
-        };}
+       //Storage - Per GiB Table Storage = [ZRS] = $0,0562     (1 GB/Month)
+              StoragPerGibTableStorag = storagePerGiBTableStorage, };}
         
-        //Filtrerer for å finne riktig rad
-         
-       private async Task<decimal> GetPriceAsync
-       (
-             string? productName = null, 
-             string? serviceName = null, 
-             string? meterName = null,
-             string? skuName = null,
-             string? unitOfMeasure = null, 
-             string? currency = "USD",
-             string? armRegionName = null)
+       
+            private async Task<decimal> GetPriceAsync (
+                        string? productName = null, 
+                        string? serviceName = null, 
+                        string? meterName = null,
+                        string? skuName = null,
+                        string? unitOfMeasure = null, 
+                        string? currency = "USD",
+                        string? armRegionName = null) {  
+        
+                        var price = await _db.AzurePrices
+                        .Where(x => string.IsNullOrEmpty(productName) || x.ProductName == productName)
+                        .Where(x => string.IsNullOrEmpty(serviceName) || x.ServiceName == serviceName)
+                        .Where(x => string.IsNullOrEmpty(meterName) || x.MeterName == meterName)
+                        .Where(x => string.IsNullOrEmpty(skuName) || x.SkuName == skuName)
+                        .Where(x => string.IsNullOrEmpty(unitOfMeasure) || x.UnitOfMeasure == unitOfMeasure)
+                        .Where(x => string.IsNullOrEmpty(currency) || x.CurrencyCode == currency)
+                        .Where(x => string.IsNullOrEmpty(armRegionName) || x.ArmRegionName == armRegionName)
+                        .Select(x => x.RetailPrice)
+                        .FirstAsync();
 
-       {  
-        
-        var price = await _db.AzurePrices
-    .Where(x => string.IsNullOrEmpty(productName) || x.ProductName == productName)
-    .Where(x => string.IsNullOrEmpty(serviceName) || x.ServiceName == serviceName)
-    .Where(x => string.IsNullOrEmpty(meterName) || x.MeterName == meterName)
-    .Where(x => string.IsNullOrEmpty(skuName) || x.SkuName == skuName)
-    .Where(x => string.IsNullOrEmpty(unitOfMeasure) || x.UnitOfMeasure == unitOfMeasure)
-    .Where(x => string.IsNullOrEmpty(currency) || x.CurrencyCode == currency)
-    .Where(x => string.IsNullOrEmpty(armRegionName) || x.ArmRegionName == armRegionName)
-    .Select(x => x.RetailPrice)
-    .FirstAsync();
-
-         return price;
-        
-        
-        
-       }
+                        return price;  }
     
-             public decimal CalculatorFixdCosts(AzureCostResult azureCostResult){
+         
              
-   
+        //Each Container App: (vCoresCount / 0,25) * containerAppsPerQuarterVCorePrice + (ramAmount / 0,5) * 
+        //containerAppsPerHalfGbPrice
+            public decimal CalculatorFixdCosts(AzureCostResult azureCostResult){
             decimal containerAppsCost = 0m;
 
                     foreach (var app in _config.ContainerApps) {
                     containerAppsCost +=
-                        (app.VCoresCount / 0.25m) * azureCostResult.ContainerAppsPriceOfVcpuSeconds
-                        +
-                        (app.RamAmount / 0.5m) * azureCostResult.ContainerAppsPriceOfGibSeconds;
-            }
+                    (app.VCoresCount / 0.25m) * azureCostResult.ContainerAppsPriceOfVcpuSeconds
+                    +
+                    (app.RamAmount / 0.5m) * azureCostResult.ContainerAppsPriceOfGibSeconds; }
    
 
-            //NAT Gateway: natGatewayFixedCost * 1 :  feks sum 38,8 * 1 
+        //NAT Gateway: natGatewayFixedCost * 1 :  feks sum 38,8 * 1 
              var natGateway = azureCostResult.NatGatewayCostPerHour * 1;
 
 
-             //Static IP Address: staticIpFixedCost * 1
+        //Static IP Address: staticIpFixedCost * 1
              var staticIpAdress = azureCostResult.StaticIpAddressPricePerHour * 1;  
                 
                                        
-            //Private Endpoints: privateEndpointFixedCost * 4 
+        //Private Endpoints: privateEndpointFixedCost * 4 
             var privateEndpoints = azureCostResult.PrivatEndpointPricePerHour * 4;
           
         
-            //Employees: employeeAvgMonthlyCost / employeesNeededPerCustomer
+        //Employees: employeeAvgMonthlyCost / employeesNeededPerCustomer
             var employees = _config.MiscCost.EmployeeAvgMonthlyCost / _config.MiscSeting.EmployeeNumNeededPerCustomer;
 
                               
-            //CosmosDB: costPerHundreRus * (cosmosDbMaxRus / 100) * cosmosDbAvgBilledFactor
+        //CosmosDB: costPerHundreRus * (cosmosDbMaxRus / 100) * cosmosDbAvgBilledFactor
             var cosmosDb = azureCostResult.CosmosDbPricedByHundredRusApiRespons * 
                 (_config.MiscSeting.CosmosDbMaxRus / 100m) * 
                 _config.MiscSeting.CosmosDbAverageBilledRuFacto;
  
             
-            //Auth: workOsSsoCostPerMonth * 1 : 125 * 1
+        //Auth: workOsSsoCostPerMonth * 1 
             var auth = _config.MiscSeting.WorkOsSsoCostPerMonth * 1;
 
+        // Total fixed costs: sum(foreach containerAppCost in containerApps) + natGateway + staticIpAddress + privateEndpoints + employees + cosmosDb + auth  
             var totalFixedCosts =
               containerAppsCost +
               natGateway +
@@ -276,42 +281,38 @@ namespace ProsjektOppgave_AdeleTjoennaas.Services
               cosmosDb +
               auth;
 
-            return totalFixedCosts;
-}
+            return totalFixedCosts; }
 
 
 private IntermediateCostVariables CalculateIntermediateVariables() {
 
+    //totalRetainedEventMonths: for (i = 1; i < retentionMonthsCount; i++) { totalRetainedEventMonths += eventsLoggedPerMonthCount * i }
+           var totalRetainedEventMonths = 0m;
 
-
-var totalRetainedEventMonths = 0m;
-
-    for (int i = 1; i < _config.MiscSeting.AverageMonthsOfRetention; i++)
-    {
+    for (int i = 1; i < _config.MiscSeting.AverageMonthsOfRetention; i++) {
         totalRetainedEventMonths += 
-            _config.MiscSeting.EventsLoggedPerMonthCount * i;
-    }
-
-
-
-            var oneWayDataTransferGbKafka =
+        _config.MiscSeting.EventsLoggedPerMonthCount * i; }
+         
+        //oneWayDataTransferGbKafka: (avgSizeOfEventInKafka * eventsLoggedPerMonthCount) / 1024 / 1024 / 1024
+           var oneWayDataTransferGbKafka =
                     (_config.MiscSeting.AvgSizeOfEventInKafka *
                     _config.MiscSeting.EventsLoggedPerMonthCount)
                     / 1024m / 1024m / 1024m;         
 
-            // blobTxsLoggedGb: (avgSizeOfEventInTxStorage * eventsLoggedPerMonthCount) / 1024 / 1024 / 1024
+        // blobTxsLoggedGb: (avgSizeOfEventInTxStorage * eventsLoggedPerMonthCount) / 1024 / 1024 / 1024
             var blobTxsLoggedGb = 
                     (_config.MiscSeting.AvgSizeOfEventdecimaTxStorage *
                      _config.MiscSeting.EventsLoggedPerMonthCount)
                       / 1024 / 1024 / 1024;
 
-            // blobAttachmentsLoggedGb: (avgSizeOfStoredAttachment * eventsLoggedPerMonthCount * avgAttachmentsPerEventCount) / 1024 / 1024 / 1024
+        // blobAttachmentsLoggedGb: (avgSizeOfStoredAttachment * eventsLoggedPerMonthCount * avgAttachmentsPerEventCount) / 1024 / 1024 / 1024
             var blobAttachmentsLoggedGb = 
                     (_config.MiscSeting.AvgSizeOfStoredAttachment *
                     _config.MiscSeting.EventsLoggedPerMonthCount *
                     _config.MiscSeting.AvgAttachmentsPerEventCount)
                     / 1024m / 1024m / 1024m;
 
+        //tablesLoggedGb: (avgSizeOfIndexedEventInTxStorage * eventsLoggedPerMonthCount) / 1024 / 1024 / 1024
             var tablesLoggedGb =
                     (_config.MiscSeting.AvgSizeOfIndexedEventdecimaTxStorage*
                      _config.MiscSeting.EventsLoggedPerMonthCount)
@@ -330,113 +331,131 @@ var totalRetainedEventMonths = 0m;
        var intermediate = CalculateIntermediateVariables();
 
 
-//Blob TXs logged: (eventsLoggedPerMonthCount / avgEventsPerBatchIngestedCount) * blobTxsPerWrite  
-
+         //Blob TXs logged: (eventsLoggedPerMonthCount / avgEventsPerBatchIngestedCount) * blobTxsPerWrite  
            var blobTxsLogged = 
-                (_config.MiscSeting.EventsLoggedPerMonthCount /
-                 _config.MiscSeting.AvgEventsPerBatchIngestedCount) *
-                 azureCostResult.StoragPerBlobWriteForTxs;
+                    (_config.MiscSeting.EventsLoggedPerMonthCount /
+                    _config.MiscSeting.AvgEventsPerBatchIngestedCount) *
+                    azureCostResult.StoragPerBlobWriteForTxs;
 
-//Blob TXs stored: blobTxsLoggedGb * blobTxsPerGbCost
-    
+         //Blob TXs stored: blobTxsLoggedGb * blobTxsPerGbCost
             var blobTxStored =  
-                intermediate.BlobTxsLoggedGb * 
-                azureCostResult.StoragPerGibBlobStoragForTxs;
+                    intermediate.BlobTxsLoggedGb * 
+                    azureCostResult.StoragPerGibBlobStoragForTxs;
 
 
-//Blob TXs retained: blobTxsLoggedGb * blobTxsPerGbCost
-
+         //Blob TXs retained: blobTxsLoggedGb * blobTxsPerGbCost
             var blobTxRetained = 
-                intermediate.BlobTxsLoggedGb *
-                azureCostResult.StoragPerGibBlobStoragForTxs;
-                
-//Blob attachments logged: (eventsLoggedPerMonthCount / avgEventsPerBatchIngestedCount) * avgAttachmentsPerEventCount * blobAttachmentPerWrite
-    var blobAttachmentsLogged = 
-               ( _config.MiscSeting.EventsLoggedPerMonthCount /
-                 _config.MiscSeting.AvgEventsPerBatchIngestedCount) * 
-                 _config.MiscSeting.AvgAttachmentsPerEventCount *
-                 azureCostResult.StoragPerBlobWriteForAttachment;
+                    intermediate.BlobTxsLoggedGb *
+                    azureCostResult.StoragPerGibBlobStoragForTxs;
+        
+        //Blob attachments logged: (eventsLoggedPerMonthCount / avgEventsPerBatchIngestedCount) * avgAttachmentsPerEventCount * blobAttachmentPerWrite
+            var blobAttachmentsLogged = 
+                    ( _config.MiscSeting.EventsLoggedPerMonthCount /
+                        _config.MiscSeting.AvgEventsPerBatchIngestedCount) * 
+                        _config.MiscSeting.AvgAttachmentsPerEventCount *
+                        azureCostResult.StoragPerBlobWriteForAttachment;
 
-        var blobAttachmentsStored = 
-                intermediate.BlobAttachmentsLoggedGb *
-                azureCostResult.StoragPerGibBlobStoragForAttacments;
-    
-        var blobAttachmentsRetained = 
-                intermediate.BlobAttachmentsLoggedGb * 
-                azureCostResult.StoragPerGibBlobStoragForAttacments;
+        //Blob attachments stored: blobAttachmentsLoggedGb * blobAttachmentsPerGbCost
+            var blobAttachmentsStored = 
+                        intermediate.BlobAttachmentsLoggedGb *
+                        azureCostResult.StoragPerGibBlobStoragForAttacments;
 
-        var tablesLogged =
-                ((_config.MiscSeting.EventsLoggedPerMonthCount *
-                 _config.MiscSeting.TablesToWriteToWhenIndexingCount)
-                 / (100m * _config.MiscSeting.TableBatchFillFactor))
-                 * azureCostResult.StoragPerTableWrite;          
+        //Blob attachments retained: blobAttachmentsLoggedGb * blobAttachmentsPerGbCost
+            var blobAttachmentsRetained = 
+                        intermediate.BlobAttachmentsLoggedGb * 
+                        azureCostResult.StoragPerGibBlobStoragForAttacments;
 
-        var tablesStored = 
-                intermediate.TablesLoggedGb * 
-                azureCostResult.StoragPerGibTableStorag;  
+        //Tables logged: ((eventsLoggedPerMonthCount * tablesToWriteToWhenIndexingCount) / (100 * tableBatchFillFactor)) * tablesPerWrite
+            var tablesLogged =
+                        ((_config.MiscSeting.EventsLoggedPerMonthCount *
+                        _config.MiscSeting.TablesToWriteToWhenIndexingCount)
+                        / (100m * _config.MiscSeting.TableBatchFillFactor))
+                        * azureCostResult.StoragPerTableWrite;   
 
-        var tableRetained =
-                intermediate.TablesLoggedGb *
-                azureCostResult.StoragPerGibTableStorag;
+        //Tables stored: tablesLoggedGb * tablesPerGbCost
+            var tablesStored = 
+                        intermediate.TablesLoggedGb * 
+                        azureCostResult.StoragPerGibTableStorag;  
 
+        //Tables retained: tablesLoggedGb * tablesPerGbCost 
+            var tableRetained =
+                        intermediate.TablesLoggedGb *
+                        azureCostResult.StoragPerGibTableStorag;
 
-        var kafkaLogged =
-            intermediate.OneWayDataTransferGbKafka *
-            _config.Kafka.PerGiBThroughKafka *
-            2;
-
-        var kafkaStored =
-            intermediate.OneWayDataTransferGbKafka *
-            _config.Kafka.PerGibInKafaStorag;
-
-        var totalStorageTrafficGb =
-            intermediate.BlobTxsLoggedGb
-            + intermediate.BlobAttachmentsLoggedGb
-            + intermediate.TablesLoggedGb;
-
-        var privateEndpointsLogged =
-            totalStorageTrafficGb * azureCostResult.PrivatEndpointPerGibWritten;
-
-        var natGatewayLogged =
-            totalStorageTrafficGb * azureCostResult.NatGatewayCostPerGibprocessed;
-
-var receivedCost =
-    blobTxsLogged +
-    blobTxStored +
-    blobAttachmentsLogged +
-    blobAttachmentsStored +
-    tablesLogged +
-    tablesStored +
-    kafkaLogged +
-    kafkaStored +
-    privateEndpointsLogged +
-    natGatewayLogged;
-
-var perMillionEventsReceived =
-    receivedCost / (_config.MiscSeting.EventsLoggedPerMonthCount / 1_000_000m);
-
-var retainedCost =
-    blobTxRetained +
-    blobAttachmentsRetained +
-    tableRetained +
-    kafkaStored;
-
-var perMillionEventsRetained =
-    retainedCost / (_config.MiscSeting.EventsLoggedPerMonthCount / 1_000_000m);
+        //Kafka logged: oneWayDataTransferGbKafka * kafkaPerGbTransferCost * 2 // Once in + once out
+            var kafkaLogged =
+                        intermediate.OneWayDataTransferGbKafka *
+                        _config.Kafka.PerGiBThroughKafka *
+                        2;
+            
+        //Kafka stored: oneWayDataTransferGbKafka * kafkaPerGbStorageCost
+            var kafkaStored =
+                        intermediate.OneWayDataTransferGbKafka *
+                        _config.Kafka.PerGibInKafaStorag;
+                            
+        
+        //Kafka retained: oneWayDataTransferGbKafka * kafkaPerGbStorageCost?
+            var kafkaRetained =
+                        intermediate.OneWayDataTransferGbKafka *
+                        _config.Kafka.PerGibInKafaStorag;
 
 
-var totalVariableCosts = receivedCost + retainedCost;
+          //Private endpoints logged: (blobTxsLoggedGb + blobAttachmentsLoggedGb + tablesLoggedGb) * privateEndpointCostPerGb
+          //NAT gateway logged: (blobTxsLoggedGb + blobAttachmentsLoggedGb + tablesLoggedGb) * natGatewayCostPerGb
+            var totalStorageTrafficGb =
+                      intermediate.BlobTxsLoggedGb +
+                      intermediate.BlobAttachmentsLoggedGb +
+                      intermediate.TablesLoggedGb;
+     
+            var privateEndpointsLogged =
+                    totalStorageTrafficGb * azureCostResult.PrivatEndpointPerGibWritten;
 
-return new VariableCostResult
-{
-    TotalVariableCosts = totalVariableCosts,
-    PerMillionEventsReceived = perMillionEventsReceived,
-    PerMillionEventsRetained = perMillionEventsRetained
-};}
+            var natGatewayLogged =
+                    totalStorageTrafficGb * azureCostResult.NatGatewayCostPerGibprocessed;
+
+            var receivedCost =
+                    blobTxsLogged +
+                    blobTxStored +
+                    blobAttachmentsLogged +
+                    blobAttachmentsStored +
+                    tablesLogged +
+                    tablesStored +
+                    kafkaLogged +
+                    kafkaStored +
+                    kafkaRetained +
+                    privateEndpointsLogged +
+                    natGatewayLogged;
+
+
+        //Per million events received: (blobTxsLogged + blobTxsStored + blobAttachmentsLogged + blobAttachmentsStored + tablesLogged + tablesStored + kafkaLogged + kafkaStored + privateEndpointsLogged + natGatewayLogged) / 1000000
+            var perMillionEventsReceived =
+                    receivedCost / (_config.MiscSeting.EventsLoggedPerMonthCount / 1_000_000m);
+
+        
+        //Per million events retained: (blobTxsRetained + blobAttachmentsRetained + tablesRetained + kafkaStored) / 1000000
+            var retainedCost =
+                    blobTxRetained +
+                    blobAttachmentsRetained +
+                    tableRetained +
+                    kafkaStored;
+        
+        //Total variable costs: blobTxsLogged + blobTxsStored + blobTxsRetained + blobAttachmentsLogged + blobAttachmentsStored + blobAttachmentsRetained + tablesLogged + tablesStored + tablesRetained + kafkaLogged + kafkaStored + privateEndpointsLogged + natGatewayLogged
+            var perMillionEventsRetained =
+                    retainedCost / (_config.MiscSeting.EventsLoggedPerMonthCount / 1_000_000m);
+
+
+            var totalVariableCosts = receivedCost + retainedCost;
+
+            return new VariableCostResult {
+                    TotalVariableCosts = totalVariableCosts,
+                    PerMillionEventsReceived = perMillionEventsReceived,
+                    PerMillionEventsRetained = perMillionEventsRetained };}
 
 
 public async Task<AzureCostCalculation> CalculateAndSaveAzureCostAsync(string currency = "USD")
 {
+
+  //(fixedCosts + variableCosts) * simplificationHedgeFactor * currencyDevaluationHedgeFactor * sellerCommisionFactor
     var azureCostResult = await CalculateAsync(currency);
 
     var fixedCosts = CalculatorFixdCosts(azureCostResult);
