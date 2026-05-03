@@ -20,19 +20,21 @@ namespace ProsjektOppgave_AdeleTjoennaas.Controllers
         private readonly CustomerCalculator _customerCalculator;     
         private readonly PriceCalculator _priceCalculator; 
         private readonly CalculationServices _calculationServices;
-      
+        private readonly PriceDbContext _db;
 
         public CalculatorController (
 
                 ILogger<CalculatorController> logger,
                 CustomerCalculator customerCalculator,
                 PriceCalculator priceCalculator,
-                CalculationServices calculationServices )
+                CalculationServices calculationServices,
+                PriceDbContext db)
             {
                 _logger = logger;
                 _customerCalculator = customerCalculator;
                 _priceCalculator = priceCalculator;
                 _calculationServices = calculationServices;
+                _db = db;
             }
 
             
@@ -50,6 +52,18 @@ namespace ProsjektOppgave_AdeleTjoennaas.Controllers
                                 return StatusCode(500, ex.ToString());
                             }
 }
+
+[HttpGet("margins")]
+public async Task<ActionResult<List<CalculationMargin>>> GetMargins()
+{
+    var margins = await _db.CalculationMargins
+        .OrderBy(x => x.CreatedAt)
+        .ThenBy(x => x.PeriodNumber)
+        .ToListAsync();
+
+    return Ok(margins);
+}
+
 
             [HttpPost("azure-cost")]
                     public async Task<IActionResult> CalculateAzureCost() {
