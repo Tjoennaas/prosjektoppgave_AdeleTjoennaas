@@ -8,11 +8,15 @@ namespace ProsjektOppgave_AdeleTjoennaas.Services
 {
     public class  CustomerCalculator
     { private readonly PriceDbContext _db;
+   
 
      public  CustomerCalculator (PriceDbContext db)
 {
     _db = db;
+
+    
 }
+   
 
         public double CalculateEventsPerPeriod(CustomerInput input)
         {
@@ -99,7 +103,7 @@ public async Task<List<CustomerCalculationResult>> CalculateAndSaveAllAsync(Cust
 {
     var results = new List<CustomerCalculationResult>();
     var groupId = Guid.NewGuid();
-
+  
 
 
     for (int periodNumber = 1; periodNumber <= input.RetentionPeriods; periodNumber++)
@@ -109,6 +113,8 @@ public async Task<List<CustomerCalculationResult>> CalculateAndSaveAllAsync(Cust
 
         result.CalculationGroupId = groupId;
         result.PeriodNumber = periodNumber;
+
+  
 
         _db.CustomerCalculations.Add(result);
         results.Add(result);
