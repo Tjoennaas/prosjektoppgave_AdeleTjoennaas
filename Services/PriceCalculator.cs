@@ -422,34 +422,49 @@ private IntermediateCostVariables CalculateIntermediateVariables() {
                     tablesStored +
                     kafkaLogged +
                     kafkaStored +
-                    kafkaRetained +
                     privateEndpointsLogged +
                     natGatewayLogged;
 
-         
-        //Per million events received: (blobTxsLogged + blobTxsStored + blobAttachmentsLogged + blobAttachmentsStored + tablesLogged + tablesStored + kafkaLogged + kafkaStored + privateEndpointsLogged + natGatewayLogged) / 1000000
-            var perMillionEventsReceived =
-                    receivedCost / (_config.MiscSeting.EventsLoggedPerMonthCount / 1_000_000m);
-
-        
-        //Per million events retained: (blobTxsRetained + blobAttachmentsRetained + tablesRetained + kafkaStored) / 1000000
+               
+       //Per million events retained: (blobTxsRetained + blobAttachmentsRetained + tablesRetained + kafkaStored) / 1000000
             var retainedCost =
-                    blobTxRetained +
-                    blobAttachmentsRetained +
-                    tableRetained +
-                    kafkaStored;
-        
-        //Total variable costs: blobTxsLogged + blobTxsStored + blobTxsRetained + blobAttachmentsLogged + blobAttachmentsStored + blobAttachmentsRetained + tablesLogged + tablesStored + tablesRetained + kafkaLogged + kafkaStored + privateEndpointsLogged + natGatewayLogged
-            var perMillionEventsRetained =
-                    retainedCost / (_config.MiscSeting.EventsLoggedPerMonthCount / 1_000_000m);
+                        blobTxRetained +
+                        blobAttachmentsRetained +
+                        tableRetained +
+                        kafkaRetained;
+    
+                    var perMillionEventsRetained =
+                        retainedCost / (_config.MiscSeting.EventsLoggedPerMonthCount / 1_000_000m);
+
+                 
+
+       //Per million events received: (blobTxsLogged + blobTxsStored + blobAttachmentsLogged + blobAttachmentsStored + tablesLogged + tablesStored + kafkaLogged + kafkaStored + privateEndpointsLogged + natGatewayLogged) / 1000000
+           var perMillionEventsReceived =   
+                        receivedCost / (_config.MiscSeting.EventsLoggedPerMonthCount / 1_000_000m);
+
+                    var totalVariableCosts =
+                        blobTxsLogged +
+                        blobTxStored +
+                        blobTxRetained +
+                        blobAttachmentsLogged +
+                        blobAttachmentsStored +
+                        blobAttachmentsRetained +
+                        tablesLogged +
+                        tablesStored +
+                        tableRetained +
+                        kafkaLogged +
+                        kafkaStored +
+                        privateEndpointsLogged +
+                        natGatewayLogged;
+
+                    return new VariableCostResult
+                    {
+                        TotalVariableCosts = totalVariableCosts,
+                        PerMillionEventsReceived = perMillionEventsReceived,
+                        PerMillionEventsRetained = perMillionEventsRetained
+                    };}
 
 
-            var totalVariableCosts = receivedCost + retainedCost;
-
-            return new VariableCostResult {
-                    TotalVariableCosts = totalVariableCosts,
-                    PerMillionEventsReceived = perMillionEventsReceived,
-                    PerMillionEventsRetained = perMillionEventsRetained };}
 
 
 public async Task<AzureCostCalculation> CalculateAndSaveAzureCostAsync(string currency = "USD")
