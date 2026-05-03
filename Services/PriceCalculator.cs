@@ -426,7 +426,7 @@ private IntermediateCostVariables CalculateIntermediateVariables() {
                     privateEndpointsLogged +
                     natGatewayLogged;
 
-
+         
         //Per million events received: (blobTxsLogged + blobTxsStored + blobAttachmentsLogged + blobAttachmentsStored + tablesLogged + tablesStored + kafkaLogged + kafkaStored + privateEndpointsLogged + natGatewayLogged) / 1000000
             var perMillionEventsReceived =
                     receivedCost / (_config.MiscSeting.EventsLoggedPerMonthCount / 1_000_000m);
