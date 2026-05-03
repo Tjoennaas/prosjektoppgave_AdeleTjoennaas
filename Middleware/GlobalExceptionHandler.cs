@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ProsjektOppgave_AdeleTjoennaas.Middleware {
+namespace ExceptionHandler.Middleware {
 
 internal sealed class GlobalExceptionHandler : IExceptionHandler
 {

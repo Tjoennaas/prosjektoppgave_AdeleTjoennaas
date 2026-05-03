@@ -9,8 +9,8 @@ using ProsjektOppgave_AdeleTjoennaas.Data;
 
 namespace prosjektoppgave_AdeleTjoennaas.Migrations
 {
-    [DbContext(typeof(PriceDbContext))]
-    partial class PriceDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(CostDbContext))]
+    partial class CostDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {

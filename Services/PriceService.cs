@@ -1,7 +1,6 @@
 
 
 using System.Net;
-using Microsoft.EntityFrameworkCore.Design;
 using ProsjektOppgave_AdeleTjoennaas.Models;
 
 

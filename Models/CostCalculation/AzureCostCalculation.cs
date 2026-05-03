@@ -1,4 +1,7 @@
 
+
+
+
 namespace ProsjektOppgave_AdeleTjoennaas.Models
 {
     public class AzureCostCalculation
@@ -12,6 +15,4 @@ namespace ProsjektOppgave_AdeleTjoennaas.Models
         public decimal PerMillionEventsReceived { get; set; }
         public decimal PerMillionEventsRetained { get; set; }
 
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-    }
-}
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;  }}

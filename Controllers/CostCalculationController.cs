@@ -4,31 +4,30 @@ using Microsoft.AspNetCore.Mvc;
 using ProsjektOppgave_AdeleTjoennaas.Dto;
 using ProsjektOppgave_AdeleTjoennaas.Services;
 using ProsjektOppgave_AdeleTjoennaas.Models;
-using ProsjektOppgave_AdeleTjoennaas.Data;
+
+using CostPrices.Data;
 
 
 
-
-
-namespace ProsjektOppgave_AdeleTjoennaas.Controllers
+namespace CostCalculation.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class CalculatorController : ControllerBase
+    public class CostCalculationController: ControllerBase
     {
-        private readonly ILogger<CalculatorController> _logger;
+        private readonly ILogger<CostCalculationController> _logger;
         private readonly CustomerCalculator _customerCalculator;     
         private readonly PriceCalculator _priceCalculator; 
         private readonly CalculationServices _calculationServices;
-        private readonly PriceDbContext _db;
+        private readonly CostDbContext _db;
 
-        public CalculatorController (
+        public CostCalculationController (
 
-                ILogger<CalculatorController> logger,
+                ILogger<CostCalculationController> logger,
                 CustomerCalculator customerCalculator,
                 PriceCalculator priceCalculator,
                 CalculationServices calculationServices,
-                PriceDbContext db)
+                CostDbContext db)
             {
                 _logger = logger;
                 _customerCalculator = customerCalculator;

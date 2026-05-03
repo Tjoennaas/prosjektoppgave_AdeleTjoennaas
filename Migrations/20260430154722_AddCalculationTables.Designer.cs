@@ -10,7 +10,7 @@ using ProsjektOppgave_AdeleTjoennaas.Data;
 
 namespace prosjektoppgave_AdeleTjoennaas.Migrations
 {
-    [DbContext(typeof(PriceDbContext))]
+    [DbContext(typeof(CostDbContext))]
     [Migration("20260430154722_AddCalculationTables")]
     partial class AddCalculationTables
     {

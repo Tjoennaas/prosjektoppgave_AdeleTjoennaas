@@ -1,10 +1,10 @@
 
 using ProsjektOppgave_AdeleTjoennaas.BackgroundTask;
-
+using CostPrices.Data;
 using Microsoft.EntityFrameworkCore;
 
 
-namespace ProsjektOppgave_AdeleTjoennaas.Data
+namespace Initializer.Data
 {
     
     public static class DatabaseInitializer
@@ -13,7 +13,7 @@ namespace ProsjektOppgave_AdeleTjoennaas.Data
 
 using var scope = services.CreateScope();
 
- var db = scope.ServiceProvider.GetRequiredService<PriceDbContext>();
+ var db = scope.ServiceProvider.GetRequiredService<CostDbContext>();
  var refresh = scope.ServiceProvider.GetRequiredService<AzurePriceRefreshService>();
 
   db.Database.Migrate();

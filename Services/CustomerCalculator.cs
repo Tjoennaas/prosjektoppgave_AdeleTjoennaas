@@ -1,16 +1,15 @@
 
-using Microsoft.EntityFrameworkCore;
-using System;
-using ProsjektOppgave_AdeleTjoennaas.Dto;
-using ProsjektOppgave_AdeleTjoennaas.Models;
-using ProsjektOppgave_AdeleTjoennaas.Data;
+
+                using ProsjektOppgave_AdeleTjoennaas.Dto;
+                using ProsjektOppgave_AdeleTjoennaas.Models;
+                using CostPrices.Data;
 namespace ProsjektOppgave_AdeleTjoennaas.Services
 {
     public class  CustomerCalculator
-    { private readonly PriceDbContext _db;
+    { private readonly CostDbContext _db;
    
 
-     public  CustomerCalculator (PriceDbContext db)
+     public  CustomerCalculator (CostDbContext db)
 {
     _db = db;
 

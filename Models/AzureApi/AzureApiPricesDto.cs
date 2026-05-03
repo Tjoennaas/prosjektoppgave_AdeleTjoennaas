@@ -4,7 +4,7 @@
 using System.ComponentModel.DataAnnotations;
 
 
-namespace ProsjektOppgave_AdeleTjoennaas.Models {
+namespace AzurePrice.Models {
 public class AzurePrice
 {
         [Key]

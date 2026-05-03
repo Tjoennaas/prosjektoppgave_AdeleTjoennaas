@@ -1,8 +1,11 @@
 
 
+
+
+
 namespace ProsjektOppgave_AdeleTjoennaas.Models {
     
-       public class AzureCostResult
+       public class  AzureCostResult
        {
               public decimal ContainerAppsPriceOfVcpuSeconds{get; set;}
               

@@ -1,11 +1,10 @@
 
 
-using ProsjektOppgave_AdeleTjoennaas.Data;
 using ProsjektOppgave_AdeleTjoennaas.Models;
-using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using ProsjektOppgave_AdeleTjoennaas.Dto;
+using CostPrices.Data;
 
 namespace ProsjektOppgave_AdeleTjoennaas.Services
 {
@@ -13,10 +12,10 @@ namespace ProsjektOppgave_AdeleTjoennaas.Services
     public class PriceCalculator {
 
 
-        private readonly PriceDbContext _db;
+        private readonly CostDbContext _db;
         private readonly ConfigApp _config;
 
-        public PriceCalculator(PriceDbContext db, ConfigApp config)
+        public PriceCalculator(CostDbContext db, ConfigApp config)
         {
 
             _db = db;
@@ -24,7 +23,7 @@ namespace ProsjektOppgave_AdeleTjoennaas.Services
         }
 
         //Her henter jeg priser fra databasen
-        public async Task<AzureCostResult> CalculateAsync(string currency = "USD")
+        public async Task< AzureCostResult> CalculateAsync(string currency = "USD")
         {       
             var staticIpAddress = await GetPriceAsync(
 
@@ -150,7 +149,7 @@ namespace ProsjektOppgave_AdeleTjoennaas.Services
                 currency: currency);
 
 
-        return new AzureCostResult {
+        return new  AzureCostResult {
 
          
         
@@ -236,26 +235,26 @@ namespace ProsjektOppgave_AdeleTjoennaas.Services
              
         //Each Container App: (vCoresCount / 0,25) * containerAppsPerQuarterVCorePrice + (ramAmount / 0,5) * 
         //containerAppsPerHalfGbPrice
-            public decimal CalculatorFixdCosts(AzureCostResult azureCostResult){
+            public decimal CalculatorFixdCosts( AzureCostResult  azureCostResult){
             decimal containerAppsCost = 0m;
 
                     foreach (var app in _config.ContainerApps) {
                     containerAppsCost +=
-                    (app.VCoresCount / 0.25m) * azureCostResult.ContainerAppsPriceOfVcpuSeconds
+                    (app.VCoresCount / 0.25m) *  azureCostResult.ContainerAppsPriceOfVcpuSeconds
                     +
-                    (app.RamAmount / 0.5m) * azureCostResult.ContainerAppsPriceOfGibSeconds; }
+                    (app.RamAmount / 0.5m) *  azureCostResult.ContainerAppsPriceOfGibSeconds; }
    
 
         //NAT Gateway: natGatewayFixedCost * 1 :  feks sum 38,8 * 1 
-             var natGateway = azureCostResult.NatGatewayCostPerHour * 1;
+             var natGateway =  azureCostResult.NatGatewayCostPerHour * 1;
 
 
         //Static IP Address: staticIpFixedCost * 1
-             var staticIpAdress = azureCostResult.StaticIpAddressPricePerHour * 1;  
+             var staticIpAdress =  azureCostResult.StaticIpAddressPricePerHour * 1;  
                 
                                        
         //Private Endpoints: privateEndpointFixedCost * 4 
-            var privateEndpoints = azureCostResult.PrivatEndpointPricePerHour * 4;
+            var privateEndpoints =  azureCostResult.PrivatEndpointPricePerHour * 4;
           
         
         //Employees: employeeAvgMonthlyCost / employeesNeededPerCustomer
@@ -263,7 +262,7 @@ namespace ProsjektOppgave_AdeleTjoennaas.Services
 
                               
         //CosmosDB: costPerHundreRus * (cosmosDbMaxRus / 100) * cosmosDbAvgBilledFactor
-            var cosmosDb = azureCostResult.CosmosDbPricedByHundredRusApiRespons * 
+            var cosmosDb =  azureCostResult.CosmosDbPricedByHundredRusApiRespons * 
                 (_config.MiscSeting.CosmosDbMaxRus / 100m) * 
                 _config.MiscSeting.CosmosDbAverageBilledRuFacto;
  
@@ -326,7 +325,7 @@ private IntermediateCostVariables CalculateIntermediateVariables() {
                     TablesLoggedGb = tablesLoggedGb
                 };}
 
- private VariableCostResult CalculateVariableCosts(AzureCostResult azureCostResult) {
+ private VariableCostResult CalculateVariableCosts( AzureCostResult  azureCostResult) {
  
        var intermediate = CalculateIntermediateVariables();
 
@@ -335,52 +334,52 @@ private IntermediateCostVariables CalculateIntermediateVariables() {
            var blobTxsLogged = 
                     (_config.MiscSeting.EventsLoggedPerMonthCount /
                     _config.MiscSeting.AvgEventsPerBatchIngestedCount) *
-                    azureCostResult.StoragPerBlobWriteForTxs;
+                     azureCostResult.StoragPerBlobWriteForTxs;
 
      //Blob TXs stored: blobTxsLoggedGb * blobTxsPerGbCost
             var blobTxStored =  
                     intermediate.BlobTxsLoggedGb * 
-                    azureCostResult.StoragPerGibBlobStoragForTxs;
+                     azureCostResult.StoragPerGibBlobStoragForTxs;
 
 
      //Blob TXs retained: blobTxsLoggedGb * blobTxsPerGbCost
             var blobTxRetained = 
                     intermediate.BlobTxsLoggedGb *
-                    azureCostResult.StoragPerGibBlobStoragForTxs;
+                     azureCostResult.StoragPerGibBlobStoragForTxs;
         
      //Blob attachments logged: (eventsLoggedPerMonthCount / avgEventsPerBatchIngestedCount) * avgAttachmentsPerEventCount * blobAttachmentPerWrite
             var blobAttachmentsLogged = 
                     ( _config.MiscSeting.EventsLoggedPerMonthCount /
                         _config.MiscSeting.AvgEventsPerBatchIngestedCount) * 
                         _config.MiscSeting.AvgAttachmentsPerEventCount *
-                        azureCostResult.StoragPerBlobWriteForAttachment;
+                         azureCostResult.StoragPerBlobWriteForAttachment;
 
      //Blob attachments stored: blobAttachmentsLoggedGb * blobAttachmentsPerGbCost
             var blobAttachmentsStored = 
                         intermediate.BlobAttachmentsLoggedGb *
-                        azureCostResult.StoragPerGibBlobStoragForAttacments;
+                         azureCostResult.StoragPerGibBlobStoragForAttacments;
 
      //Blob attachments retained: blobAttachmentsLoggedGb * blobAttachmentsPerGbCost
             var blobAttachmentsRetained = 
                         intermediate.BlobAttachmentsLoggedGb * 
-                        azureCostResult.StoragPerGibBlobStoragForAttacments;
+                         azureCostResult.StoragPerGibBlobStoragForAttacments;
 
      //Tables logged: ((eventsLoggedPerMonthCount * tablesToWriteToWhenIndexingCount) / (100 * tableBatchFillFactor)) * tablesPerWrite
             var tablesLogged =
                         ((_config.MiscSeting.EventsLoggedPerMonthCount *
                         _config.MiscSeting.TablesToWriteToWhenIndexingCount)
                         / (100m * _config.MiscSeting.TableBatchFillFactor))
-                        * azureCostResult.StoragPerTableWrite;   
+                        *  azureCostResult.StoragPerTableWrite;   
 
         //Tables stored: tablesLoggedGb * tablesPerGbCost
             var tablesStored = 
                         intermediate.TablesLoggedGb * 
-                        azureCostResult.StoragPerGibTableStorag;  
+                         azureCostResult.StoragPerGibTableStorag;  
 
         //Tables retained: tablesLoggedGb * tablesPerGbCost 
             var tableRetained =
                         intermediate.TablesLoggedGb *
-                        azureCostResult.StoragPerGibTableStorag;
+                         azureCostResult.StoragPerGibTableStorag;
 
         //Kafka logged: oneWayDataTransferGbKafka * kafkaPerGbTransferCost * 2 // Once in + once out
             var kafkaLogged =
@@ -408,10 +407,10 @@ private IntermediateCostVariables CalculateIntermediateVariables() {
                       intermediate.TablesLoggedGb;
      
             var privateEndpointsLogged =
-                    totalStorageTrafficGb * azureCostResult.PrivatEndpointPerGibWritten;
+                    totalStorageTrafficGb *  azureCostResult.PrivatEndpointPerGibWritten;
 
             var natGatewayLogged =
-                    totalStorageTrafficGb * azureCostResult.NatGatewayCostPerGibprocessed;
+                    totalStorageTrafficGb *  azureCostResult.NatGatewayCostPerGibprocessed;
 
             var receivedCost =
                     blobTxsLogged +
@@ -466,10 +465,10 @@ private IntermediateCostVariables CalculateIntermediateVariables() {
             public async Task<AzureCostCalculation> CalculateAndSaveAzureCostAsync(string currency = "USD") {
 
                     //(fixedCosts + variableCosts) * simplificationHedgeFactor * currencyDevaluationHedgeFactor * sellerCommisionFactor
-                        var azureCostResult = await CalculateAsync(currency);
+                        var  azureCostResult = await CalculateAsync(currency);
 
-                        var fixedCosts = CalculatorFixdCosts(azureCostResult);
-                        var variableResult = CalculateVariableCosts(azureCostResult);
+                        var fixedCosts = CalculatorFixdCosts( azureCostResult);
+                        var variableResult = CalculateVariableCosts( azureCostResult);
 
                         var totalAzureCost =
                             (fixedCosts + variableResult.TotalVariableCosts)

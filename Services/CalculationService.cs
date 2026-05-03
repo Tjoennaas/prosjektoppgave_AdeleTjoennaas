@@ -1,6 +1,7 @@
 
 
-                    using ProsjektOppgave_AdeleTjoennaas.Data;
+              
+                    using CostPrices.Data;
                     using ProsjektOppgave_AdeleTjoennaas.Dto;
                     using ProsjektOppgave_AdeleTjoennaas.Models;
 
@@ -12,13 +13,13 @@
                         {
                             private readonly PriceCalculator _priceCalculator;
                             private readonly CustomerCalculator _customerCalculator;
-                            private readonly PriceDbContext _db;
+                            private readonly CostDbContext _db;
                             private readonly ConfigApp _config;
 
                             public CalculationServices(
                                 PriceCalculator priceCalculator,
                                 CustomerCalculator customerCalculator,
-                                PriceDbContext db,
+                                CostDbContext db,
                                  ConfigApp config)
                             {
                                 _priceCalculator = priceCalculator;

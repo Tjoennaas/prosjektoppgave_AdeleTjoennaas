@@ -1,9 +1,10 @@
 
                 using Serilog;
-                using ProsjektOppgave_AdeleTjoennaas.Middleware;
+                using ExceptionHandler.Middleware;
                 using ProsjektOppgave_AdeleTjoennaas.Services;
                 using ProsjektOppgave_AdeleTjoennaas.BackgroundTask;
-                using ProsjektOppgave_AdeleTjoennaas.Data;
+                using CostPrices.Data;
+                using Initializer.Data;
                 using ProsjektOppgave_AdeleTjoennaas.Models;
                 using Microsoft.EntityFrameworkCore;
 
@@ -34,7 +35,7 @@
                     .CreateLogger();
 
 
-                builder.Services.AddDbContext<PriceDbContext>(options =>
+                builder.Services.AddDbContext<CostDbContext>(options =>
                     options.UseSqlite(connectionString));
 
 

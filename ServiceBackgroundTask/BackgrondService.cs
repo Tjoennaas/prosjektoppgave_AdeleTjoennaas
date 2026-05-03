@@ -43,12 +43,12 @@ namespace ProsjektOppgave_AdeleTjoennaas.BackgroundTask
             "Front Door"
         };
 
-        private readonly PriceDbContext _db;
+        private readonly CostDbContext _db;
         private readonly AzurePriceService _azurePriceService;
         private readonly ILogger<AzurePriceRefreshService> _logger;
 
         public AzurePriceRefreshService(
-            PriceDbContext db,
+            CostDbContext db,
             AzurePriceService azurePriceService,
             ILogger<AzurePriceRefreshService> logger)
         {
@@ -229,12 +229,10 @@ var prices = await _azurePriceService.GetPricesAsync(
     string? ArmSkuName = null,
     string? UnitOfMeasure = null,
     string? RegionOverride = null);
-       
-    }
-}
+    }}
 
 
-/*rm -f sqldata/data.db*/
+
        
 
 

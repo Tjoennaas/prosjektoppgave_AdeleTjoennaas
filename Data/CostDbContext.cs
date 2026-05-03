@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore;
 using ProsjektOppgave_AdeleTjoennaas.Models;
 
 
-namespace ProsjektOppgave_AdeleTjoennaas.Data {
+namespace CostPrices.Data {
 
-public class PriceDbContext : DbContext {  
+public class CostDbContext : DbContext {  
 
-public PriceDbContext(DbContextOptions<PriceDbContext> options)
+public CostDbContext(DbContextOptions<CostDbContext> options)
               : base(options) { }
 
      public DbSet<AzurePrice> AzurePrices { get; set; }

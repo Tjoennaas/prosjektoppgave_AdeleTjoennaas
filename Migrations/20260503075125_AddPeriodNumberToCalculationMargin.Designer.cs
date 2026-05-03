@@ -10,7 +10,7 @@ using ProsjektOppgave_AdeleTjoennaas.Data;
 
 namespace prosjektoppgave_AdeleTjoennaas.Migrations
 {
-    [DbContext(typeof(PriceDbContext))]
+    [DbContext(typeof(CostDbContext))]
     [Migration("20260503075125_AddPeriodNumberToCalculationMargin")]
     partial class AddPeriodNumberToCalculationMargin
     {

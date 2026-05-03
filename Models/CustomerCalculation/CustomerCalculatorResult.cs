@@ -30,21 +30,7 @@ using ProsjektOppgave_AdeleTjoennaas.Dto;
 
 
 
-     
-   /* public int Id { get; set; }
-
-    public int CustomerCalculationRunId { get; set; }
-    public int PeriodNumber { get; set; }
-
-    public decimal BasePrice { get; set; }
-    public decimal EventCost { get; set; }
-    public decimal UserCost { get; set; }
-    public decimal RetentionCost { get; set; }
-    public decimal CollectorCost { get; set; }
-    public decimal TotalPrice { get; set; }
-
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;*/
-
+  
 
 
 
