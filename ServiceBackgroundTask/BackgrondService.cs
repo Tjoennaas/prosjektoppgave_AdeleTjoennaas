@@ -1,22 +1,13 @@
 
 
-using CostPricingEngine.Services;
-using CostPricingEngine.Services.AzureCostCalculator;
-using CostPricingEngine.Models;
-using CostPricingEngine.Data;
+        using CostPricingEngine.Services;
+        using CostPricingEngine.Data;
+        using Microsoft.EntityFrameworkCore;
+        using CostPricingEngine.Models.AzureApi;
+             
+         namespace CostPricingEngine.BackgroundTask{
 
-using Microsoft.EntityFrameworkCore;
-                using CostPricingEngine.Models.AzureApi;
-                using CostPricingEngine.Models.Config;
-                using CostPricingEngine.Models.CostCalculation;
-                using CostPricingEngine.Models.CostMargin;
-         
-
-
-namespace CostPricingEngine.BackgroundTask
-{
-    public class AzurePriceRefreshService
-    {
+    public class AzurePriceRefreshService {
         private static readonly string[] SupportedCurrencies = { "USD", "EUR" };
         private static readonly string[] SupportedRegions = {"northeurope" };
 
@@ -24,8 +15,7 @@ namespace CostPricingEngine.BackgroundTask
 
         // productName er ikke unikt nok til å identifisere riktig pris rad fra Azure prising API,
         // må derfor bruke mer presis navn OG filtrere for å hente riktig pris informasjon.
-        private static readonly PriceQuerySpec[] RequestedPriceQueries =
-        {  
+        private static readonly PriceQuerySpec[] RequestedPriceQueries = {  
             new("Private Endpoint", ProductName: "Virtual Network Private Link", ServiceName: "Virtual Network", RegionOverride: "Global"),
             new("NAT Gateway", ProductName: "NAT Gateway", RegionOverride: "Global"),
             new("Azure Storage", ServiceName: "Storage"),
