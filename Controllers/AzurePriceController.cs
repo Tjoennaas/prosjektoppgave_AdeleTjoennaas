@@ -1,37 +1,30 @@
 
 
 
+            using Microsoft.AspNetCore.Mvc;
+            using Microsoft.EntityFrameworkCore;
+            using CostPricingEngine.Data;
 
 
 
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using CostPrices.Data;
+    namespace CostPricingEngine.Controller {
+                [ApiController]
+                [Route("[controller]")]
 
+            public class AzurePriceController : ControllerBase {
 
+            private readonly CostDbContext _db;
+            public AzurePriceController(CostDbContext db) {
+                        
+                 _db = db; }
 
-namespace AzurePriceApi.Controllers
-{
-    [ApiController]
-    [Route("[controller]")]
+            [HttpGet("Azure-price")]
 
-public class AzurePriceController : ControllerBase {
+            public async Task<IActionResult> GetAll() {
 
-private readonly CostDbContext _db;
-public AzurePriceController(CostDbContext db)
-        {
-            
-            _db = db;
-        }
-
-[HttpGet("Azure-price")]
-
- public async Task<IActionResult> GetAll()
-{
-     var azurePrices = await _db.AzurePrices.ToListAsync();
-        return Ok(azurePrices);
-
-}};}
+                var azurePrices = await _db.AzureApiPricesDto.ToListAsync();
+                return Ok(azurePrices);      
+    }};}
 
 
 

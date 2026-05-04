@@ -1,7 +1,7 @@
 
 
 
-namespace ProsjektOppgave_AdeleTjoennaas.Models {
+namespace CostPricingEngine.Models.Config {
     
      public class Kafka {   
          public decimal PerGiBThroughKafka {get; set;} = 0.05m;

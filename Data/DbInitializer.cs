@@ -1,10 +1,10 @@
 
-using ProsjektOppgave_AdeleTjoennaas.BackgroundTask;
-using CostPrices.Data;
+using CostPricingEngine.BackgroundTask;
+using CostPricingEngine.Data;
 using Microsoft.EntityFrameworkCore;
 
 
-namespace Initializer.Data
+namespace CostPricingEngine.Data
 {
     
     public static class DatabaseInitializer

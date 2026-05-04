@@ -1,7 +1,6 @@
 
 using System.Collections.Generic;
-
-namespace ProsjektOppgave_AdeleTjoennaas.Models {
+namespace CostPricingEngine.Models.Config {
 
 
    public class ConfigApp {

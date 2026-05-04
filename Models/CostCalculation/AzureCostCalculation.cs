@@ -2,11 +2,13 @@
 
 
 
-namespace ProsjektOppgave_AdeleTjoennaas.Models
+using Microsoft.EntityFrameworkCore;
+
+namespace CostPricingEngine.Models.CostCalculation
 {
     public class AzureCostCalculation
-    {
-        public int Id { get; set; }
+    {          
+        public int AzureCostCalculationId { get; set; }
 
         public decimal FixedCosts { get; set; }
         public decimal VariableCosts { get; set; }

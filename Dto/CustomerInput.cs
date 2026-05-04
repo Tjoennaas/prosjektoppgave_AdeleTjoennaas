@@ -1,7 +1,7 @@
 
 using System.ComponentModel.DataAnnotations;
 
-namespace ProsjektOppgave_AdeleTjoennaas.Dto {
+namespace CostPricingEngine.Dto {
 
 public record CustomerInput {
     public int ActiveUsers { get; set; }

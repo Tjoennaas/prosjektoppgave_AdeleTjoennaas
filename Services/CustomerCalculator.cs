@@ -1,62 +1,43 @@
 
 
-                using ProsjektOppgave_AdeleTjoennaas.Dto;
-                using ProsjektOppgave_AdeleTjoennaas.Models;
-                using CostPrices.Data;
-namespace ProsjektOppgave_AdeleTjoennaas.Services
-{
-    public class  CustomerCalculator
-    { private readonly CostDbContext _db;
-   
+        using CostPricingEngine.Dto;
+        using CostPricingEngine.Data;
+        using CostPricingEngine.Models.CostCalculation;
+                       
 
-     public  CustomerCalculator (CostDbContext db)
-{
-    _db = db;
-
+    namespace CostPricingEngine.Services {
+        
+        public class  CustomerCalculator{ 
+        private readonly CostDbContext _db;
     
-}
-   
 
-        public double CalculateEventsPerPeriod(CustomerInput input)
-        {
+        public CustomerCalculator (CostDbContext db){
+        _db = db; }
+    
 
-            if (input.EventsPerPeriod <= 10_000_000)
-            {
-                return 0;
-            }
+    public double CalculateEventsPerPeriod(CustomerInput input) {
 
-            return (input.EventsPerPeriod - 10_000_000) / 1_000_000.0 * 100;
+            if (input.EventsPerPeriod <= 10_000_000) {
+                return 0; } 
+                return (input.EventsPerPeriod - 10_000_000) / 1_000_000.0 * 100;
         }
 
-        public double CalculateActiveUser(CustomerInput input)
-        {
-            if (input.ActiveUsers <= 10)
-            {
-                return 0;
-            }
+    public double CalculateActiveUser(CustomerInput input) {
+          if (input.ActiveUsers <= 10) {
+                return 0;  }
+                return (input.ActiveUsers - 10) * 80;  }
 
-            return (input.ActiveUsers - 10) * 80;
-        }
+    public int CalculateCollectorCost(CustomerInput input) {
+         int collectorCount = input.Collector ?? 0;
 
-        public int CalculateCollectorCost(CustomerInput input)
-        {
-            int collectorCount = input.Collector ?? 0;
-
-            if (collectorCount < 0)
-            {
-                return 0;
-            }
-
-            return collectorCount * 2000;
-         }
+         if (collectorCount < 0) {
+                return 0;  }
+                return collectorCount * 2000;  }
 
 
-        public double CalculateRetentionCost(CustomerInput input, int periodNumber)
-        {
-            if (input.RetentionPeriods <= 1)
-            {
-                return 0;
-            }
+    public double CalculateRetentionCost(CustomerInput input, int periodNumber) {
+         if (input.RetentionPeriods <= 1) {
+                return 0; }
 
             double billableMillions =
                 (input.EventsPerPeriod - Math.Min(input.EventsPerPeriod, 10_000_000)) / 1_000_000.0;
@@ -64,11 +45,9 @@ namespace ProsjektOppgave_AdeleTjoennaas.Services
             int storedPeriods =
                 Math.Min(periodNumber - 1, input.RetentionPeriods - 1);
 
-            return billableMillions * storedPeriods * 100;
-        }
+            return billableMillions * storedPeriods * 100; }
 
-        public CustomerCalculationResult CalculateForPeriod(CustomerInput input, int periodNumber = 1)
-        {
+   public CustomerCalculationResult CalculateForPeriod(CustomerInput input, int periodNumber = 1) {
             double basePrice = 50_000;
             double eventCost = CalculateEventsPerPeriod(input);
             double userCost = CalculateActiveUser(input);
@@ -76,10 +55,10 @@ namespace ProsjektOppgave_AdeleTjoennaas.Services
             double retentionCost = CalculateRetentionCost(input, periodNumber);
 
             decimal totalVariablePrice =
-    (decimal)eventCost + (decimal)userCost + collectorCost + (decimal)retentionCost;
+            (decimal)eventCost + (decimal)userCost + collectorCost + (decimal)retentionCost;
 
-decimal totalPrice =
-    (decimal)basePrice + totalVariablePrice; 
+            decimal totalPrice =
+            (decimal)basePrice + totalVariablePrice; 
 
           
             
@@ -98,16 +77,13 @@ decimal totalPrice =
                         TotalPrice = (decimal)totalPrice  };}
 
 
-public async Task<List<CustomerCalculationResult>> CalculateAndSaveAllAsync(CustomerInput input)
-{
-    var results = new List<CustomerCalculationResult>();
-    var groupId = Guid.NewGuid();
-  
+    public async Task<List<CustomerCalculationResult>> CalculateAndSaveAllAsync(CustomerInput input) {
+        var results = new List<CustomerCalculationResult>();
+        var groupId = Guid.NewGuid();
+    
 
 
-    for (int periodNumber = 1; periodNumber <= input.RetentionPeriods; periodNumber++)
-
-    {
+    for (int periodNumber = 1; periodNumber <= input.RetentionPeriods; periodNumber++) {
         var result = CalculateForPeriod(input, periodNumber);
 
         result.CalculationGroupId = groupId;
@@ -116,8 +92,7 @@ public async Task<List<CustomerCalculationResult>> CalculateAndSaveAllAsync(Cust
   
 
         _db.CustomerCalculations.Add(result);
-        results.Add(result);
-    }
+        results.Add(result);  }
 
     await _db.SaveChangesAsync();
 

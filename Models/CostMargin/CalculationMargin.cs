@@ -2,7 +2,7 @@
 
 
 
-namespace ProsjektOppgave_AdeleTjoennaas.Models {
+namespace CostPricingEngine.Models.CostMargin {
 
 
     public class CalculationMargin {

@@ -1,16 +1,24 @@
 
 
-using ProsjektOppgave_AdeleTjoennaas.Services;
-using ProsjektOppgave_AdeleTjoennaas.Models;
-using ProsjektOppgave_AdeleTjoennaas.Data;
-using Microsoft.EntityFrameworkCore;
+using CostPricingEngine.Services;
+using CostPricingEngine.Services.AzureCostCalculator;
+using CostPricingEngine.Models;
+using CostPricingEngine.Data;
 
-namespace ProsjektOppgave_AdeleTjoennaas.BackgroundTask
+using Microsoft.EntityFrameworkCore;
+                using CostPricingEngine.Models.AzureApi;
+                using CostPricingEngine.Models.Config;
+                using CostPricingEngine.Models.CostCalculation;
+                using CostPricingEngine.Models.CostMargin;
+         
+
+
+namespace CostPricingEngine.BackgroundTask
 {
     public class AzurePriceRefreshService
     {
         private static readonly string[] SupportedCurrencies = { "USD", "EUR" };
-        private static readonly string[] SupportedRegions = { "northeurope" };
+        private static readonly string[] SupportedRegions = {"northeurope" };
 
 
 
@@ -60,18 +68,18 @@ namespace ProsjektOppgave_AdeleTjoennaas.BackgroundTask
 //sjekker om det finnes data, eldre enn 24 timer, om rader eller data mangler
 //---------------------------------------------------------------------------//  
 
-        public async Task EnsureDataIsFreshAsync()
-        {
-            var hasData = await _db.AzurePrices.AnyAsync();
+        public async Task EnsureDataIsFreshAsync() {
+
+            var hasData = await _db.AzureApiPricesDto.AnyAsync();
             var isStale = false;
             var missingUnitOfMeasure = false;
             var missingRequestedData = false;
 
             if (hasData)
             {
-                var latestUpdate = await _db.AzurePrices.MaxAsync(x => x.LastUpdatedUtc);
+                var latestUpdate = await _db.AzureApiPricesDto.MaxAsync(x => x.LastUpdatedUtc);
                 isStale = latestUpdate < DateTime.UtcNow.AddHours(-24);
-                missingUnitOfMeasure = await _db.AzurePrices.AnyAsync(x => x.UnitOfMeasure == null);
+                missingUnitOfMeasure = await _db.AzureApiPricesDto.AnyAsync(x => x.UnitOfMeasure == null);
                 missingRequestedData = await HasMissingRequestedDataAsync();
             }
 
@@ -96,144 +104,121 @@ namespace ProsjektOppgave_AdeleTjoennaas.BackgroundTask
      //---------------------------------------------------------//   
 
 
-            List<AzurePrice> allPrices = new List<AzurePrice>();
+        List<AzureApiPricesDto> allPrices = new List<AzureApiPricesDto>();
 
-            foreach (var region in SupportedRegions)
-            {
-                foreach (var currency in SupportedCurrencies)
-                {
-                    foreach (var query in RequestedPriceQueries)
-                    {
-                    //Lagt til parametere med riktig rekkefølge
+        foreach (var region in SupportedRegions) {
 
-var regionToUse = query.RegionOverride ?? region;
+        foreach (var currency in SupportedCurrencies) {
 
-var prices = await _azurePriceService.GetPricesAsync(
-    regionToUse,
-    currency,
-    productName: query.ProductName,
-    serviceName: query.ServiceName,
-    meterName: query.MeterName,
-    skuName: query.SkuName,
-    armSkuName: query.ArmSkuName,
-    unitOfMeasure: query.UnitOfMeasure);
+        foreach (var query in RequestedPriceQueries) {
+            
+
+        var regionToUse = query.RegionOverride ?? region;
+
+        var prices = await _azurePriceService.GetPricesAsync(
+            regionToUse,
+            currency,
+            productName: query.ProductName,
+            serviceName: query.ServiceName,
+            meterName: query.MeterName,
+            skuName: query.SkuName,
+            armSkuName: query.ArmSkuName,
+            unitOfMeasure: query.UnitOfMeasure);
 
 
-                        foreach (var price in prices)
-                        {
-                            price.LastUpdatedUtc = DateTime.UtcNow;
-                        }
-
-                        allPrices.AddRange(prices);
-                    }
+                foreach (var price in prices) {
+                    price.LastUpdatedUtc = DateTime.UtcNow;
                 }
+
+                allPrices.AddRange(prices);  }}}
+
+            //Fjerner duplicater før den lagres i databasen
+                allPrices = allPrices
+                    .DistinctBy(price => new {
+                        price.CurrencyCode,
+                        price.ArmRegionName,
+                        price.ProductName,
+                        price.ProductId,
+                        price.SkuId,
+                        price.SkuName,
+                        price.MeterId,
+                        price.MeterName,
+                        price.UnitOfMeasure,
+                        price.Type,
+                        price.RetailPrice,
+                        price.UnitPrice
+                    })
+                    .ToList();
+
+                _db.AzureApiPricesDto.RemoveRange(_db.AzureApiPricesDto);
+                await _db.SaveChangesAsync();
+
+                await _db.AzureApiPricesDto.AddRangeAsync(allPrices);
+                await _db.SaveChangesAsync();
             }
-
-           //Fjerner duplicater før den lagres i databasen
-            allPrices = allPrices
-                .DistinctBy(price => new
-                {
-                    price.CurrencyCode,
-                    price.ArmRegionName,
-                    price.ProductName,
-                    price.ProductId,
-                    price.SkuId,
-                    price.SkuName,
-                    price.MeterId,
-                    price.MeterName,
-                    price.UnitOfMeasure,
-                    price.Type,
-                    price.RetailPrice,
-                    price.UnitPrice
-                })
-                .ToList();
-
-            _db.AzurePrices.RemoveRange(_db.AzurePrices);
-            await _db.SaveChangesAsync();
-
-            await _db.AzurePrices.AddRangeAsync(allPrices);
-            await _db.SaveChangesAsync();
-        }
 
 
 //Isteden for å sjekke om det finnes noe data i databasen, så sjekker denne metoden om databasen innholder alle prisene systemet forventer å ha,
 //går igjennom alle regionser, valuta og prisoppslag
-        private async Task<bool> HasMissingRequestedDataAsync()
-        {
-            foreach (var region in SupportedRegions)
-            {
-                foreach (var currency in SupportedCurrencies)
-                {
-                    foreach (var query in RequestedPriceQueries)
-                    {
-                        var existingPrices = _db.AzurePrices.Where(price =>
-                            price.ArmRegionName == region &&
-                            price.CurrencyCode == currency);
+    private async Task<bool> HasMissingRequestedDataAsync() {
+        foreach (var region in SupportedRegions) {
+        foreach (var currency in SupportedCurrencies) {
+        foreach (var query in RequestedPriceQueries) {
+            var existingPrices = _db.AzureApiPricesDto.Where(price =>
+                price.ArmRegionName == region &&
+                price.CurrencyCode == currency);
 
-                        existingPrices = ApplyFilter(existingPrices, price => price.ProductName, query.ProductName);
-                        existingPrices = ApplyFilter(existingPrices, price => price.ServiceName, query.ServiceName);
-                        existingPrices = ApplyFilter(existingPrices, price => price.MeterName, query.MeterName);
-                        existingPrices = ApplyFilter(existingPrices, price => price.SkuName, query.SkuName);
-                        existingPrices = ApplyFilter(existingPrices, price => price.ArmSkuName, query.ArmSkuName);
-                        existingPrices = ApplyFilter(existingPrices, price => price.UnitOfMeasure, query.UnitOfMeasure);
+            existingPrices = ApplyFilter(existingPrices, price => price.ProductName, query.ProductName);
+            existingPrices = ApplyFilter(existingPrices, price => price.ServiceName, query.ServiceName);
+            existingPrices = ApplyFilter(existingPrices, price => price.MeterName, query.MeterName);
+            existingPrices = ApplyFilter(existingPrices, price => price.SkuName, query.SkuName);
+            existingPrices = ApplyFilter(existingPrices, price => price.ArmSkuName, query.ArmSkuName);
+            existingPrices = ApplyFilter(existingPrices, price => price.UnitOfMeasure, query.UnitOfMeasure);
 
-                        if (!await existingPrices.AnyAsync())
-                        {
-                            return true;
-                        }
-                    }
-                }
-            }
+            if (!await existingPrices.AnyAsync()) {
+                return true;}}}}
+                return false; }
 
-            return false;
-        }
+    //---------------------//
 
-//---------------------//
+    //Metoden leggger til et filter på database spørring, men barevis det finnes en verdi. 
+    private static IQueryable<AzureApiPricesDto> ApplyFilter(
+        IQueryable<AzureApiPricesDto> query,
+        System.Linq.Expressions.Expression<Func<AzureApiPricesDto, string?>> selector,
+        string? value) {
+        if (string.IsNullOrWhiteSpace(value)) {
+            return query; }
 
-//Metoden leggger til et filter på database spørring, men barevis det finnes en verdi. 
-        private static IQueryable<AzurePrice> ApplyFilter(
-            IQueryable<AzurePrice> query,
-            System.Linq.Expressions.Expression<Func<AzurePrice, string?>> selector,
-            string? value)
-        {
-            if (string.IsNullOrWhiteSpace(value))
-            {
-                return query;
-            }
+        return query.Where(BuildEqualsExpression(selector, value));  }
 
-            return query.Where(BuildEqualsExpression(selector, value));
-        }
-
-//---------------------//
+    //---------------------//
 
 
-//Lager selve filtret dynamisk, slik at Aplyfilter() kan bruke den
-        private static System.Linq.Expressions.Expression<Func<AzurePrice, bool>> BuildEqualsExpression(
-            System.Linq.Expressions.Expression<Func<AzurePrice, string?>> selector,
-            string value)
-        {
-            var parameter = selector.Parameters[0];
-            var body = System.Linq.Expressions.Expression.Equal(
-                selector.Body,
-                System.Linq.Expressions.Expression.Constant(value));
+    //Lager selve filtret dynamisk, slik at Aplyfilter() kan bruke den
+    private static System.Linq.Expressions.Expression<Func<AzureApiPricesDto, bool>> BuildEqualsExpression(
+        System.Linq.Expressions.Expression<Func<AzureApiPricesDto, string?>> selector,
+        string value) {
+        var parameter = selector.Parameters[0];
+        var body = System.Linq.Expressions.Expression.Equal(
+            selector.Body,
+            System.Linq.Expressions.Expression.Constant(value));
 
-            return System.Linq.Expressions.Expression.Lambda<Func<AzurePrice, bool>>(body, parameter);
-        }
+        return System.Linq.Expressions.Expression.Lambda<Func<AzureApiPricesDto, bool>>(body, parameter); }
 
-         private sealed record PriceQuerySpec(
-    string Label,
-    string? ProductName = null,
-    string? ServiceName = null,
-    string? MeterName = null,
-    string? SkuName = null,
-    string? ArmSkuName = null,
-    string? UnitOfMeasure = null,
-    string? RegionOverride = null);
-    }}
+    private sealed record PriceQuerySpec(
+        string Label,
+        string? ProductName = null,
+        string? ServiceName = null,
+        string? MeterName = null,
+        string? SkuName = null,
+        string? ArmSkuName = null,
+        string? UnitOfMeasure = null,
+        string? RegionOverride = null);
+        }}
 
 
 
-       
+
 
 
 

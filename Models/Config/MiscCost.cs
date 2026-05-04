@@ -1,6 +1,6 @@
 
 
-namespace ProsjektOppgave_AdeleTjoennaas.Models {
+namespace CostPricingEngine.Models.Config {
 
   public class MiscCost {
          public decimal EmployeeAvgMonthlyCost { get; set; } = 12000;

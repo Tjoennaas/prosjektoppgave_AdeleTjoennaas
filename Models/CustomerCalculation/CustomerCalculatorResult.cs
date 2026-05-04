@@ -1,8 +1,8 @@
 
-using ProsjektOppgave_AdeleTjoennaas.Dto;
+using CostPricingEngine.Dto;
 
 
-   namespace ProsjektOppgave_AdeleTjoennaas.Models {
+   namespace CostPricingEngine.Models.CostCalculation {
 
     public class CustomerCalculationResult {
 

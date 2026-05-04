@@ -4,8 +4,8 @@
 using System.ComponentModel.DataAnnotations;
 
 
-namespace AzurePrice.Models {
-public class AzurePrice
+namespace CostPricingEngine.Models.AzureApi{
+public class AzureApiPricesDto
 {
         [Key]
         public int Id { get; set; }

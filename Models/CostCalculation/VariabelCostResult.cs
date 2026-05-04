@@ -1,7 +1,7 @@
 
 
 
-namespace ProsjektOppgave_AdeleTjoennaas.Models
+namespace CostPricingEngine.Models.CostCalculation
 {
     public class VariableCostResult
     {

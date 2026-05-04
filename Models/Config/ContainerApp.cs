@@ -1,7 +1,7 @@
 
 
 
-namespace ProsjektOppgave_AdeleTjoennaas.Models {
+namespace CostPricingEngine.Models.Config {
     
      public class ContainerApp {
 
