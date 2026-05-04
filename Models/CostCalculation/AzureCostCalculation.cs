@@ -2,6 +2,7 @@
 
 
 
+  
 using Microsoft.EntityFrameworkCore;
 
 namespace CostPricingEngine.Models.CostCalculation
@@ -17,4 +18,4 @@ namespace CostPricingEngine.Models.CostCalculation
         public decimal PerMillionEventsReceived { get; set; }
         public decimal PerMillionEventsRetained { get; set; }
 
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;  }}
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;  }}      

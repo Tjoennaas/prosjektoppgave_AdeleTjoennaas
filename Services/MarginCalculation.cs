@@ -1,5 +1,6 @@
 
 
+
     
     using CostPricingEngine.Data;
     using CostPricingEngine.Dto;
@@ -55,7 +56,7 @@
 
     var marginEntity = new CalculationMargin {
 
-            AzureCostCalculationId = azure.Id,
+            AzureCostCalculationId = azure.AzureCostCalculationId,
             CalculationGroupId = customer.CalculationGroupId,
             PeriodNumber = customer.PeriodNumber,
             Margin = Math.Round(margin, 2),
@@ -68,14 +69,6 @@
                 await _db.SaveChangesAsync();
 
                 return results;  }}};
-
-                
-
-
-
-
-
-
 
 
 

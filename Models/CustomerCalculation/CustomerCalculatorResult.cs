@@ -10,6 +10,8 @@ using CostPricingEngine.Dto;
     public int Id { get; set; }
 
     public Guid CalculationGroupId { get; set; }
+
+
     public int PeriodNumber { get; set; }
 
     public int ActiveUsers { get; set; }
