@@ -2,7 +2,8 @@
         using CostPricingEngine.BackgroundTask;
         using Microsoft.EntityFrameworkCore;
 
-
+// Denne koden brukes til å initalerese databasen når applikasjonen kjører.
+//OPpdatere databasen når migrasjon kjører og at azure pris data finnes og kjøres.
         namespace CostPricingEngine.Data {
             
             public static class DatabaseInitializer {

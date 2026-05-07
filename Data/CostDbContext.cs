@@ -1,14 +1,13 @@
 
-using CostPricingEngine.Data;
+
 using CostPricingEngine.Models.AzureApi;
-using CostPricingEngine.Models.Config;
 using CostPricingEngine.Models.CostCalculation;
 using CostPricingEngine.Models.CostMargin;
-
 using Microsoft.EntityFrameworkCore;
-using CostPricingEngine.Models;
 
 
+//Her opprettes en database forbindelse og bestemmer hvilke tabeller som skal lagres 
+//Gjennom EF core lagrs og hentes data. 
 namespace CostPricingEngine.Data {
 
 public class CostDbContext : DbContext {  

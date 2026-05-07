@@ -1,5 +1,8 @@
 
+// Klassen beregner variable Azure-kostnader basert på
+// prisdata, lagringskostnader, nettverkstrafikk og konfigurasjonsverdier.
 
+// se vedleg.2 "Intermediate Variables", "VARIABLE COSTS FORMULAS"
    
     using CostPricingEngine.Models.Config;
     using CostPricingEngine.Models.CostCalculation;
@@ -8,11 +11,12 @@
 namespace CostPricingEngine.Services.AzureCostCalculator {
                    
 public class AzureCostCalculator { 
-    private readonly ConfigApp _configApp; public AzureCostCalculator( ConfigApp configApp) { 
+    private readonly ConfigApp _configApp; 
+    public AzureCostCalculator( ConfigApp configApp) { 
         
         _configApp = configApp; } 
     
-    private IntermediateCostVariables CalculateIntermediateVariables() { 
+    private CostCalculationVariables CalculateCostCalculationVariables() { 
 
          
     //totalRetainedEventMonths: for (i = 1; i < retentionMonthsCount; i++) { totalRetainedEventMonths += eventsLoggedPerMonthCount * i }
@@ -47,7 +51,7 @@ public class AzureCostCalculator {
                     _configApp.MiscSeting.EventsLoggedPerMonthCount)
                      / 1024 / 1024 / 1024;
 
-            return new IntermediateCostVariables {
+            return new CostCalculationVariables{
                     TotalRetainedEventMonths = totalRetainedEventMonths,
                     OneWayDataTransferGbKafka = oneWayDataTransferGbKafka,
                     BlobTxsLoggedGb = blobTxsLoggedGb,
@@ -56,35 +60,35 @@ public class AzureCostCalculator {
                 };} 
 
 
- public VariableCostResult CalculateVariableCosts( AzureCostResult  azureCostResult) {
+ public VariableCostResult CalculateVariableCosts( AzurePricingData  azureCostResult) {
  
 
-       var intermediate = CalculateIntermediateVariables();
 
+      var intermediate = CalculateCostCalculationVariables();
 
      //Blob TXs logged: (eventsLoggedPerMonthCount / avgEventsPerBatchIngestedCount) * blobTxsPerWrite  
            var blobTxsLogged = 
-                    (_configApp.MiscSeting.EventsLoggedPerMonthCount /
-                   _configApp.MiscSeting.AvgEventsPerBatchIngestedCount) *
-                     azureCostResult.StoragPerBlobWriteForTxs;
+                 (_configApp.MiscSeting.EventsLoggedPerMonthCount /
+                  _configApp.MiscSeting.AvgEventsPerBatchIngestedCount) *
+                   azureCostResult.StoragPerBlobWriteForTxs;
 
      //Blob TXs stored: blobTxsLoggedGb * blobTxsPerGbCost
             var blobTxStored =  
                     intermediate.BlobTxsLoggedGb * 
-                     azureCostResult.StoragPerGibBlobStoragForTxs;
+                    azureCostResult.StoragPerGibBlobStoragForTxs;
 
 
      //Blob TXs retained: blobTxsLoggedGb * blobTxsPerGbCost
             var blobTxRetained = 
-                    intermediate.BlobTxsLoggedGb *
+                     intermediate.BlobTxsLoggedGb *
                      azureCostResult.StoragPerGibBlobStoragForTxs;
         
      //Blob attachments logged: (eventsLoggedPerMonthCount / avgEventsPerBatchIngestedCount) * avgAttachmentsPerEventCount * blobAttachmentPerWrite
             var blobAttachmentsLogged = 
-                    (_configApp.MiscSeting.EventsLoggedPerMonthCount /
-                        _configApp.MiscSeting.AvgEventsPerBatchIngestedCount) * 
-                        _configApp.MiscSeting.AvgAttachmentsPerEventCount *
-                         azureCostResult.StoragPerBlobWriteForAttachment;
+                   (_configApp.MiscSeting.EventsLoggedPerMonthCount /
+                    _configApp.MiscSeting.AvgEventsPerBatchIngestedCount) * 
+                    _configApp.MiscSeting.AvgAttachmentsPerEventCount *
+                    azureCostResult.StoragPerBlobWriteForAttachment;
 
      //Blob attachments stored: blobAttachmentsLoggedGb * blobAttachmentsPerGbCost
             var blobAttachmentsStored = 
@@ -134,10 +138,10 @@ public class AzureCostCalculator {
         //Private endpoints logged: (blobTxsLoggedGb + blobAttachmentsLoggedGb + tablesLoggedGb) * privateEndpointCostPerGb
         //NAT gateway logged: (blobTxsLoggedGb + blobAttachmentsLoggedGb + tablesLoggedGb) * natGatewayCostPerGb
             var totalStorageTrafficGb =
-                      intermediate.BlobTxsLoggedGb +
-                      intermediate.BlobAttachmentsLoggedGb +
-                      intermediate.TablesLoggedGb;
-     
+                    intermediate.BlobTxsLoggedGb +
+                    intermediate.BlobAttachmentsLoggedGb +
+                    intermediate.TablesLoggedGb;
+
             var privateEndpointsLogged =
                     totalStorageTrafficGb *  azureCostResult.PrivatEndpointPerGibWritten;
 
@@ -159,37 +163,37 @@ public class AzureCostCalculator {
                
        //Per million events retained: (blobTxsRetained + blobAttachmentsRetained + tablesRetained + kafkaStored) / 1000000
             var retainedCost =
-                        blobTxRetained +
-                        blobAttachmentsRetained +
-                        tableRetained +
-                        kafkaRetained;
+                    blobTxRetained +
+                    blobAttachmentsRetained +
+                    tableRetained +
+                    kafkaRetained;
     
-                    var perMillionEventsRetained =
-                        retainedCost / (_configApp.MiscSeting.EventsLoggedPerMonthCount / 1_000_000m);
+            var perMillionEventsRetained =
+                    retainedCost / (_configApp.MiscSeting.EventsLoggedPerMonthCount / 1_000_000m);
 
                  
 
        //Per million events received: (blobTxsLogged + blobTxsStored + blobAttachmentsLogged + blobAttachmentsStored + tablesLogged + tablesStored + kafkaLogged + kafkaStored + privateEndpointsLogged + natGatewayLogged) / 1000000
            var perMillionEventsReceived =   
-                        receivedCost / (_configApp.MiscSeting.EventsLoggedPerMonthCount / 1_000_000m);
+                    receivedCost / (_configApp.MiscSeting.EventsLoggedPerMonthCount / 1_000_000m);
 
-                    var totalVariableCosts =
-                        blobTxsLogged +
-                        blobTxStored +
-                        blobTxRetained +
-                        blobAttachmentsLogged +
-                        blobAttachmentsStored +
-                        blobAttachmentsRetained +
-                        tablesLogged +
-                        tablesStored +
-                        tableRetained +
-                        kafkaLogged +
-                        kafkaStored +
-                        privateEndpointsLogged +
-                        natGatewayLogged;
+            var totalVariableCosts =
+                    blobTxsLogged +
+                    blobTxStored +
+                    blobTxRetained +
+                    blobAttachmentsLogged +
+                    blobAttachmentsStored +
+                    blobAttachmentsRetained +
+                    tablesLogged +
+                    tablesStored +
+                    tableRetained +
+                    kafkaLogged +
+                    kafkaStored +
+                    kafkaRetained +
+                    privateEndpointsLogged +
+                    natGatewayLogged;
 
-                    return new VariableCostResult
-                    {
-                        TotalVariableCosts = totalVariableCosts,
-                        PerMillionEventsReceived = perMillionEventsReceived,
-                        PerMillionEventsRetained = perMillionEventsRetained };}}}
+            return new VariableCostResult {
+                    TotalVariableCosts = totalVariableCosts,
+                    PerMillionEventsReceived = perMillionEventsReceived,
+                    PerMillionEventsRetained = perMillionEventsRetained };}}}

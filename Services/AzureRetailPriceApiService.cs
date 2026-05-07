@@ -1,16 +1,23 @@
 
 
+
+
+
+
+// Klassen henter rå prisdata fra Azure Retail Prices API
+// ved hjelp av HTTP-forespørsler og dynamiske filtre.
+
     using System.Net;
     using CostPricingEngine.Models.AzureApi;
             
-              
-
   namespace CostPricingEngine.Services {
-    public class AzurePriceService {
-    private readonly HttpClient _httpClient;
-            private readonly ILogger<AzurePriceService> _logger;
 
-    public AzurePriceService(HttpClient httpClient, ILogger<AzurePriceService> logger) {
+
+    public class AzureRetailPriceApiService {
+    private readonly HttpClient _httpClient;
+            private readonly ILogger<AzureRetailPriceApiService> _logger;
+
+    public AzureRetailPriceApiService(HttpClient httpClient, ILogger<AzureRetailPriceApiService> logger) {
         _httpClient = httpClient;
         _logger = logger; 
     }
@@ -73,15 +80,11 @@
 
 
 
-
-
         private static void AddFilter(List<string> filterParts, string fieldName, string? fieldValue) {
-            if (string.IsNullOrWhiteSpace(fieldValue)) {
-                return; } 
-            
-            var escapedValue = fieldValue.Replace("'", "''");
-            filterParts.Add($"{fieldName} eq '{escapedValue}'");
-        }
-    }
-}
+                    if (string.IsNullOrWhiteSpace(fieldValue)) {
+                        return; } 
+                    
+                    var escapedValue = fieldValue.Replace("'", "''");
+                    filterParts.Add($"{fieldName} eq '{escapedValue}'");
+                }}}
 

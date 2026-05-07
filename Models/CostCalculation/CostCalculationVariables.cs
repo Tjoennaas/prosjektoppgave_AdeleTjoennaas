@@ -1,8 +1,10 @@
 
+//Mellom regingner og hjelpe variabler som brukes videre i formelen
 
 namespace CostPricingEngine.Models.CostCalculation {
 
-public class IntermediateCostVariables { 
+//public class IntermediateCostVariables 
+public class CostCalculationVariables { 
 
 public decimal TotalRetainedEventMonths{get; set;}
 public decimal OneWayDataTransferGbKafka{get; set;}

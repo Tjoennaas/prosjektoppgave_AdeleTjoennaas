@@ -47,7 +47,7 @@
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
-        builder.Services.AddHttpClient<AzurePriceService>();
+        builder.Services.AddHttpClient<AzureRetailPriceApiService>();
 
         builder.Services.AddScoped<AzurePricingService>();
         builder.Services.AddScoped<AzurePriceRefreshService>();

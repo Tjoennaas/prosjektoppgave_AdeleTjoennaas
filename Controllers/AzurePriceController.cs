@@ -6,11 +6,11 @@
             using CostPricingEngine.Data;
 
 
-
+//Denne koden er ikke til klient men for at informasjonen skal være tilgjenglig i nettleseren
     namespace CostPricingEngine.Controller {
-                [ApiController]
-                [Route("[controller]")]
 
+            [ApiController]
+            [Route("api/azure-prices")]
             public class AzurePriceController : ControllerBase {
 
             private readonly CostDbContext _db;
@@ -18,7 +18,7 @@
                         
                  _db = db; }
 
-            [HttpGet("Azure-price")]
+            [HttpGet]
 
             public async Task<IActionResult> GetAll() {
 

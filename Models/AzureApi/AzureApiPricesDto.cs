@@ -1,6 +1,8 @@
 
 
 
+//Representerer filtrerte rådata fra Azure Retail prices API
+
 using System.ComponentModel.DataAnnotations;
 
 

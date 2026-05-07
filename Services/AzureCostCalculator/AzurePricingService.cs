@@ -1,6 +1,11 @@
 
 
 
+//Henter lagrede Azure priser fra tabell AzureApiPricesDto og filtrerer på produkt, tjeneste måleenhet, SKU og valuta
+//Sender dette videre til kostnads kalkulatoren og lagrer alt inni AzurePricingService som brukes videre i kostnads beregning.
+
+//Koden er basert på vedlegg. 2 "Azure (West Europe)"
+
 
         using Microsoft.EntityFrameworkCore;
         using CostPricingEngine.Data;
@@ -19,7 +24,7 @@
                 _db = db; }
 
  
-    public async Task<AzureCostResult> GetAzureCostPricesAsync(string currency = "USD") {       
+    public async Task<AzurePricingData> GetAzureCostPricesAsync(string currency = "USD") {       
     var staticIpAddress = await GetPriceAsync(
 
         productName: "IP Addresses",
@@ -140,7 +145,7 @@
         unitOfMeasure: "1 GB/Month",
         currency: currency );
 
-        return new  AzureCostResult {
+        return new  AzurePricingData {
        
 
 //Networking - Static IP Address = [price per hour] * 730 = $2,628
@@ -198,6 +203,14 @@
 //Storage - Per GiB Table Storage = [ZRS] = $0,0562     (1 GB/Month)
         StoragPerGibTableStorag = storagePerGiBTableStorage, };}
         
+       
+
+
+
+       // Jeg trenger denne delen av koden fordi kalkulatoren må finne den riktige Azure prisen i databasen 
+       // før den kan gjøre beregning
+       // I denne delen brukte jeg ChatGpt for å finne  en metode som gjør det mulig å bruke samme 
+       // databasesøk for mange ulike Azure-tjenester uten å duplisere kode.
        
         private async Task<decimal> GetPriceAsync (
                 string? productName = null, 

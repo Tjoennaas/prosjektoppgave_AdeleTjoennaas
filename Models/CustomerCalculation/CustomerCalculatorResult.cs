@@ -2,6 +2,8 @@
 using CostPricingEngine.Dto;
 
 
+//Modellen for kunde kalkulator
+
    namespace CostPricingEngine.Models.CostCalculation {
 
     public class CustomerCalculationResult {
@@ -10,7 +12,6 @@ using CostPricingEngine.Dto;
     public int Id { get; set; }
 
     public Guid CalculationGroupId { get; set; }
-
 
     public int PeriodNumber { get; set; }
 

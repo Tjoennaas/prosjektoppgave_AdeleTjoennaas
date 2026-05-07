@@ -1,9 +1,6 @@
 
           
 
-
-
-
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CostPricingEngine.Data;
@@ -21,43 +18,39 @@ public class CostCalculationController : ControllerBase
     private readonly ILogger<CostCalculationController> _logger;
     private readonly CustomerCalculator _customerCalculator;
     private readonly AzureCostCalculationService _azureCostCalculationService;
-    private readonly CalculationServices _calculationServices;
+    private readonly MarginCalculation _marginCalculation;
     private readonly CostDbContext _db;
 
     public CostCalculationController(
         ILogger<CostCalculationController> logger,
         CustomerCalculator customerCalculator,
         AzureCostCalculationService azureCostCalculationService,
-        CalculationServices calculationServices,
+        MarginCalculation marginCalculation,
         CostDbContext db) {
         _logger = logger;
         _customerCalculator = customerCalculator;
         _azureCostCalculationService = azureCostCalculationService;
-        _calculationServices = calculationServices;
+        _marginCalculation = marginCalculation;
         _db = db;
     }
 
+    // I denne koden CalculateAndSaveAll sendes kunde input til ,marginCalculation og kjører full 
+    // beregning. I prosjektet bruker jeg [FromBody] fordi det trengs flere inputverdier samlet i et objekt.
     [HttpPost("calculate-all")]
     public async Task<IActionResult> CalculateAll([FromBody] CustomerInput input) {
-        var result = await _calculationServices.CalculateAndSaveAll(input);
+        var result = await _marginCalculation.CalculateAndSaveAll(input);
         return Ok(result);
     }
 
-    [HttpGet("margins")]
-    public async Task<ActionResult<List<CalculationMargin>>> GetMargins() {
-        var margins = await _db.CalculationMargins
-            .OrderBy(x => x.CreatedAt)
-            .ThenBy(x => x.PeriodNumber)
-            .ToListAsync();
 
-        return Ok(margins);
-    }
-
+//Jeg har lagt inn default verdier i appsetting.json så koden veriene aktiveres når jeg trykker på post
+//Detter er kunn for testing
     [HttpPost("azure-cost")]
     public async Task<IActionResult> CalculateAzureCost() {
         var result = await _azureCostCalculationService.CalculateAndSaveAzureCostAsync();
         return Ok(result);
     }
+
 
     [HttpPost("customer-calculator")]
     public async Task<ActionResult<List<CustomerCalculator>>> Calculate(

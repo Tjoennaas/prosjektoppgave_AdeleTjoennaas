@@ -1,59 +1,59 @@
 
 
 
-    
-    using CostPricingEngine.Data;
+
+using System.Security.Cryptography.X509Certificates;
+using CostPricingEngine.Data;
     using CostPricingEngine.Dto;
     using CostPricingEngine.Models.Config;
     using CostPricingEngine.Models.CostMargin;
     using CostPricingEngine.Services.AzureCostCalculator;
         
     namespace CostPricingEngine.Services {
-    public class CalculationServices {
-        private readonly AzureCostCalculationService _azureCostCalculationService;
-        private readonly CustomerCalculator _customerCalculator;
-        private readonly CostDbContext _db;
-        private readonly ConfigApp _config;
+    public class MarginCalculation(
 
-        
-    public CalculationServices(
-        
         CustomerCalculator customerCalculator,
         CostDbContext db,
-        ConfigApp config, 
-        AzureCostCalculationService azureCostCalculationService) {
+        ConfigApp config,
+        AzureCostCalculationService azureCostCalculationService)
+    {
+        private readonly AzureCostCalculationService _azureCostCalculationService = azureCostCalculationService;
+        private readonly CustomerCalculator _customerCalculator = customerCalculator;
+        private readonly CostDbContext _db = db;
+        private readonly ConfigApp _config = config;
 
-        
-        _azureCostCalculationService = azureCostCalculationService;
-        _customerCalculator = customerCalculator;
-        _db = db;
-        _config = config; }
-
-    public async Task<List<CalculationMargin>> CalculateAndSaveAll(CustomerInput input) {
+        public async Task<List<CalculationMargin>> CalculateAndSaveAll(CustomerInput input) {
         var results = new List<CalculationMargin>();
 
+        // Her legges kundeinput inn i config-verdiene, 
+        // slik at Azure-kostnadsberegningen bruker riktig antall events og retention-perioder.
         _config.MiscSeting.EventsLoggedPerMonthCount = input.EventsPerPeriod;
         _config.MiscSeting.AverageMonthsOfRetention = input.RetentionPeriods;
         
+        //Her beregnes Azure-kostnaden og lagres i databasen.
         var azure = await _azureCostCalculationService.CalculateAndSaveAzureCostAsync();
+        //Her beregnes kundeprisene og lagres i databasen.
         var customers = await _customerCalculator.CalculateAndSaveAllAsync(input);
+        //Resultatene kobleles sammen med guppe id
         var groupId = customers.First().CalculationGroupId;
 
-        decimal usdToNok = 9.6m;
-
+    
     foreach (var customer in customers) {
 
-        decimal customerUsd = customer.TotalPrice / usdToNok;
+//Gjør om NOK til USD 
+    decimal customerUsd =
+        customer.TotalPrice / _config.MiscSeting.CurrencyUsdToNokFactor;
 
-        var margin = customerUsd - azure.TotalAzureCost;
+    var margin = customerUsd - azure.TotalAzureCost;
 
-        var marginPercent =
-            customerUsd == 0
-                ? 0
-                : (margin / customerUsd) * 100;
+     decimal marginPercent = 0;
 
-
-
+if (customerUsd != 0)
+{
+    marginPercent = (margin / customerUsd) * 100;
+}
+ 
+//Innholder resutat av margin bergningen
     var marginEntity = new CalculationMargin {
 
             AzureCostCalculationId = azure.AzureCostCalculationId,
@@ -62,7 +62,7 @@
             Margin = Math.Round(margin, 2),
             MarginPercent = Math.Round(marginPercent, 2) };
 
-
+             //Lagres i databasen
             _db.CalculationMargins.Add(marginEntity);
             results.Add(marginEntity);  }
 

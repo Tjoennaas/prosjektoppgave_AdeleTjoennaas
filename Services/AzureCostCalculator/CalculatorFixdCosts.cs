@@ -1,13 +1,17 @@
 
-              
+
+/*beregner de faste kostnadene i løsningen.
+ Klassen bruker prisdata fra AzurePricingData 
+ sammen med konfigurasjonsverdier fra appsettings.json. 
+ Til slutt summeres delkostnadene og returnerer total fast kostand */
+
+// Se vedlegg. 2 "kafka" og "FIXED COSTS FORMULAS"
 
     using CostPricingEngine.Models.Config;
     using CostPricingEngine.Models.CostCalculation;
     using CostPricingEngine.Data;
 
-
-       
-            
+          
      namespace CostPricingEngine.Services.AzureCostCalculator {
              
             
@@ -22,7 +26,7 @@
 
     //Each Container App: (vCoresCount / 0,25) * containerAppsPerQuarterVCorePrice + (ramAmount / 0,5) * 
     //containerAppsPerHalfGbPrice
-    public decimal CalculatorFixdCost( AzureCostResult  azureCostResult){
+    public decimal CalculatorFixdCost( AzurePricingData  azureCostResult){
     decimal containerAppsCost = 0m;
 
             foreach (var app in _configApp.ContainerApps) {

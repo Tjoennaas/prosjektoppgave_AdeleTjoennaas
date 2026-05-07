@@ -1,6 +1,7 @@
 
 
-
+// Representerer pris per GIB datatrafikk gjennom kafka og pris per GIB lagring i kafka
+// Lagt in default verdier i appsetings.json
 namespace CostPricingEngine.Models.Config {
     
      public class Kafka {   

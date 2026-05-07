@@ -1,5 +1,5 @@
 
-
+//Default verdier lagt inn i appsettings.json noen av verdiene er ikke brukt i formelen
 
 namespace CostPricingEngine.Models.Config {
 
@@ -41,50 +41,50 @@ public class  MiscSeting {
 
 
 
-          //Number of tables to write to when indexing = 3
-             public decimal TablesToWriteToWhenIndexingCount{get; set;}
+        //Number of tables to write to when indexing = 3
+          public decimal TablesToWriteToWhenIndexingCount{get; set;}
 
 
-          //Average Months of Retention = 6
-             public decimal AverageMonthsOfRetention{get; set;}
+        //Average Months of Retention = 6
+          public decimal AverageMonthsOfRetention{get; set;}
 
 
-          //Average number of events per TX = 3
-            public decimal AverageNumberOfEventsPerTx{get; set;}
+        //Average number of events per TX = 3
+          public decimal AverageNumberOfEventsPerTx{get; set;}
 
 
-          //CosmosDB max RUs = 2000
-            public decimal CosmosDbMaxRus{get; set;}
+        //CosmosDB max RUs = 2000
+          public decimal CosmosDbMaxRus{get; set;}
 
 
-          //CosmosDB average billed RU factor = 0,5
+        //CosmosDB average billed RU factor = 0,5
           public decimal CosmosDbAverageBilledRuFacto{get; set;}
                
 
-          //Average Size of Raw Event (bytes) = 2500
+        //Average Size of Raw Event (bytes) = 2500
           public decimal AverageSizeOfRawEvent{get; set;}
 
 
-          //Employee - Num Needed Per Customer = 10
+        //Employee - Num Needed Per Customer = 10
           public decimal EmployeeNumNeededPerCustomer{get; set;}
 
 
-          //Seller - Commission Factor = 1,15
+        //Seller - Commission Factor = 1,15
           public decimal SellerCommissionFactor{get; set;}
 
 
-          //Currency - USD to NOK Factor = 9,6
+        //Currency - USD to NOK Factor = 9,6
           public decimal CurrencyUsdToNokFactor{get; set;}
 
 
-          //WorkOS SSO cost per month = 125
+        //WorkOS SSO cost per month = 125
           public decimal WorkOsSsoCostPerMonth{get; set;}
 
 
-          //Simplification hedge factor = 1,2
+        //Simplification hedge factor = 1,2
           public decimal SimplificationHedgeFactor{get; set;}
 
 
-          //Currency devaluation hedge factor = 1,15. 
+        //Currency devaluation hedge factor = 1,15. 
           public decimal CurrencyDevaluationHedge{get; set;}
 }}

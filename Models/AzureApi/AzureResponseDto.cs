@@ -1,6 +1,7 @@
 
 
 
+// Denne klassen sørger for at en liste med flere Azure Retail prices API rader blir returnert tilbake.
 
     namespace CostPricingEngine.Models.AzureApi {
     public class  AzureResponse {

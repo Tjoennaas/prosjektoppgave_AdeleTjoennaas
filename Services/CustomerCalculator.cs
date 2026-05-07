@@ -1,5 +1,8 @@
 
 
+
+   // Koden er basert kalkulator på vedlegg.1 
+
         using CostPricingEngine.Dto;
         using CostPricingEngine.Data;
         using CostPricingEngine.Models.CostCalculation;
@@ -62,42 +65,47 @@
 
           
             
+
+    //Resutatet av kundekalkulator for en periode: 
             return new CustomerCalculationResult{
 
-                        ActiveUsers = input.ActiveUsers,
-                        EventsPerPeriod = input.EventsPerPeriod,
-                        RetentionPeriods = input.RetentionPeriods,
-                        Collector = input.Collector,
+                ActiveUsers = input.ActiveUsers,
+                EventsPerPeriod = input.EventsPerPeriod,
+                RetentionPeriods = input.RetentionPeriods,
+                Collector = input.Collector,
 
-                        BasePrice = (decimal)basePrice,
-                        EventCost = (decimal)eventCost,
-                        UserCost = (decimal)userCost,
-                        RetentionCost = (decimal)retentionCost,
-                        CollectorCost = collectorCost,
-                        TotalPrice = (decimal)totalPrice  };}
+                BasePrice = (decimal)basePrice,
+                EventCost = (decimal)eventCost,
+                UserCost = (decimal)userCost,
+                RetentionCost = (decimal)retentionCost,
+                CollectorCost = collectorCost,
+                TotalPrice = (decimal)totalPrice  };}
+
+
 
 
     public async Task<List<CustomerCalculationResult>> CalculateAndSaveAllAsync(CustomerInput input) {
+       
+       // Lager en liste med alle beregningsresultatene.
         var results = new List<CustomerCalculationResult>();
+      // Lager en unik ID som kobler sammen alle periodene i samme beregning. 
         var groupId = Guid.NewGuid();
     
-
-
+    //Her lagres og beregnes alle periodene 
     for (int periodNumber = 1; periodNumber <= input.RetentionPeriods; periodNumber++) {
         var result = CalculateForPeriod(input, periodNumber);
-
+      
+      //Kobler alle periodene til samme beregning
         result.CalculationGroupId = groupId;
         result.PeriodNumber = periodNumber;
 
-  
 
         _db.CustomerCalculations.Add(result);
         results.Add(result);  }
 
-    await _db.SaveChangesAsync();
+            await _db.SaveChangesAsync();
 
-    return results;
-}}}
+            return results; }}}
                  
 
 

@@ -1,5 +1,13 @@
 
 
+
+
+// ChatGPT ble brukt i denne delen av koden,
+// fordi problemstillingen rundt dynamisk filtrering gjorde det vanskelig å finne en god løsning alene.
+// Det gjelder spesielt funsjonen HasMissingRequestedDataAsync()
+
+
+
         using CostPricingEngine.Services;
         using CostPricingEngine.Data;
         using Microsoft.EntityFrameworkCore;
@@ -12,9 +20,6 @@
         private static readonly string[] SupportedRegions = {"northeurope" };
 
 
-
-        // productName er ikke unikt nok til å identifisere riktig pris rad fra Azure prising API,
-        // må derfor bruke mer presis navn OG filtrere for å hente riktig pris informasjon.
         private static readonly PriceQuerySpec[] RequestedPriceQueries = {  
             new("Private Endpoint", ProductName: "Virtual Network Private Link", ServiceName: "Virtual Network", RegionOverride: "Global"),
             new("NAT Gateway", ProductName: "NAT Gateway", RegionOverride: "Global"),
@@ -34,7 +39,7 @@
     //Tydliggjøt hvilke tjenester som ikke har prisrader
      private static readonly string[] UnsupportedRetailLabels =
         {
-            //"NAT Gateway",
+            
             "Network Security Group",
             "Private DNS Zone",
             "Managed Identity",
@@ -42,12 +47,12 @@
         };
 
         private readonly CostDbContext _db;
-        private readonly AzurePriceService _azurePriceService;
+        private readonly AzureRetailPriceApiService _azurePriceService;
         private readonly ILogger<AzurePriceRefreshService> _logger;
 
         public AzurePriceRefreshService(
             CostDbContext db,
-            AzurePriceService azurePriceService,
+            AzureRetailPriceApiService azurePriceService,
             ILogger<AzurePriceRefreshService> logger)
         {
             _db = db;
@@ -55,9 +60,13 @@
             _logger = logger;
         }
          
-//sjekker om det finnes data, eldre enn 24 timer, om rader eller data mangler
+
 //---------------------------------------------------------------------------//  
 
+//  Her sjekkes det om data i databasen er eldre enn 24 timer.
+//  Databasen har pris data.
+//  Sjekker om noen rader mangler data.
+//  Dersom alt er OK stopper metoden, vis ikke går den over til neste metode og må hente data. 
         public async Task EnsureDataIsFreshAsync() {
 
             var hasData = await _db.AzureApiPricesDto.AnyAsync();
@@ -93,6 +102,10 @@
 
      //---------------------------------------------------------//   
 
+        //Dersom mangler data i databasen: 
+        // Lager en tom liste allPrices, med filtrering og derretter gjør et kall på 
+        // AzureRetailPriceApiService som deretter henter Azure Retaile Price API. 
+        
 
         List<AzureApiPricesDto> allPrices = new List<AzureApiPricesDto>();
 
@@ -122,7 +135,7 @@
 
                 allPrices.AddRange(prices);  }}}
 
-            //Fjerner duplicater før den lagres i databasen
+            //Fjerner duplicater, slik at samme prisrad ikke lagres flere ganger.
                 allPrices = allPrices
                     .DistinctBy(price => new {
                         price.CurrencyCode,
@@ -140,16 +153,19 @@
                     })
                     .ToList();
 
+               //Sletter gammle prisrader fra databasen og lagrer ny
                 _db.AzureApiPricesDto.RemoveRange(_db.AzureApiPricesDto);
                 await _db.SaveChangesAsync();
 
                 await _db.AzureApiPricesDto.AddRangeAsync(allPrices);
-                await _db.SaveChangesAsync();
-            }
+                await _db.SaveChangesAsync();  }
 
 
-//Isteden for å sjekke om det finnes noe data i databasen, så sjekker denne metoden om databasen innholder alle prisene systemet forventer å ha,
-//går igjennom alle regionser, valuta og prisoppslag
+
+
+    //Metoden sjekker at databasen inneholder alle nødvendige prisrader,
+    //ikke bare at den inneholder noe data.
+
     private async Task<bool> HasMissingRequestedDataAsync() {
         foreach (var region in SupportedRegions) {
         foreach (var currency in SupportedCurrencies) {
@@ -158,12 +174,13 @@
                 price.ArmRegionName == region &&
                 price.CurrencyCode == currency);
 
-            existingPrices = ApplyFilter(existingPrices, price => price.ProductName, query.ProductName);
-            existingPrices = ApplyFilter(existingPrices, price => price.ServiceName, query.ServiceName);
-            existingPrices = ApplyFilter(existingPrices, price => price.MeterName, query.MeterName);
-            existingPrices = ApplyFilter(existingPrices, price => price.SkuName, query.SkuName);
-            existingPrices = ApplyFilter(existingPrices, price => price.ArmSkuName, query.ArmSkuName);
-            existingPrices = ApplyFilter(existingPrices, price => price.UnitOfMeasure, query.UnitOfMeasure);
+  //Deretter legger den på filtre, men bare for verdier som finnes:
+    existingPrices = ApplyFilter(existingPrices, price => price.ProductName, query.ProductName);
+    existingPrices = ApplyFilter(existingPrices, price => price.ServiceName, query.ServiceName);
+    existingPrices = ApplyFilter(existingPrices, price => price.MeterName, query.MeterName);
+    existingPrices = ApplyFilter(existingPrices, price => price.SkuName, query.SkuName);
+    existingPrices = ApplyFilter(existingPrices, price => price.ArmSkuName, query.ArmSkuName);
+    existingPrices = ApplyFilter(existingPrices, price => price.UnitOfMeasure, query.UnitOfMeasure);
 
             if (!await existingPrices.AnyAsync()) {
                 return true;}}}}
@@ -171,7 +188,10 @@
 
     //---------------------//
 
-    //Metoden leggger til et filter på database spørring, men barevis det finnes en verdi. 
+        //Hjelpe funksjon som brukes av HasMissingRequestedDataAsync,
+        //den legger til et filter i databasesøket, men bare hvis det finnes en verdi.
+        //Ikke alle prisradene fra Azure API har verdi i alle felter.
+
     private static IQueryable<AzureApiPricesDto> ApplyFilter(
         IQueryable<AzureApiPricesDto> query,
         System.Linq.Expressions.Expression<Func<AzureApiPricesDto, string?>> selector,
@@ -183,8 +203,7 @@
 
     //---------------------//
 
-
-    //Lager selve filtret dynamisk, slik at Aplyfilter() kan bruke den
+   // Lager en sammenligning slik at databasen kan filtrere riktige prisrader.
     private static System.Linq.Expressions.Expression<Func<AzureApiPricesDto, bool>> BuildEqualsExpression(
         System.Linq.Expressions.Expression<Func<AzureApiPricesDto, string?>> selector,
         string value) {

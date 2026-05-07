@@ -1,5 +1,5 @@
 
-
+//reprenseterer summen av variablene
 
 namespace CostPricingEngine.Models.CostCalculation
 {

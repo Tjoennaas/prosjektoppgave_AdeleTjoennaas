@@ -2,7 +2,8 @@
 
 
 
-  
+//Representerer slutt resultatet av kostnads kalkulatoren
+
 using Microsoft.EntityFrameworkCore;
 
 namespace CostPricingEngine.Models.CostCalculation

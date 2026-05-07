@@ -1,11 +1,15 @@
 
 
 
+//Pris fra Azure Retail Prices API brukes i kostandsberegning.
 
 
 namespace CostPricingEngine.Models.CostCalculation {
     
-public class  AzureCostResult {
+//public class  AzureCostResult
+
+public class  AzurePricingData
+ {
        public decimal ContainerAppsPriceOfVcpuSeconds{get; set;}
        
        public decimal ContainerAppsPriceOfGibSeconds{get; set;}
