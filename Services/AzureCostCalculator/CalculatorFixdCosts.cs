@@ -1,11 +1,11 @@
 
 
-/*beregner de faste kostnadene i løsningen.
+/*Beregner de faste kostnadene i løsningen.
  Klassen bruker prisdata fra AzurePricingData 
  sammen med konfigurasjonsverdier fra appsettings.json. 
  Til slutt summeres delkostnadene og returnerer total fast kostand */
 
-// Se vedlegg. 2 "kafka" og "FIXED COSTS FORMULAS"
+// Se vedlegg.3 "kafka" og "FIXED COSTS FORMULAS"
 
     using CostPricingEngine.Models.Config;
     using CostPricingEngine.Models.CostCalculation;

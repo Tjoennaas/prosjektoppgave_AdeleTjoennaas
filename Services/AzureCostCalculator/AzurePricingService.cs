@@ -4,7 +4,7 @@
 //Henter lagrede Azure priser fra tabell AzureApiPricesDto og filtrerer på produkt, tjeneste måleenhet, SKU og valuta
 //Sender dette videre til kostnads kalkulatoren og lagrer alt inni AzurePricingService som brukes videre i kostnads beregning.
 
-//Koden er basert på vedlegg. 2 "Azure (West Europe)"
+//Koden er basert på vedlegg.3 "Azure (West Europe)"
 
 
         using Microsoft.EntityFrameworkCore;

@@ -33,9 +33,6 @@ public class CostCalculationController : ControllerBase
         _marginCalculation = marginCalculation;
         _db = db;
     }
-
-    // I denne koden CalculateAndSaveAll sendes kunde input til ,marginCalculation og kjører full 
-    // beregning. I prosjektet bruker jeg [FromBody] fordi det trengs flere inputverdier samlet i et objekt.
     [HttpPost("calculate-all")]
     public async Task<IActionResult> CalculateAll([FromBody] CustomerInput input) {
         var result = await _marginCalculation.CalculateAndSaveAll(input);
@@ -43,7 +40,7 @@ public class CostCalculationController : ControllerBase
     }
 
 
-//Jeg har lagt inn default verdier i appsetting.json så koden veriene aktiveres når jeg trykker på post
+//Jeg har lagt inn default verdier i appsetting.json så koden aktiveres når jeg trykker på post
 //Detter er kunn for testing
     [HttpPost("azure-cost")]
     public async Task<IActionResult> CalculateAzureCost() {

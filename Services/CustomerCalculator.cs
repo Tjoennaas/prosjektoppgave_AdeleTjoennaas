@@ -1,7 +1,7 @@
 
 
 
-   // Koden er basert kalkulator på vedlegg.1 
+   // Koden er basert formell fra vedlegg. 2
 
         using CostPricingEngine.Dto;
         using CostPricingEngine.Data;
@@ -82,8 +82,7 @@
                 TotalPrice = (decimal)totalPrice  };}
 
 
-
-
+//Her fikk hjelp av ChatGpt grupere periodene sammen og for å lagre og bergne alle periodene
     public async Task<List<CustomerCalculationResult>> CalculateAndSaveAllAsync(CustomerInput input) {
        
        // Lager en liste med alle beregningsresultatene.

@@ -53,7 +53,7 @@
         builder.Services.AddScoped<AzurePriceRefreshService>();
         builder.Services.AddScoped<CustomerCalculator>();
 
-        builder.Services.AddScoped<CalculationServices>();
+        builder.Services.AddScoped<MarginCalculation>();
         builder.Services.AddScoped<AzureCostCalculationService>();
         builder.Services.AddScoped<CalculatorFixdCosts>();
         builder.Services.AddScoped<AzureCostCalculator>();

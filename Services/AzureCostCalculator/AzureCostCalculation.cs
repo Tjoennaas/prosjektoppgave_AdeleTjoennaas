@@ -1,7 +1,7 @@
 
 
 // Klassen beregner totale Azure-kostnader og lagrer resultatet i databasen.
-// Se vedlegg. 2 "TOTAL COSTS FORMULA"
+// Se vedlegg.3 "TOTAL COSTS FORMULA"
 
 using CostPricingEngine.Data;
 using CostPricingEngine.Models.Config;
@@ -28,6 +28,10 @@ public class AzureCostCalculationService {
         _fixedCostCalculator = fixedCostCalculator;
         _variableCostCalculator = variableCostCalculator;
     }
+
+
+
+//(fixedCosts + variableCosts) * simplificationHedgeFactor * currencyDevaluationHedgeFactor * sellerCommisionFactor
 
     public async Task<AzureCostCalculation> CalculateAndSaveAzureCostAsync(string currency = "USD") {
         var azureCostResult = await _azurePricingService.GetAzureCostPricesAsync(currency);

@@ -1,39 +1,114 @@
 
+
+
 [
     {
-        "activeUsers": 130,
-        "eventsPerPeriod": 25000000,
-        "retentionPeriods": 3,
-        "collctor": 2,
-        "basePrice": 50000,
-        "eventCost": 1500,
-        "userCost": 1200,
-        "retentionCost": 0,
-        "collectorCost": 4000,
-        "totalPrice": 56700
+        "id": 1,
+        "periodNumber": 1,
+        "azureCostCalculationId": 1,
+        "azureCostCalculation": {
+            "azureCostCalculationId": 1,
+            "fixedCosts": 204.6780,
+            "variableCosts": 358.66288590367635091145833333,
+            "totalAzureCost": 894.0219859291343688964843750,
+            "perMillionEventsReceived": 2.4960501241620381673177083333,
+            "perMillionEventsRetained": 1.090578734874725341796875,
+            "createdAt": "2026-05-08T08:29:15.9094267Z"
+        },
+        "calculationGroupId": "cad97abc-40c0-4959-afca-8e845fbfcc7d",
+        "margin": 6001.81,
+        "marginPercent": 87.04,
+        "createdAt": "2026-05-08T08:29:15.9423865Z"
     },
     {
-        "activeUsers": 130,
-        "eventsPerPeriod": 25000000,
-        "retentionPeriods": 3,
-        "collctor": 2,
-        "basePrice": 50000,
-        "eventCost": 1500,
-        "userCost": 1200,
-        "retentionCost": 1500,
-        "collectorCost": 4000,
-        "totalPrice": 58200
+        "id": 2,
+        "periodNumber": 2,
+        "azureCostCalculationId": 1,
+        "azureCostCalculation": {
+            "azureCostCalculationId": 1,
+            "fixedCosts": 204.6780,
+            "variableCosts": 358.66288590367635091145833333,
+            "totalAzureCost": 894.0219859291343688964843750,
+            "perMillionEventsReceived": 2.4960501241620381673177083333,
+            "perMillionEventsRetained": 1.090578734874725341796875,
+            "createdAt": "2026-05-08T08:29:15.9094267Z"
+        },
+        "calculationGroupId": "cad97abc-40c0-4959-afca-8e845fbfcc7d",
+        "margin": 6939.31,
+        "marginPercent": 88.59,
+        "createdAt": "2026-05-08T08:29:15.9483118Z"
     },
     {
-        "activeUsers": 130,
-        "eventsPerPeriod": 25000000,
-        "retentionPeriods": 3,
-        "collctor": 2,
-        "basePrice": 50000,
-        "eventCost": 1500,
-        "userCost": 1200,
-        "retentionCost": 3000,
-        "collectorCost": 4000,
-        "totalPrice": 59700
+        "id": 3,
+        "periodNumber": 3,
+        "azureCostCalculationId": 1,
+        "azureCostCalculation": {
+            "azureCostCalculationId": 1,
+            "fixedCosts": 204.6780,
+            "variableCosts": 358.66288590367635091145833333,
+            "totalAzureCost": 894.0219859291343688964843750,
+            "perMillionEventsReceived": 2.4960501241620381673177083333,
+            "perMillionEventsRetained": 1.090578734874725341796875,
+            "createdAt": "2026-05-08T08:29:15.9094267Z"
+        },
+        "calculationGroupId": "cad97abc-40c0-4959-afca-8e845fbfcc7d",
+        "margin": 7876.81,
+        "marginPercent": 89.81,
+        "createdAt": "2026-05-08T08:29:15.9483963Z"
+    },
+    {
+        "id": 4,
+        "periodNumber": 4,
+        "azureCostCalculationId": 1,
+        "azureCostCalculation": {
+            "azureCostCalculationId": 1,
+            "fixedCosts": 204.6780,
+            "variableCosts": 358.66288590367635091145833333,
+            "totalAzureCost": 894.0219859291343688964843750,
+            "perMillionEventsReceived": 2.4960501241620381673177083333,
+            "perMillionEventsRetained": 1.090578734874725341796875,
+            "createdAt": "2026-05-08T08:29:15.9094267Z"
+        },
+        "calculationGroupId": "cad97abc-40c0-4959-afca-8e845fbfcc7d",
+        "margin": 8814.31,
+        "marginPercent": 90.79,
+        "createdAt": "2026-05-08T08:29:15.948411Z"
+    },
+    {
+        "id": 5,
+        "periodNumber": 5,
+        "azureCostCalculationId": 1,
+        "azureCostCalculation": {
+            "azureCostCalculationId": 1,
+            "fixedCosts": 204.6780,
+            "variableCosts": 358.66288590367635091145833333,
+            "totalAzureCost": 894.0219859291343688964843750,
+            "perMillionEventsReceived": 2.4960501241620381673177083333,
+            "perMillionEventsRetained": 1.090578734874725341796875,
+            "createdAt": "2026-05-08T08:29:15.9094267Z"
+        },
+        "calculationGroupId": "cad97abc-40c0-4959-afca-8e845fbfcc7d",
+        "margin": 9751.81,
+        "marginPercent": 91.60,
+        "createdAt": "2026-05-08T08:29:15.9484278Z"
+    },
+    {
+        "id": 6,
+        "periodNumber": 6,
+        "azureCostCalculationId": 1,
+        "azureCostCalculation": {
+            "azureCostCalculationId": 1,
+            "fixedCosts": 204.6780,
+            "variableCosts": 358.66288590367635091145833333,
+            "totalAzureCost": 894.0219859291343688964843750,
+            "perMillionEventsReceived": 2.4960501241620381673177083333,
+            "perMillionEventsRetained": 1.090578734874725341796875,
+            "createdAt": "2026-05-08T08:29:15.9094267Z"
+        },
+        "calculationGroupId": "cad97abc-40c0-4959-afca-8e845fbfcc7d",
+        "margin": 10689.31,
+        "marginPercent": 92.28,
+        "createdAt": "2026-05-08T08:29:15.9484385Z"
     }
 ]
+

@@ -2,7 +2,7 @@
 // Klassen beregner variable Azure-kostnader basert på
 // prisdata, lagringskostnader, nettverkstrafikk og konfigurasjonsverdier.
 
-// se vedleg.2 "Intermediate Variables", "VARIABLE COSTS FORMULAS"
+// se vedleg.3 "Intermediate Variables", "VARIABLE COSTS FORMULAS"
    
     using CostPricingEngine.Models.Config;
     using CostPricingEngine.Models.CostCalculation;

@@ -1,6 +1,6 @@
 
 
-
+//Fikk hjelp av ChatGPT til å koble samme tabellene med groupID og hvordan å gjøre NOK til USD
 
 using System.Security.Cryptography.X509Certificates;
 using CostPricingEngine.Data;
@@ -34,31 +34,24 @@ using CostPricingEngine.Data;
         var azure = await _azureCostCalculationService.CalculateAndSaveAzureCostAsync();
         //Her beregnes kundeprisene og lagres i databasen.
         var customers = await _customerCalculator.CalculateAndSaveAllAsync(input);
-        //Resultatene kobleles sammen med guppe id
-        var groupId = customers.First().CalculationGroupId;
+      
 
-    
-    foreach (var customer in customers) {
+  foreach (var customer in customers)
+    {
+        decimal customerUsd =
+            customer.TotalPrice / _config.MiscSeting.CurrencyUsdToNokFactor;
 
-//Gjør om NOK til USD 
-    decimal customerUsd =
-        customer.TotalPrice / _config.MiscSeting.CurrencyUsdToNokFactor;
+        var margin = customerUsd - azure.TotalAzureCost;
 
-    var margin = customerUsd - azure.TotalAzureCost;
+        var marginPercent = (margin / customerUsd) * 100;
 
-     decimal marginPercent = 0;
-
-if (customerUsd != 0)
-{
-    marginPercent = (margin / customerUsd) * 100;
-}
  
 //Innholder resutat av margin bergningen
     var marginEntity = new CalculationMargin {
 
             AzureCostCalculationId = azure.AzureCostCalculationId,
             CalculationGroupId = customer.CalculationGroupId,
-            PeriodNumber = customer.PeriodNumber,
+            PeriodNumber = customer.PeriodNumber,        
             Margin = Math.Round(margin, 2),
             MarginPercent = Math.Round(marginPercent, 2) };
 

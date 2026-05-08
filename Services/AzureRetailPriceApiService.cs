@@ -1,12 +1,10 @@
 
 
 
-
-
-
 // Klassen henter rå prisdata fra Azure Retail Prices API
 // ved hjelp av HTTP-forespørsler og dynamiske filtre.
-
+// Brukt referanse fra https://learn.microsoft.com/en-us/rest/api/cost-management/retail-prices/azure-retail-prices#api-response-pagination
+// Brukte ChatGPT for å få hjelp med filtrering 
     using System.Net;
     using CostPricingEngine.Models.AzureApi;
             
